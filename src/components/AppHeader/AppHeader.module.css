@@ -1,0 +1,23 @@
+.header {
+  width: 100vw;
+  background-color: var(--background);
+}
+
+.content {
+  width: 1240px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  justify-items: center;
+  align-items: center;
+  margin: 0 auto;
+}
+
+.nav {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.button {
+  display: inline-flex;
+}
