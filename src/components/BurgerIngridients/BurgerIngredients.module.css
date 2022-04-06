@@ -1,0 +1,25 @@
+.section {
+  width: 50%;
+  overflow-y: scroll;
+}
+
+.tabs {
+
+}
+
+.card {
+  display: flex;
+  flex-flow: column;
+  width: 272px;
+  justify-content: center;
+}
+
+.center {
+  text-align: center;
+}
+
+.ingredients {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0;
+}
