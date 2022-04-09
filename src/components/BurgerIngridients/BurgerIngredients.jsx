@@ -1,13 +1,13 @@
 import React from 'react';
 import ingredientsStyles from './BurgerIngredients.module.css';
 import {Tab, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import {data} from "../../utils/data.js";
 
 function BurgerIngredients(props) {
 
 	return (
 		<section className={ingredientsStyles.section}>
-			<div style={{ display: 'flex' }} mb-10>
+			<h1 className="text text_type_main-large mb-5">Соберите бургер</h1>
+			<div style={{ display: 'flex' }} className="mb-10">
 				<Tab>
 					<span>Булки</span>
 				</Tab>
@@ -18,45 +18,48 @@ function BurgerIngredients(props) {
 					<span>Начинки</span>
 				</Tab>
 			</div>
-			<h2 className="mb-6">Булки</h2>
-				<ul className={`${ingredientsStyles.ingredients}`}>
-					{
-						data.filter(item => item.type === 'bun').map((item) => (
-						<React.Fragment key={item._id}>
-							<li className={`${ingredientsStyles.card} pl-4 pr-4`}>
-								<img src={item.image} className="mb-1"/>
-								<span className={`${ingredientsStyles.center} text text_type_digits-medium mb-1`}>{item.price}<CurrencyIcon type="primary" /></span>
-								<span className={`${ingredientsStyles.center} text text_type_main-default`}>{item.name}</span>
-							</li>
-						</React.Fragment>
-					))}
-				</ul>
-			<h2 className="mb-6">Соусы</h2>
-				<ul className={`${ingredientsStyles.ingredients}`}>
-					{
-						data.filter(item => item.type === 'sauce').map((item) => (
+			<div className={`${ingredientsStyles.ingredients}`}>
+			<h2 className="text text_type_main-medium mb-6">Булки</h2>
+
+					<ul className={`${ingredientsStyles.ingredient} pl-4 pr-4 mb-10`}>
+						{
+							props.data.filter(item => item.type === 'bun').map((item) => (
 							<React.Fragment key={item._id}>
-								<li className={`${ingredientsStyles.card} pl-4 pr-4`}>
-									<img src={item.image} className="mb-1"/>
-									<span className={`${ingredientsStyles.center} text text_type_digits-medium mb-1`}>{item.price}<CurrencyIcon type="primary" /></span>
+								<li className={`${ingredientsStyles.card}`}>
+									<img src={item.image} className={`${ingredientsStyles.img} mb-1 ml-4 mr-4`}/>
+									<span className={`${ingredientsStyles.price} text text_type_digits-default mb-1`}>{item.price}&nbsp;<CurrencyIcon type="primary" /></span>
 									<span className={`${ingredientsStyles.center} text text_type_main-default`}>{item.name}</span>
 								</li>
 							</React.Fragment>
 						))}
-				</ul>
-			<h2 className="mb-6">Начинки</h2>
-				<ul className={`${ingredientsStyles.ingredients}`}>
+					</ul>
+				<h2 className="text text_type_main-medium mb-6">Соусы</h2>
+					<ul className={`${ingredientsStyles.ingredient} pl-4 pr-4 mb-10`}>
+						{
+							props.data.filter(item => item.type === 'sauce').map((item) => (
+								<React.Fragment key={item._id}>
+									<li className={`${ingredientsStyles.card} mb-8`}>
+										<img src={item.image} className={`${ingredientsStyles.img} mb-1 ml-4 mr-4`}/>
+										<span className={`${ingredientsStyles.price} text text_type_digits-default mb-1`}>{item.price}&nbsp;<CurrencyIcon type="primary" /></span>
+										<span className={`${ingredientsStyles.center} text text_type_main-default`}>{item.name}</span>
+									</li>
+								</React.Fragment>
+							))}
+					</ul>
+			<h2 className="text text_type_main-medium mb-6">Начинки</h2>
+				<ul className={`${ingredientsStyles.ingredient} pl-4 pr-4 mb-10`}>
 					{
-						data.filter(item => item.type === 'main').map((item) => (
+						props.data.filter(item => item.type === 'main').map((item) => (
 							<React.Fragment key={item._id}>
-								<li className={`${ingredientsStyles.card} pl-4 pr-4`}>
-									<img src={item.image} className="mb-1"/>
-									<span className={`${ingredientsStyles.center} text text_type_digits-medium mb-1`}>{item.price}<CurrencyIcon type="primary" /></span>
+								<li className={`${ingredientsStyles.card} mb-8`}>
+									<img src={item.image} className={`${ingredientsStyles.img} mb-1 ml-4 mr-4`}/>
+									<span className={`${ingredientsStyles.price} text text_type_digits-default mb-1`}>{item.price}&nbsp;<CurrencyIcon type="primary" /></span>
 									<span className={`${ingredientsStyles.center} text text_type_main-default`}>{item.name}</span>
 								</li>
 							</React.Fragment>
-						))}
+							))}
 				</ul>
+				</div>
 		</section>
 	);
 }

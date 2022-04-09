@@ -1,6 +1,5 @@
 .section {
-  width: 50%;
-  overflow-y: scroll;
+  width: 600px;
 }
 
 .tabs {
@@ -11,7 +10,19 @@
   display: flex;
   flex-flow: column;
   width: 272px;
+  min-height: 208px;
+  justify-content: flex-start;
+}
+
+.img {
+  width: 240px;
+  height: 120px;
+}
+
+.price {
+  display: flex;
   justify-content: center;
+  text-align: center;
 }
 
 .center {
@@ -19,7 +30,12 @@
 }
 
 .ingredients {
+  max-height: calc(100vh - 400px);
+  overflow-y: scroll;
+}
+
+.ingredient {
   display: flex;
   flex-wrap: wrap;
-  padding: 0;
+  justify-content: space-between;
 }
