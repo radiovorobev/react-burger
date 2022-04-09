@@ -1,4 +1,6 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
 import ingredientsStyles from './BurgerIngredients.module.css';
 import {Tab, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 
@@ -7,7 +9,7 @@ function BurgerIngredients(props) {
 	return (
 		<section className={ingredientsStyles.section}>
 			<h1 className="text text_type_main-large mb-5">Соберите бургер</h1>
-			<div style={{ display: 'flex' }} className="mb-10">
+			<div className={`${ingredientsStyles.tabs} mb-10`}>
 				<Tab>
 					<span>Булки</span>
 				</Tab>
@@ -26,7 +28,7 @@ function BurgerIngredients(props) {
 							props.data.filter(item => item.type === 'bun').map((item) => (
 							<React.Fragment key={item._id}>
 								<li className={`${ingredientsStyles.card}`}>
-									<img src={item.image} className={`${ingredientsStyles.img} mb-1 ml-4 mr-4`}/>
+									<img src={item.image} alt={item.name} className={`${ingredientsStyles.img} mb-1 ml-4 mr-4`}/>
 									<span className={`${ingredientsStyles.price} text text_type_digits-default mb-1`}>{item.price}&nbsp;<CurrencyIcon type="primary" /></span>
 									<span className={`${ingredientsStyles.center} text text_type_main-default`}>{item.name}</span>
 								</li>
@@ -39,7 +41,7 @@ function BurgerIngredients(props) {
 							props.data.filter(item => item.type === 'sauce').map((item) => (
 								<React.Fragment key={item._id}>
 									<li className={`${ingredientsStyles.card} mb-8`}>
-										<img src={item.image} className={`${ingredientsStyles.img} mb-1 ml-4 mr-4`}/>
+										<img src={item.image} alt={item.name} className={`${ingredientsStyles.img} mb-1 ml-4 mr-4`}/>
 										<span className={`${ingredientsStyles.price} text text_type_digits-default mb-1`}>{item.price}&nbsp;<CurrencyIcon type="primary" /></span>
 										<span className={`${ingredientsStyles.center} text text_type_main-default`}>{item.name}</span>
 									</li>
@@ -52,7 +54,7 @@ function BurgerIngredients(props) {
 						props.data.filter(item => item.type === 'main').map((item) => (
 							<React.Fragment key={item._id}>
 								<li className={`${ingredientsStyles.card} mb-8`}>
-									<img src={item.image} className={`${ingredientsStyles.img} mb-1 ml-4 mr-4`}/>
+									<img src={item.image} alt={item.name} className={`${ingredientsStyles.img} mb-1 ml-4 mr-4`}/>
 									<span className={`${ingredientsStyles.price} text text_type_digits-default mb-1`}>{item.price}&nbsp;<CurrencyIcon type="primary" /></span>
 									<span className={`${ingredientsStyles.center} text text_type_main-default`}>{item.name}</span>
 								</li>
@@ -65,3 +67,7 @@ function BurgerIngredients(props) {
 }
 
 export default BurgerIngredients;
+
+BurgerIngredients.propTypes = {
+	data: PropTypes.arrayOf(PropTypes.object)
+};
