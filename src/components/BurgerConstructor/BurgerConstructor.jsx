@@ -53,5 +53,4 @@ function BurgerConstructor(props) {
 		</section>
 	);
 }
-
 export default BurgerConstructor;
