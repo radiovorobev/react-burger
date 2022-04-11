@@ -7,14 +7,14 @@ import ModalOverlay from '../ModalOverlay/ModalOverlay.jsx';
 const modalContainer = document.getElementById('modals');
 
 export default function Modal(props) {
-	const close = React.useCallback(() => {
+	const closeModal = React.useCallback(() => {
 		props.onClose(false);
 	}, [props.onClose])
-	const closeEsc = React.useCallback((e) => {
-		if (e.key === 'Escape') {
-			close();
+	const closeEsc = React.useCallback((event) => {
+		if (event.key === 'Escape') {
+			closeModal();
 		}
-	}, [close])
+	}, [closeModal])
 
 	React.useEffect(() => {
 		document.addEventListener('keydown', closeEsc);
@@ -29,14 +29,14 @@ export default function Modal(props) {
 			<>
 				<div className={styles.container}>
 					<div className={styles.modal}>
-						<div className={styles.buttonClose} onClick={close}>
+						<div className={styles.buttonClose} onClick={closeModal}>
 							<CloseIcon type='primary' />
 						</div>
 						{props.title &&
 							<h2 className={`${styles.title} text text_type_main-large mt-10`}>{props.title}</h2>}
 						{props.children}
 					</div>
-					<ModalOverlay close={close} />
+					<ModalOverlay close={closeModal} />
 				</div>
 			</>
 		),

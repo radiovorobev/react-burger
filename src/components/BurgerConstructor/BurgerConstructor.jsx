@@ -1,20 +1,17 @@
 import React from 'react';
-
 import styles from './BurgerConstructor.module.css';
 import {ConstructorElement, CurrencyIcon, DragIcon, Button} from '@ya.praktikum/react-developer-burger-ui-components';
-import OrderDetails from '../OrderDetails/OrderDetails.jsx';
-import Modal from '../Modal/Modal.jsx';
+import PropTypes from 'prop-types';
 
-function BurgerConstructor({ data }) {
-	const [isModal, setIsModal] = React.useState(false);
+export default function BurgerConstructor({ data, handleOrderClick }) {
 	return (
 		<>
 		<section className='styles.section mt-15 ml-10 pl-4'>
 			<div className={`pl-8 mb-4`}>
 					<ConstructorElement
-						type="top"
+						type='top'
 						isLocked={true}
-						text="Краторная булка N-200i (верх)"
+						text='Краторная булка N-200i (верх)'
 						price={123}
 						thumbnail={'https://code.s3.yandex.net/react/code/bun-02-mobile.png'}
 					/>
@@ -41,26 +38,27 @@ function BurgerConstructor({ data }) {
 				</ul>
 			<div className={`pl-8 mb-10 mt-4`}>
 				<ConstructorElement
-					type="bottom"
+					type='bottom'
 					isLocked={true}
-					text="Краторная булка N-200i (верх)"
+					text='Краторная булка N-200i (верх)'
 					price={123}
 					thumbnail={'https://code.s3.yandex.net/react/code/bun-02-mobile.png'}
 				/>
 			</div>
 			<div className={`${styles.totalPrice}`}>
 				<span className={`text text_type_digits-medium mr-10`}>610&nbsp;<CurrencyIcon type="primary" /></span>
-				<span onClick={() => { setIsModal(true) }}>
+				<span onClick={() => handleOrderClick()} >
 					<Button type="primary" size="medium">
 						Оформить заказ
 					</Button>
 				</span>
 			</div>
 		</section>
-			{isModal && <Modal onClose={setIsModal}>
-				<OrderDetails />
-			</Modal>}
 	</>
 	);
 }
-export default BurgerConstructor;
+
+BurgerConstructor.propTypes = {
+	handleOrderClick: PropTypes.func.isRequired,
+	data: PropTypes.arrayOf(PropTypes.object)
+}
