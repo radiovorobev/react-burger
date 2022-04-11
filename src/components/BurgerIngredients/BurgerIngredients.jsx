@@ -1,8 +1,8 @@
 import React from 'react';
-import styles from './BurgerIngredients.module.css';
-import {Tab, Counter, CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types';
+import {Tab, Counter, CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import BurgerConstructor from '../BurgerConstructor/BurgerConstructor';
+import styles from './BurgerIngredients.module.css';
 
 export default function BurgerIngredients({ data, handleIngredientClick }) {
 	const [current, setCurrent] = React.useState('buns')

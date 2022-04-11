@@ -2,9 +2,9 @@ import React from 'react';
 import AppHeader from '../AppHeader/AppHeader.jsx';
 import BurgerIngredients from '../BurgerIngredients/BurgerIngredients.jsx';
 import BurgerConstructor from '../BurgerConstructor/BurgerConstructor.jsx';
-import Modal from '../Modal/Modal.jsx';
 import IngredientDetails from '../IngredientDetails/IngredientDetails';
 import OrderDetails from '../OrderDetails/OrderDetails';
+import Modal from '../Modal/Modal.jsx';
 import styles from './App.module.css';
 
 function App() {
