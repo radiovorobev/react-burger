@@ -1,25 +1,26 @@
 import React from 'react';
-import styles from './BurgerConstructor.module.css';
-import {ConstructorElement, CurrencyIcon, DragIcon, Button} from "@ya.praktikum/react-developer-burger-ui-components";
-import OrderDetails from '../OrderDetails/OrderDetails';
-import Modal from '../Modal/Modal';
 
-function BurgerConstructor(props) {
+import styles from './BurgerConstructor.module.css';
+import {ConstructorElement, CurrencyIcon, DragIcon, Button} from '@ya.praktikum/react-developer-burger-ui-components';
+import OrderDetails from '../OrderDetails/OrderDetails.jsx';
+import Modal from '../Modal/Modal.jsx';
+
+function BurgerConstructor({ data }) {
 	const [isModal, setIsModal] = React.useState(false);
 	return (
 		<>
 		<section className='styles.section mt-15 ml-10 pl-4'>
 			<div className={`pl-8 mb-4`}>
-				<ConstructorElement
-					type="top"
-					isLocked={true}
-					text={`${props.data[0].name} (верх)`}
-					price={props.data[0].price}
-					thumbnail={props.data[0].image}
-				/>
+					<ConstructorElement
+						type="top"
+						isLocked={true}
+						text="Краторная булка N-200i (верх)"
+						price={123}
+						thumbnail={'https://code.s3.yandex.net/react/code/bun-02-mobile.png'}
+					/>
 			</div>
 				<ul className={`${styles.list} ml-4`}>
-					{props.data.map((ingredient) => {
+					{data.map((ingredient) => {
 						if (ingredient.type !== 'bun') {
 							return (
 								<React.Fragment key={ingredient._id}>
@@ -42,9 +43,9 @@ function BurgerConstructor(props) {
 				<ConstructorElement
 					type="bottom"
 					isLocked={true}
-					text={`${props.data[0].name} (низ)`}
-					price={props.data[0].price}
-					thumbnail={props.data[0].image}
+					text="Краторная булка N-200i (верх)"
+					price={123}
+					thumbnail={'https://code.s3.yandex.net/react/code/bun-02-mobile.png'}
 				/>
 			</div>
 			<div className={`${styles.totalPrice}`}>

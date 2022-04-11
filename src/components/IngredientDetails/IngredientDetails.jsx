@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import styles from './IngredientDetails.module.css';
 
 export default function IngredientDetails({ ingredient }) {

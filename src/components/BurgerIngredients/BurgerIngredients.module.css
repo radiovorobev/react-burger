@@ -3,10 +3,11 @@
 }
 
 .tabs {
-
+display: flex;
 }
 
 .card {
+  position: relative;
   display: flex;
   flex-flow: column;
   width: 272px;
@@ -38,4 +39,10 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+}
+
+.counter  {
+  position: fixed;
+  top: 0;
+  right: 0;
 }
