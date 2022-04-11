@@ -1,10 +1,19 @@
-import React from 'react';
+import React, {useState} from 'react';
 import ReactDOM from 'react-dom';
 import styles from './App.module.css';
-import {data} from "../../utils/data";
+import {data} from '../../utils/data';
 import AppHeader from '../AppHeader/AppHeader.jsx';
-import BurgerIngredients from '../BurgerIngridients/BurgerIngredients.jsx';
+import BurgerIngredients from '../BurgerIngredients/BurgerIngredients.jsx';
 import BurgerConstructor from '../BurgerConstructor/BurgerConstructor.jsx';
+import Modal from '../Modal/Modal.jsx';
+import * as PropTypes from 'prop-types';
+
+Modal.propTypes = {
+  onOverlayClick: PropTypes.func,
+  title: PropTypes.string,
+  onEscKeydown: PropTypes.func,
+  children: PropTypes.node
+};
 
 function App() {
   return (
@@ -15,6 +24,7 @@ function App() {
           <BurgerConstructor data={data}/>
       </main>
     </>
+
   );
 }
 

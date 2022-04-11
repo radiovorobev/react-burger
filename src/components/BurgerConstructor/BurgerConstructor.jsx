@@ -1,11 +1,14 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import constructorStyles from './BurgerConstructor.module.css';
+import styles from './BurgerConstructor.module.css';
 import {ConstructorElement, CurrencyIcon, DragIcon, Button} from "@ya.praktikum/react-developer-burger-ui-components";
+import OrderDetails from '../OrderDetails/OrderDetails';
+import Modal from '../Modal/Modal';
 
 function BurgerConstructor(props) {
+	const [isModal, setIsModal] = React.useState(false);
 	return (
-		<section className="constructorStyles.section mt-15 ml-10 pl-4">
+		<>
+		<section className='styles.section mt-15 ml-10 pl-4'>
 			<div className={`pl-8 mb-4`}>
 				<ConstructorElement
 					type="top"
@@ -15,12 +18,12 @@ function BurgerConstructor(props) {
 					thumbnail={props.data[0].image}
 				/>
 			</div>
-				<ul className={`${constructorStyles.list} ml-4`}>
+				<ul className={`${styles.list} ml-4`}>
 					{props.data.map((ingredient) => {
 						if (ingredient.type !== 'bun') {
 							return (
 								<React.Fragment key={ingredient._id}>
-									<li className={`${constructorStyles.listItem} mb-4`}>
+									<li className={`${styles.listItem} mb-4`}>
 										<DragIcon type='primary' />
 										<ConstructorElement
 											text={ingredient.name}
@@ -44,13 +47,19 @@ function BurgerConstructor(props) {
 					thumbnail={props.data[0].image}
 				/>
 			</div>
-			<div className={`${constructorStyles.totalPrice}`}>
+			<div className={`${styles.totalPrice}`}>
 				<span className={`text text_type_digits-medium mr-10`}>610&nbsp;<CurrencyIcon type="primary" /></span>
-				<Button type="primary" size="medium">
-					Оформить заказ
-				</Button>
+				<span onClick={() => { setIsModal(true) }}>
+					<Button type="primary" size="medium">
+						Оформить заказ
+					</Button>
+				</span>
 			</div>
 		</section>
+			{isModal && <Modal onClose={setIsModal}>
+				<OrderDetails />
+			</Modal>}
+	</>
 	);
 }
 export default BurgerConstructor;
