@@ -27,8 +27,7 @@ export default function BurgerIngredients({ data, handleIngredientClick }) {
 					<ul className={`${styles.ingredient} pl-4 pr-4 mb-10`}>
 						{
 							data.filter(item => item.type === 'bun').map((item) => (
-							<React.Fragment key={item._id}>
-								<li className={`${styles.card}`} onClick={() => { handleIngredientClick(item) }}>
+								<li key={item._id} className={`${styles.card}`} onClick={() => { handleIngredientClick(item) }}>
 									<div className={`$styles.counter`}>
 										<Counter count={1} size='default' />
 									</div>
@@ -36,7 +35,6 @@ export default function BurgerIngredients({ data, handleIngredientClick }) {
 									<span className={`${styles.price} text text_type_digits-default mb-1`}>{item.price}&nbsp;<CurrencyIcon type='primary' /></span>
 									<span className={`${styles.center} text text_type_main-default`}>{item.name}</span>
 								</li>
-							</React.Fragment>
 						))}
 					</ul>
 				<h2 className='text text_type_main-medium mb-6'>Соусы</h2>
@@ -72,6 +70,6 @@ export default function BurgerIngredients({ data, handleIngredientClick }) {
 }
 
 BurgerConstructor.propTypes = {
-	handleIngredientsClick: PropTypes.func.isRequired,
-	data: PropTypes.arrayOf(PropTypes.object)
+	handleOrderClick: PropTypes.func.isRequired,
+	data: PropTypes.arrayOf(PropTypes.object).isRequired
 }

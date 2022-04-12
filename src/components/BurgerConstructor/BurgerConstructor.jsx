@@ -60,5 +60,5 @@ export default function BurgerConstructor({ data, handleOrderClick }) {
 
 BurgerConstructor.propTypes = {
 	handleOrderClick: PropTypes.func.isRequired,
-	data: PropTypes.arrayOf(PropTypes.object)
+	data: PropTypes.arrayOf(PropTypes.object).isRequired
 }
