@@ -52,11 +52,11 @@ function App() {
       </main>
 
 
-      {isIngredientModal && ingredient && <Modal onClose={setIngredientModal} title={"Детали ингредиента"} >
+      {isIngredientModal && ingredient && <Modal onClose={setIngredientModal} title={'Детали ингредиента'} >
         <IngredientDetails ingredient={ingredient} />
       </Modal> }
 
-      {isOrderDetailsModal && <Modal onClose={setOrderDetailsModal} >
+      {isOrderDetailsModal && <Modal onClose={setOrderDetailsModal}>
         <OrderDetails />
       </Modal> }
 
