@@ -28,7 +28,7 @@ export default function IngredientDetails({ ingredient }) {
 	)
 }
 
-IngredientDetails.propTypes = {
+const ingredientsPropTypes = PropTypes.shape({
 	_id: PropTypes.string.isRequired,
 	name: PropTypes.string.isRequired,
 	type: PropTypes.string.isRequired,
@@ -40,5 +40,9 @@ IngredientDetails.propTypes = {
 	image: PropTypes.string.isRequired,
 	image_mobile: PropTypes.string.isRequired,
 	image_large: PropTypes.string.isRequired,
-	__v: PropTypes.number.isRequired,
+	__v: PropTypes.number.isRequired
+});
+
+IngredientDetails.propTypes = {
+	ingredient: ingredientsPropTypes.isRequired
 }
