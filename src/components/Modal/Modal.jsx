@@ -37,7 +37,7 @@ export default function Modal(props) {
 							<h2 className={`${styles.title} text text_type_main-large mt-10`}>{props.title}</h2>}
 						{props.children}
 					</div>
-					<ModalOverlay close={closeModal} />
+					<ModalOverlay closeModal={closeModal} />
 				</div>
 			</>
 		),

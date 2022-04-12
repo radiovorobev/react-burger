@@ -14,6 +14,7 @@ function App() {
   const [isIngredientModal, setIngredientModal] = React.useState(false);
   const [isOrderDetailsModal, setOrderDetailsModal] = React.useState(false);
   const [ingredient, setIngredient] = React.useState(false);
+
   const handleClickIngredients = (item) => {
     setIngredient(item);
     setIngredientModal(true);
