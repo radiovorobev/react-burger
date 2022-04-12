@@ -69,7 +69,7 @@ export default function BurgerIngredients({ data, handleIngredientClick }) {
 	);
 }
 
-BurgerConstructor.propTypes = {
-	handleOrderClick: PropTypes.func.isRequired,
+BurgerIngredients.propTypes = {
+	handleIngredientClick: PropTypes.func.isRequired,
 	data: PropTypes.arrayOf(PropTypes.object).isRequired
 }
