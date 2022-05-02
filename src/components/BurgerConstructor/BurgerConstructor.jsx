@@ -2,8 +2,12 @@ import React from 'react';
 import {ConstructorElement, CurrencyIcon, DragIcon, Button} from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types';
 import styles from './BurgerConstructor.module.css';
+import {IngredientsContext} from "../services/ingredientsContext";
 
-export default function BurgerConstructor({ data, handleOrderClick }) {
+export default function BurgerConstructor({ handleOrderClick }) {
+
+	const data = React.useContext(IngredientsContext);
+
 	return (
 		<>
 		<section className='styles.section mt-15 ml-10 pl-4'>

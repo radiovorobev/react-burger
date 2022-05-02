@@ -4,6 +4,7 @@ import BurgerIngredients from '../BurgerIngredients/BurgerIngredients.jsx';
 import BurgerConstructor from '../BurgerConstructor/BurgerConstructor.jsx';
 import IngredientDetails from '../IngredientDetails/IngredientDetails';
 import OrderDetails from '../OrderDetails/OrderDetails';
+import { IngredientsContext } from '../services/ingredientsContext.jsx';
 import Modal from '../Modal/Modal.jsx';
 import styles from './App.module.css';
 
@@ -43,13 +44,15 @@ function App() {
   }, [])
 
   const { ingredients } = state;
-
+  console.log(ingredients);
   return (
     <>
       <AppHeader />
       <main className={`${styles.main}`}>
-          <BurgerIngredients data={ingredients}  handleIngredientClick={handleClickIngredients}/>
-          <BurgerConstructor data={ingredients} handleOrderClick={handleClickOrder} />
+        <IngredientsContext.Provider value={ingredients}>
+          <BurgerIngredients handleIngredientClick={handleClickIngredients}/>
+          <BurgerConstructor handleOrderClick={handleClickOrder} />
+        </IngredientsContext.Provider>
       </main>
 
 
