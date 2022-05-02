@@ -71,6 +71,5 @@ export default function BurgerIngredients({ handleIngredientClick }) {
 }
 
 BurgerIngredients.propTypes = {
-	handleIngredientClick: PropTypes.func.isRequired,
-	data: PropTypes.arrayOf(PropTypes.object).isRequired
+	handleIngredientClick: PropTypes.func.isRequired
 }

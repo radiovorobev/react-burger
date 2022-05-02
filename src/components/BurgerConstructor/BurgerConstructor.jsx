@@ -7,18 +7,20 @@ import {IngredientsContext} from "../services/ingredientsContext";
 export default function BurgerConstructor({ handleOrderClick }) {
 
 	const data = React.useContext(IngredientsContext);
+	const bun = data.find(element => element.type === 'bun');
 
 	return (
 		<>
+
 		<section className='styles.section mt-15 ml-10 pl-4'>
 			<div className={`pl-8 mb-4`}>
-					<ConstructorElement
+				{ bun &&	<ConstructorElement
 						type='top'
 						isLocked={true}
-						text='Краторная булка N-200i (верх)'
-						price={123}
-						thumbnail={'https://code.s3.yandex.net/react/code/bun-02-mobile.png'}
-					/>
+						text={`${bun.name} (верх)`}
+						price={bun.price}
+						thumbnail={bun.image}
+					/> }
 			</div>
 				<ul className={`${styles.list} ml-4`}>
 					{data.map((ingredient) => {
@@ -41,13 +43,13 @@ export default function BurgerConstructor({ handleOrderClick }) {
 					})}
 				</ul>
 			<div className={`pl-8 mb-10 mt-4`}>
-				<ConstructorElement
-					type='bottom'
+				{ bun &&	<ConstructorElement
+					type='top'
 					isLocked={true}
-					text='Краторная булка N-200i (верх)'
-					price={123}
-					thumbnail={'https://code.s3.yandex.net/react/code/bun-02-mobile.png'}
-				/>
+					text={`${bun.name} (низ)`}
+					price={bun.price}
+					thumbnail={bun.image}
+				/> }
 			</div>
 			<div className={`${styles.totalPrice}`}>
 				<span className={`text text_type_digits-medium mr-10`}>610&nbsp;<CurrencyIcon type="primary" /></span>
@@ -63,6 +65,5 @@ export default function BurgerConstructor({ handleOrderClick }) {
 }
 
 BurgerConstructor.propTypes = {
-	handleOrderClick: PropTypes.func.isRequired,
-	data: PropTypes.arrayOf(PropTypes.object).isRequired
+	handleOrderClick: PropTypes.func.isRequired
 }

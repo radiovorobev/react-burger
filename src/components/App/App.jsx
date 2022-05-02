@@ -10,6 +10,7 @@ import styles from './App.module.css';
 
 function App() {
   const [state, setState] = React.useState({ ingredients: [] });
+
   const api = 'https://norma.nomoreparties.space/api/ingredients';
 
   const [isIngredientModal, setIngredientModal] = React.useState(false);
@@ -25,9 +26,10 @@ function App() {
     setOrderDetailsModal(true);
   }
 
+
+
   React.useEffect(() => {
     const getIngredients = () => {
-      setState({ ...state });
       fetch(`${api}`)
         .then(res => {
           if(res.ok) {
@@ -36,7 +38,9 @@ function App() {
             return Promise.reject(`Ошибка: ${res.status}`)
           }
         })
-        .then(res => { setState({ ...state, ingredients: res.data }) })
+        .then((res) =>
+          setState((prevState) => ({ ...prevState, ingredients: res.data }))
+        )
         .catch((error) => console.log(error.message))
     }
 
@@ -44,7 +48,7 @@ function App() {
   }, [])
 
   const { ingredients } = state;
-  console.log(ingredients);
+
   return (
     <>
       <AppHeader />
