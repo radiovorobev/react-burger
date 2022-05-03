@@ -4,7 +4,6 @@ import React from "react";
 
 export default function OrderDetails() {
 	const order = React.useContext(OrderContext);
-	console.log(order);
 	return (
 		<>
 			<h2 className={`text text_type_digits-large mt-30 mb-8`}>{order}</h2>

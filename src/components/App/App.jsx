@@ -3,7 +3,7 @@ import AppHeader from '../AppHeader/AppHeader.jsx';
 import BurgerIngredients from '../BurgerIngredients/BurgerIngredients.jsx';
 import BurgerConstructor from '../BurgerConstructor/BurgerConstructor.jsx';
 import IngredientDetails from '../IngredientDetails/IngredientDetails';
-import {IngredientsContext, OrderContext, TotalPriceContext} from '../services/ingredientsContext.jsx';
+import {IngredientsContext, TotalPriceContext} from '../services/ingredientsContext.jsx';
 import Modal from '../Modal/Modal.jsx';
 import styles from './App.module.css';
 

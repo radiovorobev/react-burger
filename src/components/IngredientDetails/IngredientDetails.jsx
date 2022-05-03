@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 export default function IngredientDetails({ ingredient }) {
 	return (
 		<>
-			<img src={ingredient.image_large} alt={ingredient.name} className={styles.image} />
+			<img src={ingredient.image} alt={ingredient.name} className={styles.image} />
 			<p className='text text_type_main-medium mt-4'>{ingredient.name}</p>
 			<ul className={`${styles.list} mt-8 mb-15`}>
 				<li className={styles.item}>

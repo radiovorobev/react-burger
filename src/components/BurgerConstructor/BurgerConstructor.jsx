@@ -1,12 +1,11 @@
 import React from 'react';
 import {ConstructorElement, CurrencyIcon, DragIcon, Button} from '@ya.praktikum/react-developer-burger-ui-components';
-import PropTypes from 'prop-types';
 import styles from './BurgerConstructor.module.css';
 import {IngredientsContext, OrderContext, TotalPriceContext} from "../services/ingredientsContext";
 import Modal from "../Modal/Modal";
 import OrderDetails from "../OrderDetails/OrderDetails";
 
-export default function BurgerConstructor({ handleOrderClick }) {
+export default function BurgerConstructor() {
 
 	const data = React.useContext(IngredientsContext);
 	const {totalPrice, setTotalPrice} = React.useContext(TotalPriceContext);
@@ -40,13 +39,12 @@ export default function BurgerConstructor({ handleOrderClick }) {
 			})
 			.then((res) => {
 				setOrder(res.order.number);
-				console.log(res.order.number);
 			})
 			.catch((err) => {
 				console.log(err);
 			});
 	}
-	console.log(order);
+
 	React.useEffect(
 		() => {
 			let total = 0;
@@ -118,8 +116,4 @@ export default function BurgerConstructor({ handleOrderClick }) {
 			</Modal> }
 	</>
 	);
-}
-
-BurgerConstructor.propTypes = {
-	handleOrderClick: PropTypes.func.isRequired
 }
