@@ -1,5 +1,5 @@
 import successIcon from '../../images/success.svg';
-import {OrderContext} from "../services/ingredientsContext";
+import {OrderContext} from "../../services/ingredientsContext";
 import React from "react";
 
 export default function OrderDetails() {

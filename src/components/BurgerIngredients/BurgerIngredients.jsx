@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Tab, Counter, CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './BurgerIngredients.module.css';
-import {IngredientsContext} from '../services/ingredientsContext.jsx';
+import {IngredientsContext} from '../../services/ingredientsContext.jsx';
 
 export default function BurgerIngredients({ handleIngredientClick }) {
 	const [current, setCurrent] = React.useState('buns')

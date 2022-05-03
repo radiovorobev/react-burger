@@ -1,9 +1,11 @@
 import React from 'react';
 import {ConstructorElement, CurrencyIcon, DragIcon, Button} from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './BurgerConstructor.module.css';
-import {IngredientsContext, OrderContext, TotalPriceContext} from "../services/ingredientsContext";
+import {IngredientsContext, OrderContext, TotalPriceContext} from "../../services/ingredientsContext";
 import Modal from "../Modal/Modal";
 import OrderDetails from "../OrderDetails/OrderDetails";
+import { baseUrl } from '../../utils/data.jsx';
+import {checkResponse} from "../../utils/utilities";
 
 export default function BurgerConstructor() {
 
@@ -12,7 +14,6 @@ export default function BurgerConstructor() {
 	const bun = data.find(element => element.type === 'bun');
 	const ingredients = data.filter(element => element.type !== 'bun');
 
-	const api = 'https://norma.nomoreparties.space/api/orders';
 	const items = ingredients.map(item => item._id);
 	const [order, setOrder] = React.useState(null);
 	const [isOrderDetailsModal, setOrderDetailsModal] = React.useState(false);
@@ -21,7 +22,7 @@ export default function BurgerConstructor() {
 	}
 
 	function getOrder() {
-		fetch(api, {
+		fetch(`${baseUrl}/orders`, {
 			method: "POST",
 			body: JSON.stringify({
 				ingredients: items,
@@ -30,13 +31,7 @@ export default function BurgerConstructor() {
 				"Content-Type": "application/json",
 			},
 		})
-			.then(res => {
-				if (res.ok) {
-					return res.json()
-				} else {
-					return Promise.reject(`Ошибка: ${res.status}`)
-				}
-			})
+			.then(checkResponse)
 			.then((res) => {
 				setOrder(res.order.number);
 			})
@@ -92,7 +87,7 @@ export default function BurgerConstructor() {
 				</ul>
 			<div className={`pl-8 mb-10 mt-4`}>
 				{ bun &&	<ConstructorElement
-					type='top'
+					type='bottom'
 					isLocked={true}
 					text={`${bun.name} (низ)`}
 					price={bun.price}
