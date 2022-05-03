@@ -1,0 +1,36 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.modal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  width: 720px;
+  background-color: #1c1c21;
+  border-radius: 40px;
+  z-index: 2;
+}
+
+.buttonClose {
+  position: absolute;
+  top: 50px;
+  right: 40px;
+}
+
+.buttonClose:hover {
+  cursor: pointer;
+}
+
+.title {
+  width: 640px;
+  text-align: left;
+}

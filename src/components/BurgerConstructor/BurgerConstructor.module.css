@@ -1,0 +1,30 @@
+.section {
+  width: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  margin: 10px 0;
+  padding-left: 0;
+  list-style-type: none;
+  max-height: calc(100vh - 600px);
+  overflow-y: scroll;
+}
+
+.listItem {
+  list-style-type: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.totalPrice {
+  display: flex;
+  flex-flow: row;
+  justify-content: flex-end;
+  align-items: center;
+}
