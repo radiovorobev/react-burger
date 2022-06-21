@@ -1,0 +1,39 @@
+import {  GET_INGREDIENTS,
+					GET_INGREDIENTS_IN_CONSTRUCTOR,
+					INGREDIENT_MODAL,
+					INGREDIENT_MODAL_CLOSE,
+					GET_ORDER_NUMBER,
+					UPDATE_ORDER_NUMBER } from '../actions/actions';
+
+const initialState = {
+	ingredients: [],
+	ingredientsInConstructor: [],
+	currentIngredient: {},
+	order: {}
+}
+
+export const rootReducer = (state = initialState, action) => {
+	switch (action.type) {
+		case GET_INGREDIENTS: {
+			return { ...state, ingredients: action.ingredients }
+		}
+		case GET_INGREDIENTS_IN_CONSTRUCTOR: {
+			return console.log ('2');
+		}
+		case INGREDIENT_MODAL: {
+			return console.log ('3');
+		}
+		case INGREDIENT_MODAL_CLOSE: {
+			return console.log ('4');
+		}
+		case GET_ORDER_NUMBER: {
+			return console.log ('5');
+		}
+		case UPDATE_ORDER_NUMBER: {
+			return console.log ('6');
+		}
+		default: {
+			return state;
+		}
+	}
+}

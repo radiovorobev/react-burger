@@ -8,9 +8,11 @@ import Modal from '../Modal/Modal.jsx';
 import { baseUrl } from '../../utils/data.jsx';
 import {checkResponse} from "../../utils/utilities";
 import styles from './App.module.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { getIngredients } from '../../services/actions/actions';
 
 function App() {
-  const [state, setState] = React.useState({ ingredients: [] });
+  //const [state, setState] = React.useState({ ingredients: [] });
   const [totalPrice, setTotalPrice] = React.useState(0);
 
   const [isIngredientModal, setIngredientModal] = React.useState(false);
@@ -22,9 +24,13 @@ function App() {
     setIngredientModal(true);
   }
 
-
+  const dispatch = useDispatch();
 
   React.useEffect(() => {
+    dispatch(getIngredients());
+  }, [dispatch])
+
+/*  React.useEffect(() => {
     const getIngredients = () => {
       fetch(`${baseUrl}/ingredients`)
         .then(checkResponse)
@@ -32,22 +38,23 @@ function App() {
           setState((prevState) => ({ ...prevState, ingredients: res.data }))
         )
         .catch((error) => console.log(error.message))
+
     }
 
     getIngredients();
   }, [])
-
-  const { ingredients } = state;
-
+*/
+ // const { ingredients } = useSelector(store => store);
+  //console.log(useSelector(store => store));
   return (
     <>
       <AppHeader />
       <main className={`${styles.main}`}>
         <TotalPriceContext.Provider value={{ totalPrice, setTotalPrice }}>
-          <IngredientsContext.Provider value={ingredients}>
+
             <BurgerIngredients handleIngredientClick={handleClickIngredients}/>
             <BurgerConstructor />
-          </IngredientsContext.Provider>
+
         </TotalPriceContext.Provider>
       </main>
 

@@ -6,13 +6,15 @@ import Modal from "../Modal/Modal";
 import OrderDetails from "../OrderDetails/OrderDetails";
 import { baseUrl } from '../../utils/data.jsx';
 import {checkResponse} from "../../utils/utilities";
+import {useSelector} from "react-redux";
 
 export default function BurgerConstructor() {
 
-	const data = React.useContext(IngredientsContext);
+	//const data = React.useContext(IngredientsContext);
+	const { ingredients } = useSelector(store => store);
 	const {totalPrice, setTotalPrice} = React.useContext(TotalPriceContext);
-	const bun = data.find(element => element.type === 'bun');
-	const ingredients = data.filter(element => element.type !== 'bun');
+	const bun = ingredients.find(element => element.type === 'bun');
+	const ingredientsConstructor = ingredients.filter(element => element.type !== 'bun');
 
 	const items = ingredients.map(item => item._id);
 	const [order, setOrder] = React.useState(null);
@@ -43,7 +45,7 @@ export default function BurgerConstructor() {
 	React.useEffect(
 		() => {
 			let total = 0;
-			ingredients.map(ingredient => total += ingredient.price);
+			ingredientsConstructor.map(ingredient => total += ingredient.price);
 			if (bun) {
 				total = total + bun.price*2;
 			}
@@ -66,7 +68,7 @@ export default function BurgerConstructor() {
 					/> }
 			</div>
 				<ul className={`${styles.list} ml-4`}>
-					{data.map((ingredient) => {
+					{ingredientsConstructor.map((ingredient) => {
 						if (ingredient.type !== 'bun') {
 							return (
 								<React.Fragment key={ingredient._id}>
