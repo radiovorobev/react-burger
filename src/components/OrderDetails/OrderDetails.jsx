@@ -1,9 +1,11 @@
 import successIcon from '../../images/success.svg';
 import {OrderContext} from "../../services/ingredientsContext";
 import React from "react";
+import {useSelector} from "react-redux";
 
 export default function OrderDetails() {
-	const order = React.useContext(OrderContext);
+	const { order } = useSelector(store => store);
+	console.log(order);
 	return (
 		<>
 			<h2 className={`text text_type_digits-large mt-30 mb-8`}>{order}</h2>

@@ -10,7 +10,7 @@ const initialState = {
 	ingredientsInConstructor: [],
 	currentIngredient: {},
 	isIngredientModal: false,
-	order: {}
+	order: null
 }
 
 export const rootReducer = (state = initialState, action) => {
@@ -28,7 +28,7 @@ export const rootReducer = (state = initialState, action) => {
 			return console.log ('4');
 		}
 		case GET_ORDER_NUMBER: {
-			return console.log ('5');
+			return { ...state, order: action.order }
 		}
 		case UPDATE_ORDER_NUMBER: {
 			return console.log ('6');

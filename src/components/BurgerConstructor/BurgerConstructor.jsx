@@ -6,41 +6,36 @@ import Modal from "../Modal/Modal";
 import OrderDetails from "../OrderDetails/OrderDetails";
 import { baseUrl } from '../../utils/data.jsx';
 import {checkResponse} from "../../utils/utilities";
-import {useSelector} from "react-redux";
-
+import {useDispatch, useSelector} from "react-redux";
+import {getOrder} from '../../services/actions/actions';
 export default function BurgerConstructor() {
 
 	//const data = React.useContext(IngredientsContext);
-	const { ingredientsInConstructor } = useSelector(store => store);
+	const { ingredients } = useSelector(store => store);
+
+	const ingredientsInConstructor = ingredients;
+
 	const {totalPrice, setTotalPrice} = React.useContext(TotalPriceContext);
+
+
 	const bun = ingredientsInConstructor.find(element => element.type === 'bun');
 	const ingredientsConstructor = ingredientsInConstructor.filter(element => element.type !== 'bun');
 
-	const items = ingredientsInConstructor.map(item => item._id);
-	const [order, setOrder] = React.useState(null);
-	const [isOrderDetailsModal, setOrderDetailsModal] = React.useState(false);
-	const handleClickOrder = () => {
-		setOrderDetailsModal(true);
-	}
 
-	function getOrder() {
-		fetch(`${baseUrl}/orders`, {
-			method: "POST",
-			body: JSON.stringify({
-				ingredients: items,
-			}),
-			headers: {
-				"Content-Type": "application/json",
-			},
-		})
-			.then(checkResponse)
-			.then((res) => {
-				setOrder(res.order.number);
-			})
-			.catch((err) => {
-				console.log(err);
-			});
-	}
+
+
+	//const items = ingredientsInConstructor.map(item => item._id);
+	//const [order, setOrder] = React.useState(null);
+	const [isOrderDetailsModal, setOrderDetailsModal] = React.useState(false);
+	const dispatch = useDispatch();
+
+	const handleClickOrder = React.useCallback(() => {
+		const items = ingredientsInConstructor.map(item => item._id);
+		//items.push(bun.data._id);
+		dispatch(getOrder(items));
+		setOrderDetailsModal(true);
+	}, [dispatch, ingredientsInConstructor]);
+
 
 	React.useEffect(
 		() => {
@@ -98,8 +93,8 @@ export default function BurgerConstructor() {
 			</div>
 			<div className={`${styles.totalPrice}`}>
 				<span className={`text text_type_digits-medium mr-10`}>{totalPrice}&nbsp;<CurrencyIcon type="primary" /></span>
-				<span onClick={() => handleClickOrder()} >
-					<Button onClick={getOrder} type="primary" size="medium">
+				<span onClick={handleClickOrder} >
+					<Button type="primary" size="medium">
 						Оформить заказ
 					</Button>
 				</span>
@@ -107,9 +102,7 @@ export default function BurgerConstructor() {
 		</section>
 
 			{isOrderDetailsModal && <Modal onClose={setOrderDetailsModal}>
-				<OrderContext.Provider value={ order }>
 					<OrderDetails />
-				</OrderContext.Provider>
 			</Modal> }
 	</>
 	);

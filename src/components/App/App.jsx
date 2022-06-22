@@ -20,7 +20,7 @@ function App() {
   const [ingredient, setIngredient] = React.useState(false);
 
   const handleIngredientClick = React.useCallback((item) => {
-    dispatch({ type: INGREDIENT_MODAL, ingredient: item, isIngredientModal: true, });
+    dispatch({ type: INGREDIENT_MODAL, ingredient: item });
     setIngredientModal(true);
     console.log(item);
     console.log(currentIngredient);

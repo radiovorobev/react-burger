@@ -1,5 +1,6 @@
 import { checkResponse } from '../../utils/utilities';
 import { baseUrl } from '../../utils/data';
+import {useSelector} from "react-redux";
 
 export const GET_INGREDIENTS = 'GET_INGREDIENTS'; //Получение списка ингредиентов от API. Используется в компоненте BurgerIngredients.
 export const GET_INGREDIENTS_IN_CONSTRUCTOR = 'GET_INGREDIENTS_IN_CONSTRUCTOR'; //Получение списка ингредиентов для конструктора бургера. Используется в компоненте BurgerConstructor.
@@ -11,7 +12,6 @@ export const UPDATE_ORDER_NUMBER = 'UPDATE_ORDER_NUMBER'; //Обновление
 export function getIngredients() {
 	return function(dispatch) {
 
-
 		fetch(`${baseUrl}/ingredients`)
 			.then(checkResponse)
 			.then(res => {
@@ -21,3 +21,50 @@ export function getIngredients() {
 				 console.log(error.message))
 	}
 }
+
+
+export function getOrder(items) {
+	return function (dispatch) {
+	fetch(`${baseUrl}/orders`, {
+		method: "POST",
+		body: JSON.stringify({
+			ingredients: items,
+		}),
+		headers: {
+			"Content-Type": "application/json",
+		},
+	})
+		.then(checkResponse)
+		.then(res => {
+			if (res) {
+				dispatch({type: GET_ORDER_NUMBER, order: res.order.number});
+				console.log(res.order.number);
+			}
+		})
+		.catch((err) => {
+			console.log(err);
+		});
+	}
+}
+
+/*
+export function getIngredients() {
+	return function(dispatch) {
+
+		fetch(`${baseUrl}/orders`, {
+			method: "POST",
+			body: JSON.stringify({
+				ingredients: items,
+			}),
+			headers: {
+				"Content-Type": "application/json",
+			},
+		})
+			.then(checkResponse)
+			.then(res => {
+				dispatch({ type: GET_INGREDIENTS, ingredients: res.data});
+			})
+			.catch(error =>
+				console.log(error.message))
+	}
+}*/
