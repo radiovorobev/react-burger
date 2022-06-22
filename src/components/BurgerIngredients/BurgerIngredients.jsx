@@ -3,13 +3,16 @@ import PropTypes from 'prop-types';
 import {Tab, Counter, CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './BurgerIngredients.module.css';
 import {IngredientsContext} from '../../services/ingredientsContext.jsx';
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {INGREDIENT_MODAL} from "../../services/actions/actions";
 
-export default function BurgerIngredients({ handleIngredientClick }) {
+export default function BurgerIngredients({handleIngredientClick}) {
 	const [current, setCurrent] = React.useState('buns')
 	//const data = React.useContext(IngredientsContext);
+	const [isIngredientModal, setIngredientModal] = React.useState(false);
+	const { ingredients, currentIngredient } = useSelector(store => store);
+	const dispatch = useDispatch();
 
-	const { ingredients } = useSelector(store => store);
 
 	return (
 		<>
@@ -71,8 +74,4 @@ export default function BurgerIngredients({ handleIngredientClick }) {
 		</section>
 	</>
 	);
-}
-
-BurgerIngredients.propTypes = {
-	handleIngredientClick: PropTypes.func.isRequired
 }

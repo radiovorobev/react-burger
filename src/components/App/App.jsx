@@ -9,7 +9,7 @@ import { baseUrl } from '../../utils/data.jsx';
 import {checkResponse} from "../../utils/utilities";
 import styles from './App.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { getIngredients } from '../../services/actions/actions';
+import { getIngredients, INGREDIENT_MODAL } from '../../services/actions/actions';
 
 function App() {
   //const [state, setState] = React.useState({ ingredients: [] });
@@ -19,10 +19,18 @@ function App() {
 
   const [ingredient, setIngredient] = React.useState(false);
 
-  const handleClickIngredients = (item) => {
-    setIngredient(item);
+  const handleIngredientClick = React.useCallback((item) => {
+    dispatch({ type: INGREDIENT_MODAL, ingredient: item, isIngredientModal: true, });
     setIngredientModal(true);
-  }
+    console.log(item);
+    console.log(currentIngredient);
+    console.log(isIngredientModal);
+  })
+
+/*  const handleClickIngredients = React.useCallback((item) => {
+    open(true);
+    dispatch({ type: INGREDIENT_MODAL, ingredient: item });
+  }, [open]);*/
 
   const dispatch = useDispatch();
 
@@ -44,23 +52,22 @@ function App() {
     getIngredients();
   }, [])
 */
- // const { ingredients } = useSelector(store => store);
-  //console.log(useSelector(store => store));
+ const { currentIngredient } = useSelector(store => store);
+  //console.log(currentIngredient);
   return (
     <>
       <AppHeader />
       <main className={`${styles.main}`}>
         <TotalPriceContext.Provider value={{ totalPrice, setTotalPrice }}>
 
-            <BurgerIngredients handleIngredientClick={handleClickIngredients}/>
+            <BurgerIngredients handleIngredientClick={handleIngredientClick}/>
             <BurgerConstructor />
 
         </TotalPriceContext.Provider>
       </main>
 
-
-      {isIngredientModal && ingredient && <Modal onClose={setIngredientModal} title={'Детали ингредиента'} >
-        <IngredientDetails ingredient={ingredient} />
+      {isIngredientModal && <Modal onClose={setIngredientModal} title={'Детали ингредиента'} >
+        <IngredientDetails ingredient={currentIngredient} />
       </Modal> }
 
     </>

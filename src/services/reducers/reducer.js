@@ -9,6 +9,7 @@ const initialState = {
 	ingredients: [],
 	ingredientsInConstructor: [],
 	currentIngredient: {},
+	isIngredientModal: false,
 	order: {}
 }
 
@@ -21,7 +22,7 @@ export const rootReducer = (state = initialState, action) => {
 			return console.log ('2');
 		}
 		case INGREDIENT_MODAL: {
-			return console.log ('3');
+			return {...state, currentIngredient: action.ingredient}
 		}
 		case INGREDIENT_MODAL_CLOSE: {
 			return console.log ('4');

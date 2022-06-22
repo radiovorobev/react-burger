@@ -11,12 +11,12 @@ import {useSelector} from "react-redux";
 export default function BurgerConstructor() {
 
 	//const data = React.useContext(IngredientsContext);
-	const { ingredients } = useSelector(store => store);
+	const { ingredientsInConstructor } = useSelector(store => store);
 	const {totalPrice, setTotalPrice} = React.useContext(TotalPriceContext);
-	const bun = ingredients.find(element => element.type === 'bun');
-	const ingredientsConstructor = ingredients.filter(element => element.type !== 'bun');
+	const bun = ingredientsInConstructor.find(element => element.type === 'bun');
+	const ingredientsConstructor = ingredientsInConstructor.filter(element => element.type !== 'bun');
 
-	const items = ingredients.map(item => item._id);
+	const items = ingredientsInConstructor.map(item => item._id);
 	const [order, setOrder] = React.useState(null);
 	const [isOrderDetailsModal, setOrderDetailsModal] = React.useState(false);
 	const handleClickOrder = () => {
@@ -51,7 +51,7 @@ export default function BurgerConstructor() {
 			}
 			setTotalPrice(total);
 		},
-		[ingredients, setTotalPrice]
+		[ingredientsInConstructor, setTotalPrice]
 	);
 
 	return (
