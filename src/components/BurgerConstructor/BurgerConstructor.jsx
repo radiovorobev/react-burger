@@ -1,41 +1,24 @@
 import React from 'react';
-import {ConstructorElement, CurrencyIcon, DragIcon, Button} from '@ya.praktikum/react-developer-burger-ui-components';
+import { ConstructorElement, CurrencyIcon, DragIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './BurgerConstructor.module.css';
-import {IngredientsContext, OrderContext, TotalPriceContext} from "../../services/ingredientsContext";
-import Modal from "../Modal/Modal";
-import OrderDetails from "../OrderDetails/OrderDetails";
-import { baseUrl } from '../../utils/data.jsx';
-import {checkResponse} from "../../utils/utilities";
-import {useDispatch, useSelector} from "react-redux";
-import {getOrder} from '../../services/actions/actions';
+import Modal from '../Modal/Modal';
+import OrderDetails from '../OrderDetails/OrderDetails';
+import { useDispatch, useSelector } from 'react-redux';
+import { getOrder, SET_TOTAL_PRICE } from '../../services/actions/actions';
 export default function BurgerConstructor() {
 
-	//const data = React.useContext(IngredientsContext);
-	const { ingredients } = useSelector(store => store);
-
+	const { ingredients, totalPrice } = useSelector(store => store);
 	const ingredientsInConstructor = ingredients;
-
-	const {totalPrice, setTotalPrice} = React.useContext(TotalPriceContext);
-
-
 	const bun = ingredientsInConstructor.find(element => element.type === 'bun');
 	const ingredientsConstructor = ingredientsInConstructor.filter(element => element.type !== 'bun');
-
-
-
-
-	//const items = ingredientsInConstructor.map(item => item._id);
-	//const [order, setOrder] = React.useState(null);
 	const [isOrderDetailsModal, setOrderDetailsModal] = React.useState(false);
 	const dispatch = useDispatch();
 
 	const handleClickOrder = React.useCallback(() => {
 		const items = ingredientsInConstructor.map(item => item._id);
-		//items.push(bun.data._id);
 		dispatch(getOrder(items));
 		setOrderDetailsModal(true);
 	}, [dispatch, ingredientsInConstructor]);
-
 
 	React.useEffect(
 		() => {
@@ -44,9 +27,9 @@ export default function BurgerConstructor() {
 			if (bun) {
 				total = total + bun.price*2;
 			}
-			setTotalPrice(total);
+			dispatch({ type: SET_TOTAL_PRICE, totalPrice: total });
 		},
-		[ingredientsInConstructor, setTotalPrice]
+		[ingredientsInConstructor]
 	);
 
 	return (

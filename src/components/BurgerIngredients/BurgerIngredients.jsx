@@ -12,6 +12,37 @@ export default function BurgerIngredients({handleIngredientClick}) {
 	const [isIngredientModal, setIngredientModal] = React.useState(false);
 	const { ingredients, currentIngredient } = useSelector(store => store);
 	const dispatch = useDispatch();
+	const observer = new IntersectionObserver(
+		(entries) => {
+			entries.forEach((entry) => {
+				if (entry.isIntersecting) {
+					setCurrent(entry.target.id);
+					console.log(entry.target.id);
+				}
+			});
+		},
+		{
+			root: null,
+			rootMargin: "0px",
+			threshold: 0.2
+		}
+	);
+
+	const bunsRef = React.useRef();
+	const saucesRef = React.useRef();
+	const mainRef = React.useRef();
+
+	React.useEffect(() => {
+		observer.observe(bunsRef.current);
+		observer.observe(saucesRef.current);
+		observer.observe(mainRef.current);
+
+		return () => {
+			observer.disconnect(bunsRef.current);
+			observer.disconnect(saucesRef.current);
+			observer.disconnect(mainRef.current);
+		}
+	}, [bunsRef, saucesRef, mainRef]);
 
 
 	return (
@@ -19,19 +50,19 @@ export default function BurgerIngredients({handleIngredientClick}) {
 		<section className={styles.section}>
 			<h1 className='text text_type_main-large mb-5'>Соберите бургер</h1>
 			<div className={`${styles.tabs} mb-10`}>
-				<Tab active={current === 'buns'} onClick={setCurrent}>
+				<Tab value='buns' active={current === 'buns'} onClick={setCurrent}>
 					<span>Булки</span>
 				</Tab>
-				<Tab active={current === 'sauces'} onClick={setCurrent}>
+				<Tab value='sauces' active={current === 'sauces'} onClick={setCurrent}>
 					<span>Соусы</span>
 				</Tab>
-				<Tab active={current === 'main'} onClick={setCurrent}>
+				<Tab value='main' active={current === 'main'} onClick={setCurrent}>
 					<span>Начинки</span>
 				</Tab>
 			</div>
-			<div className={`${styles.ingredients}`}>
+			<div className={`${styles.ingredients}`} >
 			<h2 className='text text_type_main-medium mb-6'>Булки</h2>
-					<ul className={`${styles.ingredient} pl-4 pr-4 mb-10`}>
+					<ul ref={bunsRef} id='buns' className={`${styles.ingredient} pl-4 pr-4 mb-10`}>
 						{
 							ingredients.filter(item => item.type === 'bun').map((item) => (
 								<li key={item._id} className={`${styles.card}`} onClick={() => { handleIngredientClick(item) }}>
@@ -45,7 +76,7 @@ export default function BurgerIngredients({handleIngredientClick}) {
 						))}
 					</ul>
 				<h2 className='text text_type_main-medium mb-6'>Соусы</h2>
-					<ul className={`${styles.ingredient} pl-4 pr-4 mb-10`}>
+					<ul ref={saucesRef} id='sauces' className={`${styles.ingredient} pl-4 pr-4 mb-10`}>
 						{
 							ingredients.filter(item => item.type === 'sauce').map((item) => (
 								<React.Fragment key={item._id}>
@@ -58,7 +89,7 @@ export default function BurgerIngredients({handleIngredientClick}) {
 							))}
 					</ul>
 			<h2 className='text text_type_main-medium mb-6'>Начинки</h2>
-				<ul className={`${styles.ingredient} pl-4 pr-4 mb-10`}>
+				<ul ref={mainRef} id='main' className={`${styles.ingredient} pl-4 pr-4 mb-10`}>
 					{
 						ingredients.filter(item => item.type === 'main').map((item) => (
 							<React.Fragment key={item._id}>

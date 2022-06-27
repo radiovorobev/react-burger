@@ -3,14 +3,16 @@ import {  GET_INGREDIENTS,
 					INGREDIENT_MODAL,
 					INGREDIENT_MODAL_CLOSE,
 					GET_ORDER_NUMBER,
-					UPDATE_ORDER_NUMBER } from '../actions/actions';
+					UPDATE_ORDER_NUMBER,
+					SET_TOTAL_PRICE } from '../actions/actions';
 
 const initialState = {
 	ingredients: [],
 	ingredientsInConstructor: [],
 	currentIngredient: {},
 	isIngredientModal: false,
-	order: null
+	order: null,
+	totalPrice: null,
 }
 
 export const rootReducer = (state = initialState, action) => {
@@ -22,7 +24,7 @@ export const rootReducer = (state = initialState, action) => {
 			return console.log ('2');
 		}
 		case INGREDIENT_MODAL: {
-			return {...state, currentIngredient: action.ingredient}
+			return { ...state, currentIngredient: action.ingredient }
 		}
 		case INGREDIENT_MODAL_CLOSE: {
 			return console.log ('4');
@@ -32,6 +34,9 @@ export const rootReducer = (state = initialState, action) => {
 		}
 		case UPDATE_ORDER_NUMBER: {
 			return console.log ('6');
+		}
+		case SET_TOTAL_PRICE: {
+			return { ...state, totalPrice: action.totalPrice }
 		}
 		default: {
 			return state;

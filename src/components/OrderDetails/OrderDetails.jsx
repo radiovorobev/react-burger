@@ -1,5 +1,4 @@
 import successIcon from '../../images/success.svg';
-import {OrderContext} from "../../services/ingredientsContext";
 import React from "react";
 import {useSelector} from "react-redux";
 
