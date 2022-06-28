@@ -50,6 +50,10 @@ export default function BurgerConstructor() {
 	return (
 		<>
 		<section className='styles.section mt-15 ml-10 pl-4' ref={dropTarget}>
+			{ingredientsInConstructor.length <= 0 &&
+				<p className={`${styles.emptyContainer} text text_type_main-medium pt-30 pb-30 pl-10 pr-10`}>
+					Добавьте булку и начинку вашего бургера.
+				</p>}
 			<div className={`pl-8 mb-4`}>
 				{ bun &&	<ConstructorElement
 						type='top'
