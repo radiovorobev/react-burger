@@ -21,7 +21,7 @@ export const rootReducer = (state = initialState, action) => {
 			return { ...state, ingredients: action.ingredients }
 		}
 		case GET_INGREDIENTS_IN_CONSTRUCTOR: {
-			return console.log ('2');
+			return {...state, ingredientsInConstructor: action.ingredient}
 		}
 		case INGREDIENT_MODAL: {
 			return { ...state, currentIngredient: action.ingredient }

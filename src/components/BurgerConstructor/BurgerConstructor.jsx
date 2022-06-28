@@ -4,18 +4,19 @@ import styles from './BurgerConstructor.module.css';
 import Modal from '../Modal/Modal';
 import OrderDetails from '../OrderDetails/OrderDetails';
 import { useDispatch, useSelector } from 'react-redux';
-import { getOrder, SET_TOTAL_PRICE } from '../../services/actions/actions';
+import { GET_INGREDIENTS_IN_CONSTRUCTOR, getOrder, SET_TOTAL_PRICE } from '../../services/actions/actions';
+import { useDrop } from "react-dnd";
+
 export default function BurgerConstructor() {
 
-	const { ingredients, totalPrice } = useSelector(store => store);
-	const ingredientsInConstructor = ingredients;
-	const bun = ingredientsInConstructor.find(element => element.type === 'bun');
+	const { ingredientsInConstructor, totalPrice } = useSelector(store => store);
+	const bun = ingredientsInConstructor.find(element => element.item.type === 'bun');
 	const ingredientsConstructor = ingredientsInConstructor.filter(element => element.type !== 'bun');
 	const [isOrderDetailsModal, setOrderDetailsModal] = React.useState(false);
 	const dispatch = useDispatch();
 
 	const handleClickOrder = React.useCallback(() => {
-		const items = ingredientsInConstructor.map(item => item._id);
+		const items = ingredientsInConstructor.map(ingredient => ingredient.item._id);
 		dispatch(getOrder(items));
 		setOrderDetailsModal(true);
 	}, [dispatch, ingredientsInConstructor]);
@@ -23,39 +24,53 @@ export default function BurgerConstructor() {
 	React.useEffect(
 		() => {
 			let total = 0;
-			ingredientsConstructor.map(ingredient => total += ingredient.price);
+			ingredientsConstructor.map(ingredient => total += ingredient.item.price);
 			if (bun) {
-				total = total + bun.price*2;
+				total = total + bun.item.price*2;
 			}
 			dispatch({ type: SET_TOTAL_PRICE, totalPrice: total });
 		},
 		[ingredientsInConstructor]
 	);
 
+	//DnD
+	const handleDrop = (item) => {
+			dispatch({ type: GET_INGREDIENTS_IN_CONSTRUCTOR, ingredient: [...ingredientsInConstructor, item] });
+	}
+
+	const [, dropTarget] = useDrop({
+		accept: 'ingredient',
+		drop(item) {
+			handleDrop(item);
+			console.log(item);
+			console.log(ingredientsInConstructor);
+		}
+	});
+
 	return (
 		<>
-
-		<section className='styles.section mt-15 ml-10 pl-4'>
+		<section className='styles.section mt-15 ml-10 pl-4' ref={dropTarget}>
 			<div className={`pl-8 mb-4`}>
 				{ bun &&	<ConstructorElement
 						type='top'
 						isLocked={true}
-						text={`${bun.name} (верх)`}
-						price={bun.price}
-						thumbnail={bun.image}
+						text={`${bun.item.name} (верх)`}
+						price={bun.item.price}
+						thumbnail={bun.item.image}
 					/> }
 			</div>
 				<ul className={`${styles.list} ml-4`}>
 					{ingredientsConstructor.map((ingredient) => {
-						if (ingredient.type !== 'bun') {
+						if (ingredient.item.type !== 'bun') {
 							return (
-								<React.Fragment key={ingredient._id}>
+								<React.Fragment>
 									<li className={`${styles.listItem} mb-4`}>
 										<DragIcon type='primary' />
 										<ConstructorElement
-											text={ingredient.name}
-											price={ingredient.price}
-											thumbnail={ingredient.image}
+											text={ingredient.item.name}
+											price={ingredient.item.price}
+											thumbnail={ingredient.item.image}
+											key={ingredient.item._id}
 										/>
 									</li>
 								</React.Fragment>
@@ -69,9 +84,9 @@ export default function BurgerConstructor() {
 				{ bun &&	<ConstructorElement
 					type='bottom'
 					isLocked={true}
-					text={`${bun.name} (низ)`}
-					price={bun.price}
-					thumbnail={bun.image}
+					text={`${bun.item.name} (низ)`}
+					price={bun.item.price}
+					thumbnail={bun.item.image}
 				/> }
 			</div>
 			<div className={`${styles.totalPrice}`}>

@@ -1,17 +1,16 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import {Tab, Counter, CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
+import { Tab, Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './BurgerIngredients.module.css';
-import {IngredientsContext} from '../../services/ingredientsContext.jsx';
-import {useDispatch, useSelector} from "react-redux";
+import { useDispatch, useSelector } from 'react-redux';
+import {useDrag} from "react-dnd";
+import { v4 as uuidv4 } from 'uuid';
+import BurgerIngredient from "../BurgerIngredient/BurgerIngredient";
 import {INGREDIENT_MODAL} from "../../services/actions/actions";
-
 export default function BurgerIngredients({handleIngredientClick}) {
-	const [current, setCurrent] = React.useState('buns')
-	//const data = React.useContext(IngredientsContext);
-	const [isIngredientModal, setIngredientModal] = React.useState(false);
-	const { ingredients, currentIngredient } = useSelector(store => store);
-	const dispatch = useDispatch();
+	const [current, setCurrent] = React.useState('buns');
+
+
+	const { ingredients, ingredientsInConstructor } = useSelector(store => store);
 	const observer = new IntersectionObserver(
 		(entries) => {
 			entries.forEach((entry) => {
@@ -44,6 +43,33 @@ export default function BurgerIngredients({handleIngredientClick}) {
 		}
 	}, [bunsRef, saucesRef, mainRef]);
 
+	//DnD
+	//const [count, setCount] = React.useState(0);
+	//const bun = ingredientsInConstructor.find(item => item.data.type === 'bun');
+
+
+	/*React.useEffect(() => {
+		if (isDrag && getItem.data._id === ingredients._id) {
+			if (isDrop) {
+				if (ingredients.type === 'bun' && count < 2) {
+					setCount(count + 2);
+				} else if (ingredients.type !== 'bun') {
+					setCount(count + 1);
+				}
+			}
+		} else if (ingredientsInConstructor.length <= 0 ||
+			bun && ingredients.type === 'bun' && ingredients._id !== bun.data._id) {
+			setCount(0);
+		} else if (ingredients.type !== 'bun' && ingredientsInConstructor.length > 0) {
+			let num = 0;
+			ingredientsInConstructor.forEach(element => {
+				if (element.data._id === ingredients._id) {
+					num++;
+				}
+			});
+			setCount(num);
+		}
+	}, [isDrag, isDrop, ingredientsInConstructor, bun]);*/
 
 	return (
 		<>
@@ -65,40 +91,21 @@ export default function BurgerIngredients({handleIngredientClick}) {
 					<ul ref={bunsRef} id='buns' className={`${styles.ingredient} pl-4 pr-4 mb-10`}>
 						{
 							ingredients.filter(item => item.type === 'bun').map((item) => (
-								<li key={item._id} className={`${styles.card}`} onClick={() => { handleIngredientClick(item) }}>
-									<div className={`$styles.counter`}>
-										<Counter count={1} size='default' />
-									</div>
-									<img alt={item.name} src={item.image} className={`${styles.img} mb-1 ml-4 mr-4`}/>
-									<span className={`${styles.price} text text_type_digits-default mb-1`}>{item.price}&nbsp;<CurrencyIcon type='primary' /></span>
-									<span className={`${styles.center} text text_type_main-default`}>{item.name}</span>
-								</li>
+								<BurgerIngredient key={item._id} item={item} handleIngredientClick={handleIngredientClick}/>
 						))}
 					</ul>
 				<h2 className='text text_type_main-medium mb-6'>Соусы</h2>
 					<ul ref={saucesRef} id='sauces' className={`${styles.ingredient} pl-4 pr-4 mb-10`}>
 						{
 							ingredients.filter(item => item.type === 'sauce').map((item) => (
-								<React.Fragment key={item._id}>
-									<li className={`${styles.card} mb-8`} onClick={() => { handleIngredientClick(item) }}>
-										<img alt={item.name} src={item.image} className={`${styles.img} mb-1 ml-4 mr-4`}/>
-										<span className={`${styles.price} text text_type_digits-default mb-1`}>{item.price}&nbsp;<CurrencyIcon type='primary' /></span>
-										<span className={`${styles.center} text text_type_main-default`}>{item.name}</span>
-									</li>
-								</React.Fragment>
+								<BurgerIngredient key={item._id} item={item} handleIngredientClick={handleIngredientClick}/>
 							))}
 					</ul>
 			<h2 className='text text_type_main-medium mb-6'>Начинки</h2>
 				<ul ref={mainRef} id='main' className={`${styles.ingredient} pl-4 pr-4 mb-10`}>
 					{
 						ingredients.filter(item => item.type === 'main').map((item) => (
-							<React.Fragment key={item._id}>
-								<li className={`${styles.card} mb-8`} onClick={() => { handleIngredientClick(item) }}>
-									<img alt={item.name} src={item.image} className={`${styles.img} mb-1 ml-4 mr-4`}/>
-									<span className={`${styles.price} text text_type_digits-default mb-1`}>{item.price}&nbsp;<CurrencyIcon type='primary' /></span>
-									<span className={`${styles.center} text text_type_main-default`}>{item.name}</span>
-								</li>
-							</React.Fragment>
+							<BurgerIngredient key={item._id} item={item} handleIngredientClick={handleIngredientClick}/>
 							))}
 				</ul>
 				</div>
