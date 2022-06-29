@@ -25,8 +25,10 @@ export default function BurgerIngredient( {item, handleIngredientClick}) {
 
   React.useEffect(() => {
 
-      if (isDrop && getItem.item._id === item._id && getItem.item.type === 'bun') {
+      if (isDrop && getItem.item._id === item._id && getItem.item.type === 'bun' && ingredientCount === 0) {
+
         setIngredientCount(ingredientCount + 2);
+
       } else if (isDrop && getItem.item._id !== item._id && getItem.item.type === 'bun' && item.type === 'bun') {
         setIngredientCount(0);
       } else if (isDrop && getItem.item._id === item._id && getItem.item.type !== 'bun') {
