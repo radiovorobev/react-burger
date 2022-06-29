@@ -49,8 +49,6 @@ export default function BurgerConstructor() {
 		accept: 'ingredient',
 		drop(item) {
 			handleDrop(item);
-			console.log(item);
-			console.log(ingredientsInConstructor);
 		}
 	});
 
