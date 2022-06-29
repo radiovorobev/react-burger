@@ -35,7 +35,14 @@ export default function BurgerConstructor() {
 
 	//DnD
 	const handleDrop = (item) => {
-			dispatch({ type: GET_INGREDIENTS_IN_CONSTRUCTOR, ingredient: [...ingredientsInConstructor, item] });
+		if (item.item.type === 'bun' && ingredientsInConstructor.find(item => item.item.type === 'bun')) {
+			const buns = ingredientsInConstructor.find(item => item.item.type === 'bun');
+			const array = [...ingredientsInConstructor];
+			array.splice(buns, 1, item);
+			dispatch({type: GET_INGREDIENTS_IN_CONSTRUCTOR, ingredient: array});
+		} else {
+			dispatch({type: GET_INGREDIENTS_IN_CONSTRUCTOR, ingredient: [...ingredientsInConstructor, item]});
+		}
 	}
 
 	const [, dropTarget] = useDrop({

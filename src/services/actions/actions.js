@@ -3,6 +3,7 @@ import { baseUrl } from '../../utils/data';
 
 export const GET_INGREDIENTS = 'GET_INGREDIENTS'; //Получение списка ингредиентов от API. Используется в компоненте BurgerIngredients.
 export const GET_INGREDIENTS_IN_CONSTRUCTOR = 'GET_INGREDIENTS_IN_CONSTRUCTOR'; //Получение списка ингредиентов для конструктора бургера. Используется в компоненте BurgerConstructor.
+export const GET_BUNS_IN_CONSTRUCTOR = 'GET_INGREDIENTS_IN_CONSTRUCTOR'; //Получение списка ингредиентов для конструктора бургера. Используется в компоненте BurgerConstructor.
 export const INGREDIENT_MODAL = 'INGREDIENT_MODAL'; //Добавление данных о просматриваемом в модальном окне IngredientDetails ингредиенте.
 export const INGREDIENT_MODAL_CLOSE = 'INGREDIENT_MODAL_CLOSE'; //Удаление данных о просматриваемом в модальном окне ингредиенте при закрытии модального окна.
 export const GET_ORDER_NUMBER = 'GET_ORDER_NUMBER'; //Получение номера заказа в модальном окне OrderDetails.
