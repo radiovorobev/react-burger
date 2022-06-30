@@ -4,11 +4,17 @@ import styles from './BurgerConstructor.module.css';
 import Modal from '../Modal/Modal';
 import OrderDetails from '../OrderDetails/OrderDetails';
 import { useDispatch, useSelector } from 'react-redux';
-import { GET_INGREDIENTS_IN_CONSTRUCTOR, getOrder, SET_TOTAL_PRICE } from '../../services/actions/actions';
+import {
+	DELETE_INGREDIENT_FROM_CONSTRUCTOR,
+	GET_INGREDIENTS_IN_CONSTRUCTOR,
+	getOrder,
+	SET_TOTAL_PRICE
+} from '../../services/actions/actions';
 import { useDrop } from "react-dnd";
 
 export default function BurgerConstructor() {
 
+	const [ingredientCount, setIngredientCount] = React.useState(0);
 	const { ingredientsInConstructor, totalPrice } = useSelector(store => store);
 	const bun = ingredientsInConstructor.find(element => element.item.type === 'bun');
 	const ingredientsConstructor = ingredientsInConstructor.filter(element => element.type !== 'bun');
@@ -45,6 +51,11 @@ export default function BurgerConstructor() {
 		}
 	}
 
+	const handleClose = React.useCallback((id) => {
+		dispatch({ type: DELETE_INGREDIENT_FROM_CONSTRUCTOR, id: id });
+		setIngredientCount(ingredientCount - 1);
+	}, [dispatch]);
+
 	const [, dropTarget] = useDrop({
 		accept: 'ingredient',
 		drop(item) {
@@ -72,14 +83,14 @@ export default function BurgerConstructor() {
 					{ingredientsConstructor.map((ingredient) => {
 						if (ingredient.item.type !== 'bun') {
 							return (
-								<React.Fragment>
+								<React.Fragment key={ingredient.id}>
 									<li className={`${styles.listItem} mb-4`}>
 										<DragIcon type='primary' />
 										<ConstructorElement
 											text={ingredient.item.name}
 											price={ingredient.item.price}
 											thumbnail={ingredient.item.image}
-											key={ingredient.item._id}
+											handleClose={() => { handleClose(ingredient.id) }}
 										/>
 									</li>
 								</React.Fragment>

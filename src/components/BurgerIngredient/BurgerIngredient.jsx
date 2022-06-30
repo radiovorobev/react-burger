@@ -9,7 +9,7 @@ import {useDispatch, useSelector} from "react-redux";
 
 export default function BurgerIngredient( {item, handleIngredientClick}) {
     const { ingredientsInConstructor } = useSelector(store => store);
-    let [ingredientCount, setIngredientCount] = React.useState(0);
+    const [ingredientCount, setIngredientCount] = React.useState(0);
     const [{ getItem, isDrag, isDrop }, ingredientRef] = useDrag({
         type: 'ingredient',
         item: {
@@ -24,19 +24,30 @@ export default function BurgerIngredient( {item, handleIngredientClick}) {
     });
 
   React.useEffect(() => {
-
       if (isDrop && getItem.item._id === item._id && getItem.item.type === 'bun' && ingredientCount === 0) {
-
         setIngredientCount(ingredientCount + 2);
-
       } else if (isDrop && getItem.item._id !== item._id && getItem.item.type === 'bun' && item.type === 'bun') {
         setIngredientCount(0);
-      } else if (isDrop && getItem.item._id === item._id && getItem.item.type !== 'bun') {
-        setIngredientCount(ingredientCount + 1);
+      } else if (ingredientsInConstructor.length >= 0 && item.type !== 'bun') {
+        let count = 0;
+        ingredientsInConstructor.forEach(itemInConstructor => {
+          if (itemInConstructor.item._id === item._id) {
+            count++;
+          }
+        });
+        setIngredientCount(count);
       }
   }, [isDrop, ingredientsInConstructor]);
 
-
+/*else if (ingredientsInConstructor.length > 0 && item.type !== 'bun') {
+    let count = 0;
+    ingredientsInConstructor.forEach(item => {
+      if (item.item._id === item._id) {
+        count++;
+      }
+    });
+    setIngredientCount(count);
+  }*/
     return (
       <li draggable ref={ingredientRef} className={`${styles.card} mb-8`} onClick={() => { handleIngredientClick(item) }}>
           {ingredientCount > 0 && <Counter count={ingredientCount} />}

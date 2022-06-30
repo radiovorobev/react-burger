@@ -5,8 +5,9 @@ import {
 	INGREDIENT_MODAL_CLOSE,
 	GET_ORDER_NUMBER,
 	UPDATE_ORDER_NUMBER,
-	SET_TOTAL_PRICE, GET_BUNS_IN_CONSTRUCTOR
+	SET_TOTAL_PRICE, DELETE_INGREDIENT_FROM_CONSTRUCTOR
 } from '../actions/actions';
+import React from "react";
 
 const initialState = {
 	ingredients: [],
@@ -16,6 +17,8 @@ const initialState = {
 	order: null,
 	totalPrice: null,
 }
+
+
 
 export const rootReducer = (state = initialState, action) => {
 	switch (action.type) {
@@ -39,6 +42,12 @@ export const rootReducer = (state = initialState, action) => {
 		}
 		case SET_TOTAL_PRICE: {
 			return { ...state, totalPrice: action.totalPrice }
+		}
+		case DELETE_INGREDIENT_FROM_CONSTRUCTOR: {
+				const array = [...state.ingredientsInConstructor];
+				const ingredient = array.findIndex(item => item.id === action.id);
+				array.splice(ingredient, 1);
+			return { ...state, ingredientsInConstructor: array }
 		}
 		default: {
 			return state;
