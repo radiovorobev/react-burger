@@ -8,13 +8,14 @@ import {
 	DELETE_INGREDIENT_FROM_CONSTRUCTOR,
 	GET_INGREDIENTS_IN_CONSTRUCTOR,
 	getOrder,
-	SET_TOTAL_PRICE
+	SET_TOTAL_PRICE, MOVE_INGREDIENT
 } from '../../services/actions/actions';
-import { useDrop } from "react-dnd";
+import {useDrag, useDrop} from "react-dnd";
+import IngredientInConstructor from "../IngredientInConstructor/IngredientInConstructor";
 
 export default function BurgerConstructor() {
 
-	const [ingredientCount, setIngredientCount] = React.useState(0);
+
 	const { ingredientsInConstructor, totalPrice } = useSelector(store => store);
 	const bun = ingredientsInConstructor.find(element => element.item.type === 'bun');
 	const ingredientsConstructor = ingredientsInConstructor.filter(element => element.type !== 'bun');
@@ -39,7 +40,6 @@ export default function BurgerConstructor() {
 		[ingredientsInConstructor]
 	);
 
-	//DnD
 	const handleDrop = (item) => {
 		if (item.item.type === 'bun' && ingredientsInConstructor.find(item => item.item.type === 'bun')) {
 			const buns = ingredientsInConstructor.find(item => item.item.type === 'bun');
@@ -51,10 +51,7 @@ export default function BurgerConstructor() {
 		}
 	}
 
-	const handleClose = React.useCallback((id) => {
-		dispatch({ type: DELETE_INGREDIENT_FROM_CONSTRUCTOR, id: id });
-		setIngredientCount(ingredientCount - 1);
-	}, [dispatch]);
+
 
 	const [, dropTarget] = useDrop({
 		accept: 'ingredient',
@@ -80,20 +77,10 @@ export default function BurgerConstructor() {
 					/> }
 			</div>
 				<ul className={`${styles.list} ml-4`}>
-					{ingredientsConstructor.map((ingredient) => {
+					{ingredientsConstructor.map((ingredient, index) => {
 						if (ingredient.item.type !== 'bun') {
 							return (
-								<React.Fragment key={ingredient.id}>
-									<li className={`${styles.listItem} mb-4`}>
-										<DragIcon type='primary' />
-										<ConstructorElement
-											text={ingredient.item.name}
-											price={ingredient.item.price}
-											thumbnail={ingredient.item.image}
-											handleClose={() => { handleClose(ingredient.id) }}
-										/>
-									</li>
-								</React.Fragment>
+								<IngredientInConstructor ingredient={ingredient} key={ingredient.id} index={index} />
 							)
 						} else {
 							return null

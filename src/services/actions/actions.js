@@ -9,6 +9,7 @@ export const GET_ORDER_NUMBER = 'GET_ORDER_NUMBER'; //Получение ном�
 export const UPDATE_ORDER_NUMBER = 'UPDATE_ORDER_NUMBER'; //Обновление номера заказа в модальном окне OrderDetails.
 export const SET_TOTAL_PRICE = 'SET_TOTAL_PRICE';
 export const DELETE_INGREDIENT_FROM_CONSTRUCTOR = 'DELETE_INGREDIENT_FROM_CONSTRUCTOR';
+export const MOVE_INGREDIENT = 'MOVE INGREDIENT';
 
 export function getIngredients() {
 	return function(dispatch) {

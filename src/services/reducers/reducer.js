@@ -5,9 +5,8 @@ import {
 	INGREDIENT_MODAL_CLOSE,
 	GET_ORDER_NUMBER,
 	UPDATE_ORDER_NUMBER,
-	SET_TOTAL_PRICE, DELETE_INGREDIENT_FROM_CONSTRUCTOR
+	SET_TOTAL_PRICE, DELETE_INGREDIENT_FROM_CONSTRUCTOR, MOVE_INGREDIENT
 } from '../actions/actions';
-import React from "react";
 
 const initialState = {
 	ingredients: [],
@@ -48,6 +47,13 @@ export const rootReducer = (state = initialState, action) => {
 				const ingredient = array.findIndex(item => item.id === action.id);
 				array.splice(ingredient, 1);
 			return { ...state, ingredientsInConstructor: array }
+		}
+		case MOVE_INGREDIENT: {
+			const arr = [...state.ingredientsInConstructor];
+			const item = arr[action.dragIndex]
+			arr[action.dragIndex] = arr[action.dropIndex];
+			arr[action.dropIndex] = item;
+			return {...state, ingredientsInConstructor: arr}
 		}
 		default: {
 			return state;

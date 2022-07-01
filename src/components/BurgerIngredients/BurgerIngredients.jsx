@@ -1,11 +1,9 @@
 import React from 'react';
 import { Tab, Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './BurgerIngredients.module.css';
-import { useDispatch, useSelector } from 'react-redux';
-import {useDrag} from "react-dnd";
-import { v4 as uuidv4 } from 'uuid';
+import { useSelector } from 'react-redux';
 import BurgerIngredient from "../BurgerIngredient/BurgerIngredient";
-import {INGREDIENT_MODAL} from "../../services/actions/actions";
+
 export default function BurgerIngredients({handleIngredientClick}) {
 	const [current, setCurrent] = React.useState('buns');
 
@@ -17,6 +15,8 @@ export default function BurgerIngredients({handleIngredientClick}) {
 				if (entry.isIntersecting) {
 					setCurrent(entry.target.id);
 					console.log(entry.target.id);
+
+
 				}
 			});
 		},
@@ -42,34 +42,6 @@ export default function BurgerIngredients({handleIngredientClick}) {
 			observer.disconnect(mainRef.current);
 		}
 	}, [bunsRef, saucesRef, mainRef]);
-
-	//DnD
-	//const [count, setCount] = React.useState(0);
-	//const bun = ingredientsInConstructor.find(item => item.data.type === 'bun');
-
-
-	/*React.useEffect(() => {
-		if (isDrag && getItem.data._id === ingredients._id) {
-			if (isDrop) {
-				if (ingredients.type === 'bun' && count < 2) {
-					setCount(count + 2);
-				} else if (ingredients.type !== 'bun') {
-					setCount(count + 1);
-				}
-			}
-		} else if (ingredientsInConstructor.length <= 0 ||
-			bun && ingredients.type === 'bun' && ingredients._id !== bun.data._id) {
-			setCount(0);
-		} else if (ingredients.type !== 'bun' && ingredientsInConstructor.length > 0) {
-			let num = 0;
-			ingredientsInConstructor.forEach(element => {
-				if (element.data._id === ingredients._id) {
-					num++;
-				}
-			});
-			setCount(num);
-		}
-	}, [isDrag, isDrop, ingredientsInConstructor, bun]);*/
 
 	return (
 		<>
