@@ -1,21 +1,18 @@
 import React from 'react';
-import { ConstructorElement, CurrencyIcon, DragIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
+import { ConstructorElement, CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './BurgerConstructor.module.css';
 import Modal from '../Modal/Modal';
 import OrderDetails from '../OrderDetails/OrderDetails';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-	DELETE_INGREDIENT_FROM_CONSTRUCTOR,
 	GET_INGREDIENTS_IN_CONSTRUCTOR,
 	getOrder,
-	SET_TOTAL_PRICE, MOVE_INGREDIENT
+	SET_TOTAL_PRICE
 } from '../../services/actions/actions';
-import {useDrag, useDrop} from "react-dnd";
-import IngredientInConstructor from "../IngredientInConstructor/IngredientInConstructor";
+import { useDrop } from 'react-dnd';
+import IngredientInConstructor from '../IngredientInConstructor/IngredientInConstructor';
 
 export default function BurgerConstructor() {
-
-
 	const { ingredientsInConstructor, totalPrice } = useSelector(store => store);
 	const bun = ingredientsInConstructor.find(element => element.item.type === 'bun');
 	const ingredientsConstructor = ingredientsInConstructor.filter(element => element.type !== 'bun');
@@ -50,8 +47,6 @@ export default function BurgerConstructor() {
 			dispatch({type: GET_INGREDIENTS_IN_CONSTRUCTOR, ingredient: [...ingredientsInConstructor, item]});
 		}
 	}
-
-
 
 	const [, dropTarget] = useDrop({
 		accept: 'ingredient',

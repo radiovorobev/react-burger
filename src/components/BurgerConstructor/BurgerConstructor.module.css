@@ -15,13 +15,6 @@
   overflow-y: scroll;
 }
 
-.listItem {
-  list-style-type: none;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
 .totalPrice {
   display: flex;
   flex-flow: row;

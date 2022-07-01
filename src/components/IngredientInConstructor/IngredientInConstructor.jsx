@@ -1,25 +1,23 @@
-import React, {useRef} from "react";
+import React, { useRef } from 'react';
 import {
 	DELETE_INGREDIENT_FROM_CONSTRUCTOR,
 	MOVE_INGREDIENT
-} from "../../services/actions/actions";
-import {useDrag, useDrop} from "react-dnd";
-import styles from "../BurgerConstructor/BurgerConstructor.module.css";
-import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import {useDispatch} from "react-redux";
-
+} from '../../services/actions/actions';
+import { useDrag, useDrop } from 'react-dnd';
+import styles from './IngredientInConstructor.module.css';
+import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { useDispatch } from 'react-redux';
 
 export default function IngredientInConstructor({index, ingredient}) {
+
 	const [ingredientCount, setIngredientCount] = React.useState(0);
 	const dispatch = useDispatch();
-	//DnD
 
-
-	const moveIngredient = React.useCallback((dragIndex, dropIndex) => {
-		dispatch({ type: MOVE_INGREDIENT, dragIndex: dragIndex, dropIndex: dropIndex });
+	const moveIngredient = React.useCallback((dragIndex, hoverIndex) => {
+		dispatch({ type: MOVE_INGREDIENT, dragIndex: dragIndex, hoverIndex: hoverIndex });
 	}, [dispatch]);
 
-	const [{ isDragging }, dragRef] = useDrag({
+	const [ , dragRef] = useDrag({
 		type: 'item',
 		item: { index },
 		collect: (monitor) => ({
@@ -27,30 +25,25 @@ export default function IngredientInConstructor({index, ingredient}) {
 		}),
 	})
 
-
-	// useDrop - the list item is also a drop area
-	const [,dropRef] = useDrop({
+	const [ , dropRef] = useDrop({
 		accept: 'item',
 		hover: (item, monitor) => {
-			const dragIndex = item.index
-			const hoverIndex = index
-			const hoverBoundingRect = ref.current?.getBoundingClientRect()
-			const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2
-			const hoverActualY = monitor.getClientOffset().y - hoverBoundingRect.top
+			const dragIndex = item.index;
+			const hoverIndex = index;
+			const hoverBoundingRect = ref.current.getBoundingClientRect();
+			const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
+			const hoverActualY = monitor.getClientOffset().y - hoverBoundingRect.top;
 
-			// if dragging down, continue only when hover is smaller than middle Y
-			if (dragIndex < hoverIndex && hoverActualY < hoverMiddleY) return
-			// if dragging up, continue only when hover is bigger than middle Y
-			if (dragIndex > hoverIndex && hoverActualY > hoverMiddleY) return
+			if (dragIndex < hoverIndex && hoverActualY < hoverMiddleY) return;
+			if (dragIndex > hoverIndex && hoverActualY > hoverMiddleY) return;
 
-			moveIngredient(dragIndex, hoverIndex)
-			item.index = hoverIndex
+			moveIngredient(dragIndex, hoverIndex);
+			item.index = hoverIndex;
 		},
-	})
+	});
 
-	// Join the 2 refs together into one (both draggable and can be dropped on)
-	const ref = useRef(null)
-	const dragDropRef = dragRef(dropRef(ref))
+	const ref = useRef(null);
+	const dragDropRef = dragRef(dropRef(ref));
 
 	const deleteIngredientFromConstructor = React.useCallback((id) => {
 		dispatch({ type: DELETE_INGREDIENT_FROM_CONSTRUCTOR, id: id });

@@ -1,22 +1,17 @@
 import React from 'react';
-import { Tab, Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './BurgerIngredients.module.css';
 import { useSelector } from 'react-redux';
-import BurgerIngredient from "../BurgerIngredient/BurgerIngredient";
+import BurgerIngredient from '../BurgerIngredient/BurgerIngredient';
 
 export default function BurgerIngredients({handleIngredientClick}) {
 	const [current, setCurrent] = React.useState('buns');
-
-
-	const { ingredients, ingredientsInConstructor } = useSelector(store => store);
+	const { ingredients } = useSelector(store => store);
 	const observer = new IntersectionObserver(
 		(entries) => {
 			entries.forEach((entry) => {
 				if (entry.isIntersecting) {
 					setCurrent(entry.target.id);
-					console.log(entry.target.id);
-
-
 				}
 			});
 		},
@@ -41,7 +36,7 @@ export default function BurgerIngredients({handleIngredientClick}) {
 			observer.disconnect(saucesRef.current);
 			observer.disconnect(mainRef.current);
 		}
-	}, [bunsRef, saucesRef, mainRef]);
+	}, [observer, bunsRef, saucesRef, mainRef]);
 
 	return (
 		<>
