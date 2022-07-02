@@ -20,7 +20,7 @@ export default function BurgerConstructor() {
 	const dispatch = useDispatch();
 
 	const handleClickOrder = React.useCallback(() => {
-		const items = ingredientsInConstructor.map(ingredient => ingredient.item._id);
+		const items = ingredientsInConstructor.map(ingredient => ingredient.item._id).concat(bun.item._id);
 		dispatch(getOrder(items));
 		setOrderDetailsModal(true);
 	}, [dispatch, ingredientsInConstructor]);
