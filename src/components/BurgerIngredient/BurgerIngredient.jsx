@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { useSelector } from 'react-redux';
 
 export default function BurgerIngredient({ item, handleIngredientClick }) {
-  const { ingredientsInConstructor } = useSelector(store => store);
+  const { ingredientsInConstructor } = useSelector(store => store.inConstructor);
   const bun = ingredientsInConstructor.find(el => el.item.type === 'bun');
   const [ingredientCount, setIngredientCount] = React.useState(0);
   const [{ getItem, isDrag, isDrop }, ingredientRef] = useDrag({

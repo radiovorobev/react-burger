@@ -26,7 +26,8 @@ function App() {
     dispatch(getIngredients());
   }, [dispatch])
 
- const { currentIngredient } = useSelector(store => store);
+ const { currentIngredient } = useSelector(store => store.modal);
+
   return (
     <>
       <AppHeader />

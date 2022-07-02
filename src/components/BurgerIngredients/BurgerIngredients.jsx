@@ -6,7 +6,8 @@ import BurgerIngredient from '../BurgerIngredient/BurgerIngredient';
 
 export default function BurgerIngredients({handleIngredientClick}) {
 	const [current, setCurrent] = React.useState('buns');
-	const { ingredients } = useSelector(store => store);
+	const { ingredients } = useSelector(store => store.ingredients);
+
 	const observer = new IntersectionObserver(
 		(entries) => {
 			entries.forEach((entry) => {

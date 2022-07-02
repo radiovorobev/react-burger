@@ -13,7 +13,7 @@ import { useDrop } from 'react-dnd';
 import IngredientInConstructor from '../IngredientInConstructor/IngredientInConstructor';
 
 export default function BurgerConstructor() {
-	const { ingredientsInConstructor, totalPrice } = useSelector(store => store);
+	const { ingredientsInConstructor, totalPrice } = useSelector(store => store.inConstructor);
 	const bun = ingredientsInConstructor.find(element => element.item.type === 'bun');
 	const ingredientsConstructor = ingredientsInConstructor.filter(element => element.type !== 'bun');
 	const [isOrderDetailsModal, setOrderDetailsModal] = React.useState(false);
