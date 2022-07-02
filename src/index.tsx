@@ -4,12 +4,19 @@ import './index.css';
 import App from './components/App/App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
-import {applyMiddleware, legacy_createStore as createStore} from 'redux';
 import { rootReducer } from './services/reducers/reducer';
+import { compose, createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
+import { composeWithDevTools } from '@redux-devtools/extension';
 
-// @ts-ignore
-const store = createStore(rootReducer, applyMiddleware(thunk));
+const composeEnhancers =
+    typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+        ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
+        : compose;
+
+const enhancer = composeEnhancers(applyMiddleware(thunk));
+
+const store = createStore(rootReducer, enhancer);
 
 ReactDOM.render(
   <React.StrictMode>
