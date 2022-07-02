@@ -36,7 +36,6 @@ export function getOrder(items) {
 		.then(res => {
 			if (res) {
 				dispatch({type: GET_ORDER_NUMBER, order: res.order.number});
-				console.log(res.order.number);
 			}
 		})
 		.catch((err) => {

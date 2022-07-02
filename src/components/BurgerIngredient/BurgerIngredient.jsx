@@ -22,7 +22,7 @@ export default function BurgerIngredient({ item, handleIngredientClick }) {
     })
   });
 
-  React.useMemo(() => {
+  React.useEffect(() => {
     if (isDrag && isDrop && getItem.item._id === item._id) {
         if (item.type === 'bun' && ingredientCount === 0) {
           setIngredientCount(ingredientCount + 2);
