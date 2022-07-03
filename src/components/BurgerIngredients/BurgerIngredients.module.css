@@ -6,30 +6,6 @@
 display: flex;
 }
 
-.card {
-  position: relative;
-  display: flex;
-  flex-flow: column;
-  width: 272px;
-  min-height: 208px;
-  justify-content: flex-start;
-}
-
-.img {
-  width: 240px;
-  height: 120px;
-}
-
-.price {
-  display: flex;
-  justify-content: center;
-  text-align: center;
-}
-
-.center {
-  text-align: center;
-}
-
 .ingredients {
   max-height: calc(100vh - 400px);
   overflow-y: scroll;

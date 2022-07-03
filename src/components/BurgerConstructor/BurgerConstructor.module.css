@@ -15,16 +15,15 @@
   overflow-y: scroll;
 }
 
-.listItem {
-  list-style-type: none;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
 .totalPrice {
   display: flex;
   flex-flow: row;
   justify-content: flex-end;
   align-items: center;
+}
+
+.emptyContainer {
+  text-align: center;
+  border: dashed rgb(133, 133, 173, 0.5) 2px;
+  color: rgb(133, 133, 173);
 }
