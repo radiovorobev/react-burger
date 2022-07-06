@@ -1,5 +1,5 @@
 import {useDispatch, useSelector} from 'react-redux';
-import styles from '../../components/App/App.module.css';
+import styles from './HomePage.module.css';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import BurgerIngredients from '../../components/BurgerIngredients/BurgerIngredients';
