@@ -19,7 +19,7 @@ export function HomePage() {
 	})
 	return (
 		<>
-			<main className={`${styles.main}`}>
+			<main className={`${styles.container}`}>
 			<DndProvider backend={HTML5Backend}>
 				<BurgerIngredients handleIngredientClick={handleIngredientClick}/>
 				<BurgerConstructor />
