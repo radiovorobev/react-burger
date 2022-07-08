@@ -3,24 +3,21 @@ import React from 'react';
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-
-function login(form, register) {
-	return undefined;
-}
+import { signIn } from '../../services/actions/auth';
 
 export function RegPage() {
 	const dispatch = useDispatch();
 
-	const [form, setValue] = React.useState({ name: '', email: '', password: '' });
+	const [user, setUser] = React.useState({ name: '', email: '', password: '' });
 
 	const onChange = e => {
-		setValue({ ...form, [e.target.name]: e.target.value });
+		setUser({ ...user, [e.target.name]: e.target.value });
 	}
 
 	const handleSubmit = React.useCallback(e => {
 		e.preventDefault();
-		dispatch(login(form, 'register'));
-	}, [dispatch, form]);
+		dispatch(signIn(user, 'register'));
+	}, [dispatch, user]);
 	return (
 		<>
 			<main className={styles.container}>
@@ -32,7 +29,7 @@ export function RegPage() {
 						       size="default"
 						       name='name'
 						       onChange={onChange}
-						       value={form.name} />
+						       value={user.name} />
 					</div>
 					<div className={`${styles.input} mb-6`}>
 						<Input type='email'
@@ -40,7 +37,7 @@ export function RegPage() {
 						       size="default"
 						       name='email'
 						       onChange={onChange}
-						       value={form.email} />
+						       value={user.email} />
 					</div>
 					<div className={`${styles.input} mb-6`}>
 						<Input type='password'
@@ -49,7 +46,7 @@ export function RegPage() {
 						       size="default"
 						       name='password'
 						       onChange={onChange}
-						       value={form.password} />
+						       value={user.password} />
 					</div>
 					<div>
 						<Button type="primary" size="medium">Зарегистрироваться</Button>
@@ -63,7 +60,7 @@ export function RegPage() {
 						</Button>
 					</Link>
 				</p>
-			</main >
+			</main>
 		</>
 	)
 }

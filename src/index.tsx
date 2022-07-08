@@ -4,12 +4,10 @@ import './index.css';
 import App from './components/App/App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
-
 import { compose, legacy_createStore as createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from '@redux-devtools/extension';
 import { rootReducer } from './services/reducers/rootReducer';
-// @ts-ignore
 import { BrowserRouter } from 'react-router-dom';
 
 const composeEnhancers =

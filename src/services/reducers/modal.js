@@ -1,4 +1,4 @@
-import { INGREDIENT_MODAL } from '../actions/actions';
+import { INGREDIENT_MODAL } from '../actions/burgers';
 
 const modalState = {
 	currentIngredient: {},

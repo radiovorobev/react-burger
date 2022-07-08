@@ -3,11 +3,7 @@ import React from 'react';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-
-
-function signIn(form, login) {
-	return undefined;
-}
+import { signIn } from '../../services/actions/auth';
 
 export function LoginPage () {
 	const [form, setValue] = React.useState({ email: '', password: '' });

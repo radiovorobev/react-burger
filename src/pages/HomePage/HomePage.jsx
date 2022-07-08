@@ -7,7 +7,7 @@ import BurgerConstructor from '../../components/BurgerConstructor/BurgerConstruc
 import Modal from '../../components/Modal/Modal';
 import IngredientDetails from '../../components/IngredientDetails/IngredientDetails';
 import React from 'react';
-import { INGREDIENT_MODAL } from '../../services/actions/actions';
+import { INGREDIENT_MODAL } from '../../services/actions/burgers';
 
 export function HomePage() {
 	const { currentIngredient } = useSelector(store => store.modal);

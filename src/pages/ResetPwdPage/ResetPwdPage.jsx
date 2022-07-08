@@ -3,14 +3,11 @@ import styles from './ResetPwdPage.module.css';
 import {Button, Input} from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, Navigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-
-function resetPassword(form) {
-	return undefined;
-}
+import { resetPwd } from '../../services/actions/auth';
 
 export function ResetPwdPage () {
 	const dispatch = useDispatch();
-	const { forgot, reset } = useSelector(store => store.profile);
+	const { forgot, reset } = useSelector(store => store.auth);
 
 	const [form, setValue] = React.useState({ password: '', token: '' });
 
@@ -20,7 +17,7 @@ export function ResetPwdPage () {
 
 	const handleSubmit = React.useCallback(e => {
 		e.preventDefault();
-		dispatch(resetPassword(form));
+		dispatch(resetPwd(form));
 	}, [dispatch, form]);
 
 	if (reset) {

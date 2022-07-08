@@ -8,7 +8,7 @@ import {
 	GET_INGREDIENTS_IN_CONSTRUCTOR,
 	getOrder,
 	SET_TOTAL_PRICE
-} from '../../services/actions/actions';
+} from '../../services/actions/burgers';
 import { useDrop } from 'react-dnd';
 import IngredientInConstructor from '../IngredientInConstructor/IngredientInConstructor';
 
