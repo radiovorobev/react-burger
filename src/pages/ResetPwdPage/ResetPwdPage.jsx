@@ -7,7 +7,7 @@ import { resetPwd } from '../../services/actions/auth';
 
 export function ResetPwdPage () {
 	const dispatch = useDispatch();
-	const { forgot, reset } = useSelector(store => store.auth);
+	const { forgotPassword, resetPassword } = useSelector(store => store.auth);
 
 	const [form, setValue] = React.useState({ password: '', token: '' });
 
@@ -20,9 +20,9 @@ export function ResetPwdPage () {
 		dispatch(resetPwd(form));
 	}, [dispatch, form]);
 
-	if (reset) {
+	if (resetPassword) {
 		return <Navigate to='/login' replace={true} />
-	} else if (!forgot) {
+	} else if (!forgotPassword) {
 		return <Navigate to='/forgot-password' replace={true} />
 	}
 	return (

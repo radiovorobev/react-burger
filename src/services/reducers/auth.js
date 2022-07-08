@@ -3,8 +3,8 @@ import { FORGOT_PWD, GET_USER, RESET_PWD, SIGNIN, SIGNOUT, UPDATE_USER } from '.
 const authState = {
 	user: {},
 	auth: false,
-	forgotPwd: false,
-	resetPwd: false,
+	forgotPassword: false,
+	resetPassword: false,
 	signIn: false,
 	signOut: false,
 }
@@ -15,7 +15,7 @@ export const authReducer = (state = authState, action) => {
 			return {...state,
 				user: action.user,
 				auth: true,
-				resetPwd: false }
+				resetPassword: false }
 		}
 
 		case SIGNOUT: {
@@ -27,12 +27,12 @@ export const authReducer = (state = authState, action) => {
 
 		case RESET_PWD: {
 			return {...state,
-				forgotPwd: false,
-				resetPwd: true }
+				forgotPassword: false,
+				resetPassword: true }
 		}
 		case FORGOT_PWD: {
 			return {...state,
-				forgotPwd: true }
+				forgotPassword: true }
 		}
 
 		case GET_USER || UPDATE_USER: {
