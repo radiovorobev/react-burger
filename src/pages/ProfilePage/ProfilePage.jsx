@@ -63,7 +63,7 @@ export function ProfilePage () {
 					Профиль
 				</NavLink>
 				<NavLink
-					to='/'
+					to='/profile/orders'
 					className={({ isActive }) =>
 						isActive ? `${styles.activeLink} text text_type_main-medium mb-9`
 							: `${styles.link} text text_type_main-medium mb-9`}>
