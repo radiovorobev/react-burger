@@ -20,8 +20,8 @@ export function ProfilePage () {
 	const [form, setValue] = React.useState({ ...user, password: '' });
 	const [disabledForm, setDisabledForm] = React.useState(true);
 
-	const onChange = e => {
-		setValue({ ...form, [e.target.name]: e.target.value });
+	const onChange = event => {
+		setValue({ ...form, [event.target.name]: event.target.value });
 	}
 
 	const handleClick = () => {
@@ -33,18 +33,18 @@ export function ProfilePage () {
 		setInputs({ ...inputs, [inputRef.current.name]: active });
 	}
 
-	const onBlur = e => {
-		setInputs({ ...inputs, [e.target.name]: inactive });
+	const onBlur = event => {
+		setInputs({ ...inputs, [event.target.name]: inactive });
 	}
 
-	const handleReset = e => {
-		e.preventDefault();
+	const handleReset = event => {
+		event.preventDefault();
 		setValue({ ...user, password: '' });
 		setDisabledForm(true);
 	}
 
-	const handleSubmit = e => {
-		e.preventDefault();
+	const handleSubmit = event => {
+		event.preventDefault();
 		if (form.password === '') {
 			dispatch(updateUser({ name: form.name, email: form.email }));
 		} else {

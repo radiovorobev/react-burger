@@ -1,7 +1,7 @@
 import React from 'react';
 import AppHeader from '../AppHeader/AppHeader.jsx';
 import { useDispatch } from 'react-redux';
-import { getIngredients } from '../../services/actions/burgers';
+import {getIngredients, INGREDIENT_MODAL} from '../../services/actions/burgers';
 import {Route, Routes, useLocation} from 'react-router-dom';
 import { HomePage } from '../../pages/HomePage/HomePage';
 import { LoginPage } from '../../pages/LoginPage/LoginPage';
@@ -18,17 +18,18 @@ import Modal from '../Modal/Modal';
 
 function App() {
   const dispatch = useDispatch();
-  const token = getCookie('token');
 
   const location = useLocation();
   const background = location.state?.background;
 
   React.useEffect(() => {
-    dispatch(getIngredients());
-    if (token) {
-      dispatch(getUser());
+    dispatch(getIngredients())
+
+    if (localStorage.getItem('refreshToken') && getCookie('token')) {
+      dispatch(getUser())
     }
   }, [dispatch]);
+
 
   return (
     <>

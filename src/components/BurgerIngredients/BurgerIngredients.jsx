@@ -3,10 +3,13 @@ import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './BurgerIngredients.module.css';
 import { useSelector } from 'react-redux';
 import BurgerIngredient from '../BurgerIngredient/BurgerIngredient';
+import {Link, useLocation} from "react-router-dom";
 
 export default function BurgerIngredients({handleIngredientClick}) {
 	const [current, setCurrent] = React.useState('buns');
 	const { ingredients } = useSelector(store => store.ingredients);
+
+	const location = useLocation();
 
 	const observer = new IntersectionObserver(
 		(entries) => {
@@ -59,21 +62,42 @@ export default function BurgerIngredients({handleIngredientClick}) {
 					<ul ref={bunsRef} id='buns' className={`${styles.ingredient} pl-4 pr-4 mb-10`}>
 						{
 							ingredients.filter(item => item.type === 'bun').map((item) => (
-								<BurgerIngredient key={item._id} item={item} handleIngredientClick={handleIngredientClick}/>
+								<Link
+									className={styles.link}
+									to={`/ingredients/${item._id}`}
+									state={{ background: location }}
+									key={item._id} >
+									<BurgerIngredient item={item} />
+								</Link>
+								//<BurgerIngredient key={item._id} item={item} handleIngredientClick={handleIngredientClick}/>
 						))}
 					</ul>
 				<h2 className='text text_type_main-medium mb-6'>Соусы</h2>
 					<ul ref={saucesRef} id='sauces' className={`${styles.ingredient} pl-4 pr-4 mb-10`}>
 						{
 							ingredients.filter(item => item.type === 'sauce').map((item) => (
-								<BurgerIngredient key={item._id} item={item} handleIngredientClick={handleIngredientClick}/>
+								<Link
+									className={styles.link}
+									to={`/ingredients/${item._id}`}
+									state={{ background: location }}
+									key={item._id} >
+									<BurgerIngredient item={item} />
+								</Link>
+								//<BurgerIngredient key={item._id} item={item} handleIngredientClick={handleIngredientClick}/>
 							))}
 					</ul>
 			<h2 className='text text_type_main-medium mb-6'>Начинки</h2>
 				<ul ref={mainRef} id='main' className={`${styles.ingredient} pl-4 pr-4 mb-10`}>
 					{
 						ingredients.filter(item => item.type === 'main').map((item) => (
-							<BurgerIngredient key={item._id} item={item} handleIngredientClick={handleIngredientClick}/>
+							<Link
+								className={styles.link}
+								to={`/ingredients/${item._id}`}
+								state={{ background: location }}
+								key={item._id} >
+								<BurgerIngredient item={item} />
+							</Link>
+							//<BurgerIngredient key={item._id} item={item} handleIngredientClick={handleIngredientClick}/>
 							))}
 				</ul>
 				</div>

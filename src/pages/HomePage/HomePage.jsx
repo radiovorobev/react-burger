@@ -10,24 +10,21 @@ import React from 'react';
 import { INGREDIENT_MODAL } from '../../services/actions/burgers';
 
 export function HomePage() {
-	const { currentIngredient } = useSelector(store => store.modal);
+/*	const { currentIngredient } = useSelector(store => store.modals);
 	const [isIngredientModal, setIngredientModal] = React.useState(false);
-	const dispatch = useDispatch();
-	const handleIngredientClick = React.useCallback((item) => {
-		dispatch({ type: INGREDIENT_MODAL, ingredient: item });
-		setIngredientModal(true);
-	})
+	const dispatch = useDispatch();*/
+
 	return (
 		<>
 			<main className={`${styles.container}`}>
 			<DndProvider backend={HTML5Backend}>
-				<BurgerIngredients handleIngredientClick={handleIngredientClick}/>
+				<BurgerIngredients />
 				<BurgerConstructor />
 			</DndProvider>
 			</main>
-			{isIngredientModal && <Modal onClose={setIngredientModal} title={'Детали ингредиента'} >
+{/*			{isIngredientModal && <Modal onClose={setIngredientModal} title={'Детали ингредиента'} >
 				<IngredientDetails ingredient={currentIngredient} />
-			</Modal> }
+			</Modal> }*/}
 		</>
 	)
 }

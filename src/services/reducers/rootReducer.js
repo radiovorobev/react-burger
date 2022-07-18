@@ -6,7 +6,7 @@ import { authReducer } from './auth';
 
 export const rootReducer = combineReducers({
 	ingredients: ingredientsReducer,
-	modal: modalReducer,
+	modals: modalReducer,
 	inConstructor: constructorReducer,
 	auth: authReducer,
 })
