@@ -1,7 +1,7 @@
 import React from 'react';
 import AppHeader from '../AppHeader/AppHeader.jsx';
 import { useDispatch } from 'react-redux';
-import {getIngredients, INGREDIENT_MODAL} from '../../services/actions/burgers';
+import { getIngredients } from '../../services/actions/burgers';
 import {Route, Routes, useLocation} from 'react-router-dom';
 import { HomePage } from '../../pages/HomePage/HomePage';
 import { LoginPage } from '../../pages/LoginPage/LoginPage';
@@ -10,15 +10,14 @@ import { ForgotPwdPage } from '../../pages/ForgotPwdPage/ForgotPwdPage';
 import { ResetPwdPage } from '../../pages/ResetPwdPage/ResetPwdPage';
 import { ProfilePage } from '../../pages/ProfilePage/ProfilePage';
 import { Page404 } from '../../pages/Page404/Page404';
-import {getCookie} from "../../utils/utilities";
-import {getUser} from "../../services/actions/auth";
-import IngredientDetails from "../IngredientDetails/IngredientDetails";
-import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
+import { getCookie } from "../../utils/utilities";
+import { getUser } from '../../services/actions/auth';
+import IngredientDetails from '../IngredientDetails/IngredientDetails';
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import Modal from '../Modal/Modal';
 
 function App() {
   const dispatch = useDispatch();
-
   const location = useLocation();
   const background = location.state?.background;
 
@@ -29,7 +28,6 @@ function App() {
       dispatch(getUser())
     }
   }, [dispatch]);
-
 
   return (
     <>

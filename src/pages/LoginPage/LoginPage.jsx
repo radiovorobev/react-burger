@@ -1,7 +1,7 @@
 import styles from './LoginPage.module.css';
 import React from 'react';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import { Link, Navigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { signIn } from '../../services/actions/auth';
 
@@ -41,15 +41,15 @@ export function LoginPage () {
 					</div>
 						<Button type='primary' size='medium'>Войти</Button>
 				</form>
-				<p className='text text_type_main-default text_color_inactive'>
-					Вы - новый пользователь?
-					<Link to='/register'>
-						<Button type='secondary' size='medium'>
-							Зарегистрироваться
-						</Button>
-					</Link>
-				</p>
-				<p className='text text_type_main-default text_color_inactive'>
+					<p className={`${styles.buttons} text text_type_main-default text_color_inactive`}>
+						Вы - новый пользователь?
+						<Link to='/register'>
+							<Button type='secondary' size='medium'>
+								Зарегистрироваться
+							</Button>
+						</Link>
+					</p>
+				<p className={`${styles.buttons} text text_type_main-default text_color_inactive`}>
 					Забыли пароль?
 					<Link to='/forgot-password'>
 						<Button type='secondary' size='medium'>

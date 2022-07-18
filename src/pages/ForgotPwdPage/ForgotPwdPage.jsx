@@ -1,21 +1,13 @@
 import React from 'react';
 import styles from './ForgotPwdPage.module.css';
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-
-function forgotPassword(form) {
-	return undefined;
-}
-
-function Navigate(props) {
-	return null;
-}
+import { forgotPwd } from '../../services/actions/auth';
 
 export function ForgotPwdPage () {
 	const dispatch = useDispatch();
-	//const forgot = useSelector(store => store.profile.forgot);
-	let forgot;
+	const forgotPassword = useSelector(store => store.auth.forgotPassword);
 
 	const [form, setValue] = React.useState({ email: '' });
 
@@ -25,10 +17,10 @@ export function ForgotPwdPage () {
 
 	const handleSubmit = React.useCallback(e => {
 		e.preventDefault();
-		dispatch(forgotPassword(form));
+		dispatch(forgotPwd(form));
 	}, [dispatch, form]);
 
-	if (forgot) {
+	if (forgotPassword) {
 		return <Navigate to='/reset-password' replace={true} />
 	}
 	return (
@@ -48,7 +40,7 @@ export function ForgotPwdPage () {
 						<Button type="primary" size="medium">Восстановить</Button>
 					</div>
 				</form>
-				<p className='text text_type_main-default text_color_inactive'>
+				<p className={`${styles.buttons} text text_type_main-default text_color_inactive`}>
 					Вспомнили пароль?
 					<Link to='/login'>
 						<Button type="secondary" size="medium">

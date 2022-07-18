@@ -3,14 +3,12 @@ import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './BurgerIngredients.module.css';
 import { useSelector } from 'react-redux';
 import BurgerIngredient from '../BurgerIngredient/BurgerIngredient';
-import {Link, useLocation} from "react-router-dom";
+import { Link, useLocation } from 'react-router-dom';
 
 export default function BurgerIngredients({handleIngredientClick}) {
 	const [current, setCurrent] = React.useState('buns');
 	const { ingredients } = useSelector(store => store.ingredients);
-
 	const location = useLocation();
-
 	const observer = new IntersectionObserver(
 		(entries) => {
 			entries.forEach((entry) => {
@@ -69,7 +67,6 @@ export default function BurgerIngredients({handleIngredientClick}) {
 									key={item._id} >
 									<BurgerIngredient item={item} />
 								</Link>
-								//<BurgerIngredient key={item._id} item={item} handleIngredientClick={handleIngredientClick}/>
 						))}
 					</ul>
 				<h2 className='text text_type_main-medium mb-6'>Соусы</h2>
@@ -83,7 +80,6 @@ export default function BurgerIngredients({handleIngredientClick}) {
 									key={item._id} >
 									<BurgerIngredient item={item} />
 								</Link>
-								//<BurgerIngredient key={item._id} item={item} handleIngredientClick={handleIngredientClick}/>
 							))}
 					</ul>
 			<h2 className='text text_type_main-medium mb-6'>Начинки</h2>
@@ -97,7 +93,6 @@ export default function BurgerIngredients({handleIngredientClick}) {
 								key={item._id} >
 								<BurgerIngredient item={item} />
 							</Link>
-							//<BurgerIngredient key={item._id} item={item} handleIngredientClick={handleIngredientClick}/>
 							))}
 				</ul>
 				</div>

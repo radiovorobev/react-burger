@@ -3,18 +3,16 @@ import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-c
 import React from 'react';
 import { useDrag } from 'react-dnd';
 import { v4 as uuidv4 } from 'uuid';
-import {useDispatch, useSelector} from 'react-redux';
-import {INGREDIENT_MODAL} from "../../services/actions/burgers";
+import { useDispatch, useSelector } from 'react-redux';
+import { INGREDIENT_MODAL } from '../../services/actions/burgers';
 
 export default function BurgerIngredient({ item }) {
   const { ingredientsInConstructor } = useSelector(store => store.inConstructor);
   const bun = ingredientsInConstructor.find(el => el.item.type === 'bun');
   const [ingredientCount, setIngredientCount] = React.useState(0);
-  //const [isIngredientModal, setIngredientModal] = React.useState(false);
   const dispatch = useDispatch();
   const handleIngredientClick = React.useCallback((item) => {
     dispatch({ type: INGREDIENT_MODAL, ingredient: item });
-    //setIngredientModal(true);
   })
   const [{ getItem, isDrag, isDrop }, ingredientRef] = useDrag({
     type: 'ingredient',

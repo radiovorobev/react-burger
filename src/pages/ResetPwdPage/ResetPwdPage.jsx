@@ -11,12 +11,12 @@ export function ResetPwdPage () {
 
 	const [form, setValue] = React.useState({ password: '', token: '' });
 
-	const onChange = e => {
-		setValue({ ...form, [e.target.name]: e.target.value });
+	const onChange = event => {
+		setValue({ ...form, [event.target.name]: event.target.value });
 	}
 
-	const handleSubmit = React.useCallback(e => {
-		e.preventDefault();
+	const handleSubmit = React.useCallback(event => {
+		event.preventDefault();
 		dispatch(resetPwd(form));
 	}, [dispatch, form]);
 
@@ -29,7 +29,7 @@ export function ResetPwdPage () {
 			<main className={styles.container}>
 				<h1 className="text text_type_main-medium mb-6">Восстановление пароля</h1>
 				<form className={`${styles.form} mb-20`} onSubmit={handleSubmit}>
-					<div className={styles.input}>
+					<div className={`${styles.input} mb-6`}>
 						<Input type='password'
 						       name="password"
 						       placeholder='Введите новый пароль'
@@ -38,7 +38,7 @@ export function ResetPwdPage () {
 						       onChange={onChange}
 						       value={form.password} />
 					</div>
-					<div className={styles.input}>
+					<div className={`${styles.input} mb-6`}>
 						<Input type='text'
 						       name="token"
 						       placeholder='Введите код из письма'
@@ -50,7 +50,7 @@ export function ResetPwdPage () {
 						<Button type="primary" size="medium">Сохранить</Button>
 					</div>
 				</form>
-				<p className='text text_type_main-default text_color_inactive'>
+				<p className={`${styles.buttons} text text_type_main-default text_color_inactive`}>
 					Вспомнили пароль?
 					<Link to='/login'>
 						<Button type="secondary" size="medium">

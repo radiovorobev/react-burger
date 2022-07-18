@@ -7,15 +7,14 @@ import { signIn } from '../../services/actions/auth';
 
 export function RegPage() {
 	const dispatch = useDispatch();
-
 	const [user, setUser] = React.useState({ name: '', email: '', password: '' });
 
-	const onChange = e => {
-		setUser({ ...user, [e.target.name]: e.target.value });
+	const onChange = event => {
+		setUser({ ...user, [event.target.name]: event.target.value });
 	}
 
-	const handleSubmit = React.useCallback(e => {
-		e.preventDefault();
+	const handleSubmit = React.useCallback(event => {
+		event.preventDefault();
 		dispatch(signIn(user, 'register'));
 	}, [dispatch, user]);
 	return (
@@ -26,7 +25,7 @@ export function RegPage() {
 					<div className={`${styles.input} mb-6`}>
 						<Input type='text'
 						       placeholder='Имя'
-						       size="default"
+						       size='default'
 						       name='name'
 						       onChange={onChange}
 						       value={user.name} />
@@ -34,7 +33,7 @@ export function RegPage() {
 					<div className={`${styles.input} mb-6`}>
 						<Input type='email'
 						       placeholder='E-mail'
-						       size="default"
+						       size='default'
 						       name='email'
 						       onChange={onChange}
 						       value={user.email} />
@@ -43,7 +42,7 @@ export function RegPage() {
 						<Input type='password'
 						       placeholder='Пароль'
 						       icon='ShowIcon'
-						       size="default"
+						       size='default'
 						       name='password'
 						       onChange={onChange}
 						       value={user.password} />

@@ -1,14 +1,14 @@
 import styles from './ProfilePage.module.css';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { useDispatch, useSelector} from "react-redux";
+import { useDispatch, useSelector} from 'react-redux';
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { signOut, updateUser } from '../../services/actions/auth';
 
 export function ProfilePage () {
-	const nameInputRef = React.useRef(null);
-	const emailInputRef = React.useRef(null);
-	const passwordInputRef = React.useRef(null);
+	const nameRef = React.useRef(null);
+	const mailRef = React.useRef(null);
+	const pwdRef = React.useRef(null);
 
 	const { user } = useSelector(store => store.auth);
 	const dispatch = useDispatch();
@@ -17,19 +17,19 @@ export function ProfilePage () {
 	const inactive = { disabled: true, icon: 'EditIcon' };
 
 	const [inputs, setInputs] = React.useState({ name: inactive, email: inactive, password: inactive });
-	const [form, setValue] = React.useState({ ...user, password: '' });
-	const [disabledForm, setDisabledForm] = React.useState(true);
+	const [form, setForm] = React.useState({ ...user, password: '' });
+	const [disabledInputs, setDisabledInputs] = React.useState(true);
 
 	const onChange = event => {
-		setValue({ ...form, [event.target.name]: event.target.value });
+		setForm({ ...form, [event.target.name]: event.target.value });
 	}
 
 	const handleClick = () => {
 		dispatch(signOut(localStorage.getItem('token')));
 	}
 
-	const onIconClick = inputRef => {
-		setDisabledForm(false);
+	const handleIcon = inputRef => {
+		setDisabledInputs(false);
 		setInputs({ ...inputs, [inputRef.current.name]: active });
 	}
 
@@ -39,8 +39,8 @@ export function ProfilePage () {
 
 	const handleReset = event => {
 		event.preventDefault();
-		setValue({ ...user, password: '' });
-		setDisabledForm(true);
+		setForm({ ...user, password: '' });
+		setDisabledInputs(true);
 	}
 
 	const handleSubmit = event => {
@@ -50,7 +50,7 @@ export function ProfilePage () {
 		} else {
 			dispatch(updateUser(form));
 		}
-		setDisabledForm(true);
+		setDisabledInputs(true);
 	}
 	return (
 		<main className={styles.main}>
@@ -79,45 +79,45 @@ export function ProfilePage () {
 			</div>
 			<form className={styles.form} onSubmit={handleSubmit}>
 				<div className={styles.input}>
-					<Input type='text'
+					<Input ref={nameRef}
+					       type='text'
 					       name='name'
 					       placeholder='Имя'
 					       value={form.name}
 					       icon={inputs.name.icon}
-					       size="default"
+					       size='default'
 					       disabled={inputs.name.disabled}
 					       onChange={onChange}
-					       onIconClick={() => { onIconClick(nameInputRef) }}
-					       ref={nameInputRef}
+					       onIconClick={() => { handleIcon(nameRef) }}
 					       onBlur={onBlur} />
 				</div>
 				<div className={styles.input}>
-					<Input type='email'
+					<Input ref={mailRef}
+					       type='email'
 					       name='email'
 					       placeholder='Логин'
 					       value={form.email}
 					       icon={inputs.email.icon}
-					       size="default"
+					       size='default'
 					       disabled={inputs.email.disabled}
 					       onChange={onChange}
-					       onIconClick={() => { onIconClick(emailInputRef) }}
-					       ref={emailInputRef}
+					       onIconClick={() => { handleIcon(mailRef) }}
 					       onBlur={onBlur} />
 				</div>
 				<div className={styles.input}>
-					<Input type='password'
+					<Input ref={pwdRef}
+					       type='password'
 					       name='password'
 					       placeholder='Пароль'
 					       value={form.password}
 					       icon={inputs.password.icon}
-					       size="default"
+					       size='default'
 					       disabled={inputs.password.disabled}
 					       onChange={onChange}
-					       onIconClick={() => { onIconClick(passwordInputRef) }}
-					       ref={passwordInputRef}
+					       onIconClick={() => { handleIcon(pwdRef) }}
 					       onBlur={onBlur} />
 				</div>
-				{!disabledForm && <div className={`${styles.buttons}`}>
+				{!disabledInputs && <div className={`${styles.buttons}`}>
 					<Button type="secondary" size="medium" onClick={handleReset}>
 						Отмена
 					</Button>

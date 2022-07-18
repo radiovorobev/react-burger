@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import PropTypes from 'prop-types';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import ModalOverlay from '../ModalOverlay/ModalOverlay.jsx';
 import styles from './Modal.module.css';
@@ -9,9 +8,7 @@ import { useNavigate } from 'react-router-dom';
 const modalContainer = document.getElementById('modals');
 
 export default function Modal(props) {
-
 	const navigate = useNavigate();
-
 	const closeModal = React.useCallback(() => {
 		if (props.onClose) {
 			props.onClose(false);
@@ -28,30 +25,10 @@ export default function Modal(props) {
 
 	React.useEffect(() => {
 		document.addEventListener('keydown', closeEsc);
-
 		return () => {
 			document.removeEventListener('keydown', closeEsc);
 		}
 	}, [closeEsc]);
-
-
-/*
-	const closeModal = React.useCallback(() => {
-		props.onClose(false);
-	}, [props.onClose])
-	const closeEsc = React.useCallback((event) => {
-		if (event.key === 'Escape') {
-			closeModal();
-		}
-	}, [closeModal])
-
-	React.useEffect(() => {
-		document.addEventListener('keydown', closeEsc);
-
-		return () => {
-			document.removeEventListener('keydown', closeEsc);
-		}
-	}, []);*/
 
 	return ReactDOM.createPortal(
 		(
@@ -72,10 +49,3 @@ export default function Modal(props) {
 		modalContainer
 	);
 }
-
-/*
-Modal.propTypes = {
-	onClose: PropTypes.func.isRequired,
-	title: PropTypes.string,
-	children: PropTypes.element.isRequired
-}*/
