@@ -2,11 +2,12 @@ import styles from './LoginPage.module.css';
 import React from 'react';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import { signIn } from '../../services/actions/auth';
 
 export function LoginPage () {
 	const [form, setValue] = React.useState({ email: '', password: '' });
+	const { errorLogin } = useSelector(store => store.auth);
 	const dispatch = useDispatch();
 	const onChange = e => {
 		setValue({ ...form, [e.target.name]: e.target.value });
@@ -20,6 +21,13 @@ export function LoginPage () {
 	return (
 			<main className={styles.container}>
 				<h1 className="text text_type_main-medium mb-6">Вход</h1>
+				{
+					errorLogin && errorLogin === 'Ошибка: 401' &&
+					<p className="text text_type_main-default mt-6 mb-6">Неправильный логин или пароль</p> }
+				{
+					errorLogin && errorLogin !== 'Ошибка: 401' &&
+					<p className="text text_type_main-default mt-6 mb-6">Что-то пошло не так</p>
+				}
 				<form className={`${styles.form} mb-20`} onSubmit={handleSignIn}>
 					<div className={`${styles.input} mb-6`}>
 						<Input type='email'

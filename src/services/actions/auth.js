@@ -7,6 +7,8 @@ export const RESET_PWD = 'RESET_PWD';
 export const FORGOT_PWD = 'FORGOT_PWD';
 export const GET_USER = 'GET_USER';
 export const UPDATE_USER = 'UPDATE_USER';
+export const ERROR_PWD = 'ERROR_PWD';
+export const ERROR_LOGIN = 'ERROR_LOGIN';
 
 export function signIn(data, url) {
 	return function(dispatch) {
@@ -22,9 +24,11 @@ export function signIn(data, url) {
 					dispatch({type: SIGNIN, user: res.user});
 					localStorage.setItem('token', res.refreshToken);
 					document.cookie = `token=${res.accessToken}`;
+
 			})
 			.catch(error => {
-				console.log(error.message);
+				dispatch({type: ERROR_LOGIN, error: error});
+				console.log(error);
 			})
 	}
 }
@@ -62,29 +66,31 @@ export function resetPwd(data) {
 				dispatch({type: RESET_PWD});
 			})
 			.catch(error => {
-				console.log(error);
+				dispatch({type: ERROR_PWD, error: error});
 			})
 	}
 }
 
 function updateToken(token) {
-	fetch(`${baseUrl}/auth/token`, {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json'
-		},
-		body: JSON.stringify({token})
-	})
-		.then(checkResponse)
-		.then(res => {
-			if(res && res.success) {
-				localStorage.setItem('token', res.refreshToken);
-				document.cookie = `token=${res.accessToken}`;
-			}
+	return function(dispatch) {
+		fetch(`${baseUrl}/auth/token`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({token})
 		})
-		.catch(error => {
-			console.log(error);
-		})
+			.then(checkResponse)
+			.then(res => {
+				if (res && res.success) {
+					localStorage.setItem('token', res.refreshToken);
+					document.cookie = `token=${res.accessToken}`;
+				}
+			})
+			.catch(error => {
+				console.log(error);
+			})
+	}
 }
 
 export function getUser() {

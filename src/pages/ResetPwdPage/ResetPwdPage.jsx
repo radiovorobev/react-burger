@@ -7,7 +7,7 @@ import { resetPwd } from '../../services/actions/auth';
 
 export function ResetPwdPage () {
 	const dispatch = useDispatch();
-	const { forgotPassword, resetPassword } = useSelector(store => store.auth);
+	const { forgotPassword, resetPassword, errorPwd } = useSelector(store => store.auth);
 
 	const [form, setValue] = React.useState({ password: '', token: '' });
 
@@ -28,6 +28,13 @@ export function ResetPwdPage () {
 	return (
 			<main className={styles.container}>
 				<h1 className="text text_type_main-medium mb-6">Восстановление пароля</h1>
+				{
+					errorPwd && errorPwd === 'Ошибка: 404' &&
+					<p className="text text_type_main-default mt-6 mb-6">Проверьте правильность кода из письма</p> }
+				{
+					errorPwd && errorPwd !== 'Ошибка: 404' &&
+					<p className="text text_type_main-default mt-6 mb-6">Что-то пошло не так</p>
+				}
 				<form className={`${styles.form} mb-20`} onSubmit={handleSubmit}>
 					<div className={`${styles.input} mb-6`}>
 						<Input type='password'

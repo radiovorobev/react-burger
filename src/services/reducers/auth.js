@@ -1,4 +1,4 @@
-import { FORGOT_PWD, GET_USER, RESET_PWD, SIGNIN, SIGNOUT, UPDATE_USER } from '../actions/auth';
+import {FORGOT_PWD, GET_USER, RESET_PWD, SIGNIN, SIGNOUT, UPDATE_USER, ERROR_PWD, ERROR_LOGIN} from '../actions/auth';
 
 const authState = {
 	user: {},
@@ -7,6 +7,8 @@ const authState = {
 	resetPassword: false,
 	signIn: false,
 	signOut: false,
+	errorPwd: '',
+	errorLogin: '',
 }
 
 export const authReducer = (state = authState, action) => {
@@ -15,7 +17,8 @@ export const authReducer = (state = authState, action) => {
 			return {...state,
 				user: action.user,
 				auth: true,
-				resetPassword: false }
+				resetPassword: false,
+				errorLogin: '' }
 		}
 
 		case SIGNOUT: {
@@ -28,7 +31,9 @@ export const authReducer = (state = authState, action) => {
 		case RESET_PWD: {
 			return {...state,
 				forgotPassword: false,
-				resetPassword: true }
+				resetPassword: true,
+				errorPwd: ''
+				}
 		}
 		case FORGOT_PWD: {
 			return {...state,
@@ -38,7 +43,17 @@ export const authReducer = (state = authState, action) => {
 		case GET_USER || UPDATE_USER: {
 			return {...state,
 				user: action.user,
-				auth: true}
+				auth: true }
+		}
+
+		case ERROR_PWD: {
+			return {...state,
+			errorPwd: action.error }
+		}
+
+		case ERROR_LOGIN: {
+			return {...state,
+				errorLogin: action.error }
 		}
 
 		default: {
