@@ -1,47 +1,76 @@
 import React from 'react';
 import AppHeader from '../AppHeader/AppHeader.jsx';
-import BurgerIngredients from '../BurgerIngredients/BurgerIngredients.jsx';
-import BurgerConstructor from '../BurgerConstructor/BurgerConstructor.jsx';
+import { useDispatch } from 'react-redux';
+import { getIngredients } from '../../services/actions/burgers';
+import {Route, Routes, useLocation} from 'react-router-dom';
+import { HomePage } from '../../pages/HomePage/HomePage';
+import { LoginPage } from '../../pages/LoginPage/LoginPage';
+import { RegPage } from '../../pages/RegPage/RegPage';
+import { ForgotPwdPage } from '../../pages/ForgotPwdPage/ForgotPwdPage';
+import { ResetPwdPage } from '../../pages/ResetPwdPage/ResetPwdPage';
+import { ProfilePage } from '../../pages/ProfilePage/ProfilePage';
+import { Page404 } from '../../pages/Page404/Page404';
+import { getCookie } from "../../utils/utilities";
+import { getUser } from '../../services/actions/auth';
 import IngredientDetails from '../IngredientDetails/IngredientDetails';
-import Modal from '../Modal/Modal.jsx';
-
-import styles from './App.module.css';
-import { useDispatch, useSelector } from 'react-redux';
-import { getIngredients, INGREDIENT_MODAL } from '../../services/actions/actions';
-import {DndProvider} from "react-dnd";
-import {HTML5Backend} from "react-dnd-html5-backend";
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
+import Modal from '../Modal/Modal';
 
 function App() {
-
-  const [isIngredientModal, setIngredientModal] = React.useState(false);
-
-  const handleIngredientClick = React.useCallback((item) => {
-    dispatch({ type: INGREDIENT_MODAL, ingredient: item });
-    setIngredientModal(true);
-  })
-
   const dispatch = useDispatch();
+  const location = useLocation();
+  const background = location.state?.background;
 
   React.useEffect(() => {
-    dispatch(getIngredients());
-  }, [dispatch])
+    dispatch(getIngredients())
 
- const { currentIngredient } = useSelector(store => store.modal);
+    if (localStorage.getItem('refreshToken') && getCookie('token')) {
+      dispatch(getUser())
+    }
+  }, [dispatch]);
 
   return (
     <>
       <AppHeader />
-      <main className={`${styles.main}`}>
-        <DndProvider backend={HTML5Backend}>
-            <BurgerIngredients handleIngredientClick={handleIngredientClick}/>
-            <BurgerConstructor />
-        </DndProvider>
-      </main>
+      <Routes location={background || location}>
+        <Route path='/' element={<HomePage />} />
+        <Route path='/ingredients/:id' element={<IngredientDetails />} />
+        <Route path='/login' element={
+          <ProtectedRoute anonymous={true}>
+            <LoginPage />
+          </ProtectedRoute>
+        } />
 
-      {isIngredientModal && <Modal onClose={setIngredientModal} title={'Детали ингредиента'} >
-        <IngredientDetails ingredient={currentIngredient} />
-      </Modal> }
+          <Route path='/register' exact={true} element={
+            <ProtectedRoute anonymous={true}>
+            <RegPage />
+          </ProtectedRoute> } />
 
+          <Route path='/forgot-password' exact={true} element={
+            <ProtectedRoute anonymous={true}>
+            <ForgotPwdPage />
+            </ProtectedRoute> } />
+
+          <Route path='/reset-password' exact={true} element={
+            <ProtectedRoute anonymous={true}>
+              <ResetPwdPage />
+            </ProtectedRoute> } />
+
+          <Route path='/profile' exact={true} element={
+            <ProtectedRoute>
+              <ProfilePage />
+            </ProtectedRoute> } />
+
+          <Route path='*' element={<Page404 />} />
+
+        </Routes>
+      {background && <Routes>
+        <Route path='/ingredients/:id' element={
+          <Modal>
+            <IngredientDetails />
+          </Modal>
+        } />
+      </Routes>}
     </>
   );
 }

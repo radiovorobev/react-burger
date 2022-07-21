@@ -1,10 +1,12 @@
 import { combineReducers } from 'redux';
-import {ingredientsReducer} from "./ingredients";
-import {modalReducer} from "./modal";
-import {constructorReducer} from "./constructor";
+import { ingredientsReducer } from './ingredients';
+import { modalReducer } from './modal';
+import { constructorReducer } from './constructor';
+import { authReducer } from './auth';
 
 export const rootReducer = combineReducers({
 	ingredients: ingredientsReducer,
-	modal: modalReducer,
-	inConstructor: constructorReducer
+	modals: modalReducer,
+	inConstructor: constructorReducer,
+	auth: authReducer,
 })

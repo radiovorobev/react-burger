@@ -3,7 +3,7 @@ import {
 	GET_INGREDIENTS_IN_CONSTRUCTOR,
 	GET_ORDER_NUMBER, MOVE_INGREDIENT,
 	SET_TOTAL_PRICE
-} from '../actions/actions';
+} from '../actions/burgers';
 
 const constructorState = {
 	ingredientsInConstructor: [],

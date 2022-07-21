@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import {
 	DELETE_INGREDIENT_FROM_CONSTRUCTOR,
 	MOVE_INGREDIENT
-} from '../../services/actions/actions';
+} from '../../services/actions/burgers';
 import { useDrag, useDrop } from 'react-dnd';
 import styles from './IngredientInConstructor.module.css';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';

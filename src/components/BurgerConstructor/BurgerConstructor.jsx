@@ -4,11 +4,12 @@ import styles from './BurgerConstructor.module.css';
 import Modal from '../Modal/Modal';
 import OrderDetails from '../OrderDetails/OrderDetails';
 import { useDispatch, useSelector } from 'react-redux';
+import { Navigate } from 'react-router-dom';
 import {
 	GET_INGREDIENTS_IN_CONSTRUCTOR,
 	getOrder,
 	SET_TOTAL_PRICE
-} from '../../services/actions/actions';
+} from '../../services/actions/burgers';
 import { useDrop } from 'react-dnd';
 import IngredientInConstructor from '../IngredientInConstructor/IngredientInConstructor';
 
@@ -18,11 +19,17 @@ export default function BurgerConstructor() {
 	const ingredientsConstructor = ingredientsInConstructor.filter(element => element.type !== 'bun');
 	const [isOrderDetailsModal, setOrderDetailsModal] = React.useState(false);
 	const dispatch = useDispatch();
+	const auth = useSelector(store => store.auth.auth);
+	const [isAuth, setIsAuth] = React.useState(false);
 
 	const handleClickOrder = React.useCallback(() => {
-		const items = ingredientsInConstructor.map(ingredient => ingredient.item._id).concat(bun.item._id);
-		dispatch(getOrder(items));
-		setOrderDetailsModal(true);
+		if (auth) {
+			const items = ingredientsInConstructor.map(ingredient => ingredient.item._id).concat(bun.item._id);
+			dispatch(getOrder(items));
+			setOrderDetailsModal(true);
+		} else {
+			setIsAuth(true);
+		}
 	}, [dispatch, ingredientsInConstructor]);
 
 	React.useEffect(
@@ -54,6 +61,10 @@ export default function BurgerConstructor() {
 			handleDrop(item);
 		}
 	});
+
+	if (isAuth) {
+		return <Navigate to='/login' />
+	}
 
 	return (
 		<>

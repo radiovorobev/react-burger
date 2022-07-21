@@ -22,3 +22,8 @@ display: flex;
   top: 0;
   right: 0;
 }
+
+.link {
+  text-decoration: none;
+  color: #8585ad;
+}
