@@ -35,6 +35,8 @@ function App() {
       <Routes location={background || location}>
         <Route path='/' element={<HomePage />} />
         <Route path='/ingredients/:id' element={<IngredientDetails />} />
+        <Route path='/feed' element={<Feed />} />
+        <Route path='/feed/:id' element ={<FeedOrder />} />
         <Route path='/login' element={
           <ProtectedRoute anonymous={true}>
             <LoginPage />
@@ -61,15 +63,36 @@ function App() {
               <ProfilePage />
             </ProtectedRoute> } />
 
+            <Route path='/profile/orders' exact={true} element={
+              <ProtectedRoute>
+              <ProfileOrders />
+            </ProtectedRoute> } />
+
           <Route path='*' element={<Page404 />} />
 
         </Routes>
       {background && <Routes>
+
         <Route path='/ingredients/:id' element={
           <Modal>
             <IngredientDetails />
           </Modal>
         } />
+
+        <Route path='/feed/:id' element={
+          <Modal>
+            <FeedOrder />
+          </Modal>
+        } />
+
+        <Route path='/profile/orders/:id' element={
+          <ProtectedRoute>
+            <Modal>
+              <FeedOrder />
+            </Modal>
+          </ProtectedRoute>
+        } />
+
       </Routes>}
     </>
   );
