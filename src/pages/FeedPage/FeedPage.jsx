@@ -1,14 +1,14 @@
-import styles from './Feed.module.css';
+import styles from './FeedPage.module.css';
 import { useSelector, useDispatch } from 'react-redux';
 import React from 'react';
-import { WS_CONNECTION_START, WS_CONNECTION_CLOSED } from '../../services/actions/socket';
-import FeedElement from '../../components/FeedElement/FeedElement.jsx';
+import { WS_CONNECTION_START, WS_CONNECTION_CLOSED } from '../../services/actions/webSocket';
+import FeedElement from '../../components/FeedElemenet/FeedElement';
 import { Link, useLocation } from "react-router-dom";
 
-export default function Feed() {
+export function FeedPage() {
 	const dispatch = useDispatch();
 	const { wsConnected, orders, error, total, totalToday } = useSelector(store => store.socket);
-
+	console.log(orders);
 	const [pending, setPending] = React.useState(null);
 	const [done, setDone] = React.useState(null);
 
@@ -26,6 +26,7 @@ export default function Feed() {
 		setDone(orders.filter(el => el.status === 'done'));
 		setPending(orders.filter(el => el.status === 'pending'));
 	}, [orders]);
+	console.log(pending);
 
 	return (
 		<>

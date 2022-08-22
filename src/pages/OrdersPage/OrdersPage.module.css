@@ -1,7 +1,7 @@
 .main {
   max-width: 1240px;
   display: flex;
-  margin: 120px auto 0;
+  margin: 0 auto;
 }
 
 .link {
@@ -16,7 +16,7 @@
 }
 
 .text {
-  max-width: 320px;
+  width: 320px;
 }
 
 .links {
@@ -24,15 +24,15 @@
   flex-direction: column;
 }
 
-.form {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  width: 480px;
-  gap: 24px;
+.list {
+  list-style-type: none;
+  margin: 0 16px 0 0;
+  padding: 0;
+  max-height: calc(100vh - 270px);
+  overflow-y: scroll;
 }
 
-.buttons {
-  display: flex;
-  gap: 24px;
+.order_link {
+  text-decoration: none;
+  color: #f2f2f3;
 }
