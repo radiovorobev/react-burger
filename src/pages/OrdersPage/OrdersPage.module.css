@@ -30,6 +30,7 @@
   padding: 0;
   max-height: calc(100vh - 270px);
   overflow-y: scroll;
+  width: 100%;
 }
 
 .order_link {

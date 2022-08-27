@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import React from 'react';
 import { WS_CONNECTION_START, WS_CONNECTION_CLOSED } from '../../services/actions/webSocket';
 import FeedElement from '../../components/FeedElemenet/FeedElement';
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation } from 'react-router-dom';
 
 export function FeedPage() {
 	const dispatch = useDispatch();
@@ -26,7 +26,6 @@ export function FeedPage() {
 		setDone(orders.filter(el => el.status === 'done'));
 		setPending(orders.filter(el => el.status === 'pending'));
 	}, [orders]);
-	console.log(pending);
 
 	return (
 		<>
@@ -52,7 +51,7 @@ export function FeedPage() {
 					</section>
 					<section className={styles.info}>
 						<div className={styles.status}>
-							<div className='mr-9'>
+							<div className={`${styles.statusList} mr-9`}>
 								<p className='text text_type_main-medium mb-6'>Готовы:</p>
 								<ul className={styles.orders}>
 									{done.map(el =>
@@ -65,7 +64,7 @@ export function FeedPage() {
 										</li>)}
 								</ul>
 							</div>
-							<div>
+							<div className={styles.statusList}>
 								<p className='text text_type_main-medium mb-6'>В работе:</p>
 								<ul className={styles.orders}>
 									{pending.map(el =>
