@@ -5,7 +5,7 @@ import { signOut } from '../../services/actions/auth';
 import { useDispatch, useSelector } from 'react-redux';
 import { WS_AUTH_CONNECTION_START, WS_AUTH_CONNECTION_CLOSED } from '../../services/actions/webSocket';
 import FeedElement from '../../components/FeedElemenet/FeedElement';
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation } from 'react-router-dom';
 import { getCookie } from '../../utils/utilities';
 
 export function OrdersPage() {
@@ -28,8 +28,8 @@ export function OrdersPage() {
 	console.log(orders);
 	return (
 		<>
-			{!wsConnectedAuth && <h1 style={{ color: '#f2f2f3' }} className='text text_type_main-large m-10'>Подключение...</h1>}
-			{error && <h1 style={{ color: '#f2f2f3' }} className='text text_type_main-large m-10'>Произошла ошибка...</h1>}
+			{!wsConnectedAuth && <h1 style={{ color: '#f2f2f3' }} className='text text_type_main-large m-10'>Подключение</h1>}
+			{error && <h1 style={{ color: '#f2f2f3' }} className='text text_type_main-large m-10'>Ошибка</h1>}
 			{wsConnectedAuth && !error && orders &&
 				<main className={styles.main}>
 					<div className={`${styles.links} mt-30`}>

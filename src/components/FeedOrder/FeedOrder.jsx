@@ -1,9 +1,9 @@
-import React from "react";
-import { getDate } from "../../utils/utilities";
-import { useSelector, useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
-import { getCurrentOrder } from "../../services/actions/burgers";
-import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import React from 'react';
+import { getDate } from '../../utils/utilities';
+import { useSelector, useDispatch } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import { getCurrentOrder } from '../../services/actions/burgers';
+import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './FeedOrder.module.css';
 
 export default function FeedOrderDetails() {
@@ -41,8 +41,8 @@ export default function FeedOrderDetails() {
 
 	return (
 		<>
-			{currentOrderRequest && <p>Загрузка...</p>}
-			{currentOrderFailed && <p>Ошибка...</p>}
+			{currentOrderRequest && <p>Загрузка</p>}
+			{currentOrderFailed && <p>Ошибка</p>}
 			{!currentOrderFailed && !currentOrderRequest && currentOrder && dataIngredients.length > 0 &&
 				<div className={`${styles.container} p-8`}>
 					<p className={`text text_type_digits-default mb-10 ${styles.text} ${styles.number}`}>

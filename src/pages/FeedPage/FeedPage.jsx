@@ -8,7 +8,6 @@ import { Link, useLocation } from 'react-router-dom';
 export function FeedPage() {
 	const dispatch = useDispatch();
 	const { wsConnected, orders, error, total, totalToday } = useSelector(store => store.socket);
-	console.log(orders);
 	const [pending, setPending] = React.useState(null);
 	const [done, setDone] = React.useState(null);
 
@@ -29,8 +28,8 @@ export function FeedPage() {
 
 	return (
 		<>
-			{!wsConnected && <h1 style={{ color: '#f2f2f3' }} className='text text_type_main-large m-10'>Подключение...</h1>}
-			{error && <h1 style={{ color: '#f2f2f3' }} className='text text_type_main-large m-10'>Произошла ошибка...</h1>}
+			{!wsConnected && <h1 style={{ color: '#f2f2f3' }} className='text text_type_main-large m-10'>Подключение</h1>}
+			{error && <h1 style={{ color: '#f2f2f3' }} className='text text_type_main-large m-10'>Ошибка</h1>}
 			{wsConnected && !error &&
 				<main className={`${styles.main} pb-10`}>
 					<h1 className={`${styles.title} text text_type_main-large`}>Лента заказов</h1>

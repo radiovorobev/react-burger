@@ -1,9 +1,9 @@
-import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './FeedElement.module.css';
-import React from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { getDate } from "../../utils/utilities";
-import { GET_ORDER_NUMBER } from "../../services/actions/burgers";
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { getDate } from '../../utils/utilities';
+import { GET_ORDER_NUMBER } from '../../services/actions/burgers';
 
 export default function FeedElement({ data, profile = false }) {
 	const [dataIngredients, setIngredients] = React.useState([]);
