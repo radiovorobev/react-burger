@@ -3,7 +3,7 @@ import styles from './FeedElement.module.css';
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getDate } from '../../utils/utilities';
-import { GET_ORDER_NUMBER } from '../../services/actions/burgers';
+import { SET_ORDER_NUMBER } from '../../services/actions/burgers';
 
 export default function FeedElement({ data, profile = false }) {
 	const [dataIngredients, setIngredients] = React.useState([]);
@@ -29,7 +29,7 @@ export default function FeedElement({ data, profile = false }) {
 	}, [data, dataIngredients]);
 
 	const handleClick = React.useCallback((item) => {
-		dispatch({ type: GET_ORDER_NUMBER, order: item });
+		dispatch({ type: SET_ORDER_NUMBER, order: item });
 	}, [dispatch]);
 
 	return (

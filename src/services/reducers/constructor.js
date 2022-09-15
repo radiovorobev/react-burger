@@ -3,7 +3,8 @@ import {
 	GET_INGREDIENTS_IN_CONSTRUCTOR,
 	GET_ORDER_NUMBER, MOVE_INGREDIENT,
 	SET_TOTAL_PRICE,
-	GET_CURRENT_ORDER
+	GET_CURRENT_ORDER,
+	SET_ORDER_NUMBER
 } from '../actions/burgers';
 
 const constructorState = {
@@ -38,6 +39,9 @@ export const constructorReducer = (state = constructorState, action) => {
 			return { ...state, ingredientsInConstructor: array }
 		}
 		case GET_CURRENT_ORDER: {
+			return {...state, currentOrder: action.order}
+		}
+		case SET_ORDER_NUMBER: {
 			return {...state, currentOrder: action.order}
 		}
 		default: {

@@ -40,6 +40,11 @@ function App() {
         <Route path='/ingredients/:id' element={<IngredientDetails />} />
         <Route path='/feed' element={<FeedPage />} />
         <Route path='/feed/:id' element ={<FeedOrder />} />
+        <Route path='/profile/orders/:id' element={
+          <ProtectedRoute>
+            <FeedOrder />
+          </ProtectedRoute>
+        } />
         <Route path='/login' element={
           <ProtectedRoute anonymous={true}>
             <LoginPage />

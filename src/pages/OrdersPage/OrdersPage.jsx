@@ -25,7 +25,7 @@ export function OrdersPage() {
 	const handleClick = () => {
 		dispatch(signOut(localStorage.getItem('token')));
 	}
-	console.log(orders);
+
 	return (
 		<>
 			{!wsConnectedAuth && <h1 style={{ color: '#f2f2f3' }} className='text text_type_main-large m-10'>Подключение</h1>}

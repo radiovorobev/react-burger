@@ -20,7 +20,7 @@ export default function FeedOrderDetails() {
 		if (!currentOrder) {
 			dispatch(getCurrentOrder(id));
 		}
-	}, [currentOrder]);
+	}, []);
 
 	React.useEffect(() => {
 		if (dataIngredients.length <= 0 && currentOrder && allIngredients.length > 0) {

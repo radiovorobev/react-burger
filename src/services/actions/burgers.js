@@ -9,6 +9,7 @@ export const SET_TOTAL_PRICE = 'SET_TOTAL_PRICE';
 export const DELETE_INGREDIENT_FROM_CONSTRUCTOR = 'DELETE_INGREDIENT_FROM_CONSTRUCTOR';
 export const MOVE_INGREDIENT = 'MOVE INGREDIENT';
 export const GET_CURRENT_ORDER = 'GET_CURRENT_ORDER';
+export const SET_ORDER_NUMBER = 'SET_ORDER_NUMBER';
 
 export function getIngredients() {
 	return function(dispatch) {
@@ -61,3 +62,4 @@ export function getCurrentOrder(number) {
 			})
 	}
 }
+
