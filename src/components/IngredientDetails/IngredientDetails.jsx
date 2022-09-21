@@ -7,7 +7,6 @@ export default function IngredientDetails() {
 	const { ingredients } = useSelector(store => store.ingredients);
 	const { id } = useParams();
 	const currentIngredient = ingredients.find(item => item._id === id);
-
 	return (
 		currentIngredient ? (
 		<div className={styles.container}>
