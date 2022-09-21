@@ -1,4 +1,4 @@
-export type Ingredient = {
+export type TIngredient = {
     calories: number;
     carbohydrates: number;
     fat: number;
@@ -11,4 +11,16 @@ export type Ingredient = {
     type: string;
     __v: number;
     _id: string;
+}
+
+export type TWebSocket = {
+    type: string;
+    error: undefined | string;
+    wsConnectedAuth: boolean;
+    wsConnected: boolean;
+    payload: {
+        orders: Array<TIngredient>;
+        total: number;
+        totalToday: number;
+    }
 }

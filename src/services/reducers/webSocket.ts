@@ -6,6 +6,7 @@ import {
 	WS_AUTH_CONNECTION_SUCCESS,
 	WS_AUTH_CONNECTION_ERROR
 } from '../actions/webSocket.js';
+import { TWebSocket } from '../../utils/types';
 
 const webSocketState = {
 	wsConnected: false,
@@ -18,7 +19,8 @@ const webSocketState = {
 	totalToday: 0
 };
 
-export const wsReducer = (state = webSocketState, action) => {
+export const wsReducer = (state = webSocketState, action: TWebSocket) => {
+	console.log(action.payload);
 	switch (action.type) {
 		case WS_AUTH_CONNECTION_SUCCESS:
 			return {
