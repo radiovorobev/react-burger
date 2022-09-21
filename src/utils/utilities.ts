@@ -1,11 +1,11 @@
-export const checkResponse = (res) => {
+export const checkResponse = <T>(res: Response): Promise<T> => {
 	if (res.ok) {
 		return res.json();
 	}
 	return Promise.reject(`Ошибка: ${res.status}`);
 };
 
-export function getCookie(name) {
+export function getCookie(name: string) {
 	const matches = document.cookie.match(
 		new RegExp('(?:^|; )' + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + '=([^;]*)')
 	);
@@ -13,7 +13,7 @@ export function getCookie(name) {
 		decodeURIComponent(matches[1]) : undefined;
 }
 
-export function getDate(str) {
+export function getDate(str: string) {
 	const currentDate = new Date();
 	const date = new Date(str);
 	const days = Math.round((currentDate.getTime() - date.getTime()) / (1000 * 60 * 60 * 24));
