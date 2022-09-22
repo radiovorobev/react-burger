@@ -6,6 +6,7 @@ import {
 	GET_CURRENT_ORDER,
 	SET_ORDER_NUMBER
 } from '../actions/burgers';
+import {TIngredient} from "../../utils/types";
 
 const constructorState = {
 	ingredientsInConstructor: [],
@@ -14,7 +15,15 @@ const constructorState = {
 	currentOrder: false,
 }
 
-export const constructorReducer = (state = constructorState, action) => {
+export const constructorReducer = (state = constructorState, action:{
+	type: string;
+	ingredient: Array<TIngredient>;
+	order: number;
+	totalPrice: number;
+	hoverIndex: number;
+	dragIndex: number;
+	id: string;
+}) => {
 	switch (action.type) {
 		case GET_INGREDIENTS_IN_CONSTRUCTOR: {
 			return {...state, ingredientsInConstructor: action.ingredient}
@@ -27,7 +36,7 @@ export const constructorReducer = (state = constructorState, action) => {
 		}
 		case DELETE_INGREDIENT_FROM_CONSTRUCTOR: {
 			const array = [...state.ingredientsInConstructor];
-			const ingredient = array.findIndex(item => item.id === action.id);
+			const ingredient = array.findIndex((item: {id: string, item: Array<TIngredient>}) => item.id === action.id);
 			array.splice(ingredient, 1);
 			return { ...state, ingredientsInConstructor: array }
 		}

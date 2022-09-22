@@ -20,7 +20,6 @@ const webSocketState = {
 };
 
 export const wsReducer = (state = webSocketState, action: TWebSocket) => {
-	console.log(action.payload);
 	switch (action.type) {
 		case WS_AUTH_CONNECTION_SUCCESS:
 			return {

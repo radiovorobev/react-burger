@@ -1,4 +1,12 @@
-import {FORGOT_PWD, GET_USER, RESET_PWD, SIGNIN, SIGNOUT, UPDATE_USER, ERROR_PWD, ERROR_LOGIN} from '../actions/auth';
+import { FORGOT_PWD,
+		GET_USER,
+		RESET_PWD,
+		SIGNIN,
+		SIGNOUT,
+		UPDATE_USER,
+		ERROR_PWD,
+		ERROR_LOGIN } from '../actions/auth';
+import { TUser } from '../../utils/types';
 
 const authState = {
 	user: {},
@@ -11,7 +19,18 @@ const authState = {
 	errorLogin: '',
 }
 
-export const authReducer = (state = authState, action) => {
+
+export const authReducer = (state = authState, action: {
+	type: string;
+	user: TUser;
+	token: string;
+	auth: boolean;
+	forgotPassword: boolean;
+	resetPassword: boolean;
+	error: string;
+	errorPwd: string;
+	errorLogin: string;
+		}) => {
 	switch(action.type) {
 		case SIGNIN: {
 			return {...state,

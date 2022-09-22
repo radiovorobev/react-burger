@@ -24,3 +24,8 @@ export type TWebSocket = {
         totalToday: number;
     }
 }
+
+export type TUser = {
+    name: string;
+    email: string;
+}
