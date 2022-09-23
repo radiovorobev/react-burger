@@ -5,10 +5,19 @@ import {
 	WS_GET_MESSAGE,
 	WS_AUTH_CONNECTION_SUCCESS,
 	WS_AUTH_CONNECTION_ERROR
-} from '../actions/webSocket.js';
-import { TWebSocket } from '../../utils/types';
+} from '../actions/webSocket';
+import {TIngredient, TWebSocket} from '../../utils/types';
 
-const webSocketState = {
+type TWebSocketState = {
+	error: undefined | string;
+	wsConnectedAuth: boolean;
+	wsConnected: boolean;
+	orders: Array<TIngredient>;
+	total: number;
+	totalToday: number;
+}
+
+const webSocketState: TWebSocketState = {
 	wsConnected: false,
 	error: undefined,
 

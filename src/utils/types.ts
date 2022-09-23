@@ -1,3 +1,8 @@
+import { store } from '../index';
+
+export type RootState = ReturnType<typeof store.getState>;
+
+
 export type TIngredient = {
     calories: number;
     carbohydrates: number;

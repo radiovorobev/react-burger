@@ -8,7 +8,15 @@ import {
 } from '../actions/burgers';
 import {TIngredient} from "../../utils/types";
 
-const constructorState = {
+
+type TConstructorState = {
+	ingredientsInConstructor: [];
+	order: null | number;
+	totalPrice: null | number;
+	currentOrder: boolean;
+}
+
+const constructorState: TConstructorState = {
 	ingredientsInConstructor: [],
 	order: null,
 	totalPrice: null,

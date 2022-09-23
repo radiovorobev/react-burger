@@ -1,7 +1,11 @@
 import { GET_INGREDIENTS } from '../actions/burgers';
 import { TIngredient } from '../../utils/types';
 
-const ingredientsState = {
+
+type TIngredientState = {
+	ingredients: Array<TIngredient>;
+}
+const ingredientsState: TIngredientState = {
 	ingredients: [],
 }
 

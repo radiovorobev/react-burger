@@ -8,7 +8,18 @@ import { FORGOT_PWD,
 		ERROR_LOGIN } from '../actions/auth';
 import { TUser } from '../../utils/types';
 
-const authState = {
+type TAuthState = {
+	user: {} | Array<TUser>;
+	auth: boolean;
+	forgotPassword: boolean;
+	resetPassword: boolean;
+	signIn: boolean;
+	signOut: boolean;
+	errorPwd: string;
+	errorLogin: string;
+}
+
+const authState: TAuthState = {
 	user: {},
 	auth: false,
 	forgotPassword: false,

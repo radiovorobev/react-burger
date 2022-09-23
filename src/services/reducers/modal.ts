@@ -1,7 +1,10 @@
 import { INGREDIENT_MODAL } from '../actions/burgers';
 import { TIngredient } from '../../utils/types';
 
-const modalState = {
+type TModalState = {
+	currentIngredient: {} | TIngredient;
+}
+const modalState: TModalState = {
 	currentIngredient: {},
 }
 
