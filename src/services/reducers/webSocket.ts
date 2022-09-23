@@ -4,9 +4,9 @@ import {
 	WS_CONNECTION_CLOSED,
 	WS_GET_MESSAGE,
 	WS_AUTH_CONNECTION_SUCCESS,
-	WS_AUTH_CONNECTION_ERROR
+	WS_AUTH_CONNECTION_ERROR, TWebSocketActions
 } from '../actions/webSocket';
-import {TIngredient, TWebSocket} from '../../utils/types';
+import { TIngredient } from '../../utils/types';
 
 type TWebSocketState = {
 	error: undefined | string;
@@ -28,7 +28,7 @@ const webSocketState: TWebSocketState = {
 	totalToday: 0
 };
 
-export const wsReducer = (state = webSocketState, action: TWebSocket) => {
+export const wsReducer = (state = webSocketState, action: TWebSocketActions):TWebSocketState => {
 	switch (action.type) {
 		case WS_AUTH_CONNECTION_SUCCESS:
 			return {

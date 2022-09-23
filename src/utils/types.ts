@@ -16,6 +16,7 @@ export type TIngredient = {
     type: string;
     __v: number;
     _id: string;
+    id: string;
 }
 
 export type TWebSocket = {
@@ -23,11 +24,9 @@ export type TWebSocket = {
     error: undefined | string;
     wsConnectedAuth: boolean;
     wsConnected: boolean;
-    payload: {
-        orders: Array<TIngredient>;
-        total: number;
-        totalToday: number;
-    }
+    orders: Array<TIngredient>;
+    total: number;
+    totalToday: number;
 }
 
 export type TUser = {

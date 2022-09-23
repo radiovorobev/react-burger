@@ -20,6 +20,7 @@ export interface IWsConnectionSuccessAction {
 
 export interface IWsConnectionErrorAction {
     readonly type: typeof WS_CONNECTION_ERROR;
+    readonly payload: string;
 }
 
 export interface IWsConnectionClosedAction {
@@ -28,7 +29,13 @@ export interface IWsConnectionClosedAction {
 
 export interface IWsGetMessageAction {
     readonly type: typeof WS_GET_MESSAGE;
+    readonly payload: {
+        orders: [];
+        total: number
+        totalToday: number;
+    }
 }
+
 
 export interface IWsSendMessageAction {
     readonly type: typeof WS_SEND_MESSAGE;
@@ -48,5 +55,18 @@ export interface IWsAuthConnectionSuccessAction {
 
 export interface IWsAuthConnectionErrorAction {
     readonly type: typeof WS_AUTH_CONNECTION_ERROR;
+    readonly payload: string;
 }
+
+export type TWebSocketActions =
+    | IWsConnectionStartAction
+    | IWsConnectionSuccessAction
+    | IWsConnectionErrorAction
+    | IWsConnectionClosedAction
+    | IWsGetMessageAction
+    | IWsSendMessageAction
+    | IWsAuthConnectionStartAction
+    | IWsAuthConnectionClosedAction
+    | IWsAuthConnectionSuccessAction
+    | IWsAuthConnectionErrorAction;
 

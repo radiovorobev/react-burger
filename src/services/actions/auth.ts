@@ -1,14 +1,68 @@
 import { baseUrl } from '../../utils/data';
 import { checkResponse, getCookie } from '../../utils/utilities';
+import {
+	GET_INGREDIENTS, IDelIngredientFromConstAction, IGetCurrentOrderAction,
+	IGetIngredientsAction,
+	IGetIngredientsInConstructorAction, IGetOrderNumberAction,
+	IIngredientModalAction, IMoveIngredientAction, ISetCurrentNumberAction, ISetTotalPriceAction
+} from "./burgers";
+import {TUser} from "../../utils/types";
 
-export const SIGNIN = 'SIGNIN';
-export const SIGNOUT = 'SIGNOUT';
-export const RESET_PWD = 'RESET_PWD';
-export const FORGOT_PWD = 'FORGOT_PWD';
-export const GET_USER = 'GET_USER';
-export const UPDATE_USER = 'UPDATE_USER';
-export const ERROR_PWD = 'ERROR_PWD';
-export const ERROR_LOGIN = 'ERROR_LOGIN';
+export const SIGNIN: 'SIGNIN' = 'SIGNIN';
+export const SIGNOUT: 'SIGNOUT' = 'SIGNOUT';
+export const RESET_PWD: 'RESET_PWD' = 'RESET_PWD';
+export const FORGOT_PWD: 'FORGOT_PWD' = 'FORGOT_PWD';
+export const GET_USER: 'GET_USER' = 'GET_USER';
+export const UPDATE_USER: 'UPDATE_USER' = 'UPDATE_USER';
+export const ERROR_PWD: 'ERROR_PWD' = 'ERROR_PWD';
+export const ERROR_LOGIN: 'ERROR_LOGIN' = 'ERROR_LOGIN';
+
+export interface ISignInAction {
+	readonly type: typeof SIGNIN;
+	readonly user: TUser;
+}
+
+export interface ISignOutAction {
+	readonly type: typeof SIGNOUT;
+}
+
+export interface IResetPwdAction {
+	readonly type: typeof RESET_PWD;
+}
+
+export interface IForgotPwdAction {
+	readonly type: typeof FORGOT_PWD;
+}
+
+export interface IGetUserAction {
+	readonly type: typeof GET_USER;
+	readonly user: TUser;
+}
+
+export interface IUpdateUserAction {
+	readonly type: typeof UPDATE_USER;
+	readonly user: TUser;
+}
+
+export interface IErrorPwdAction {
+	readonly type: typeof ERROR_PWD;
+	readonly error: string;
+}
+
+export interface IErrorLoginAction {
+	readonly type: typeof ERROR_LOGIN;
+	readonly error: string;
+}
+
+export type TAuthActions =
+	| ISignInAction
+	| ISignOutAction
+	| IResetPwdAction
+	| IForgotPwdAction
+	| IGetUserAction
+	| IUpdateUserAction
+	| IErrorPwdAction
+	| IErrorLoginAction;
 
 export function signIn(data, url) {
 	return function(dispatch) {

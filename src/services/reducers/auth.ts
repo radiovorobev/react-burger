@@ -1,15 +1,17 @@
-import { FORGOT_PWD,
-		GET_USER,
-		RESET_PWD,
-		SIGNIN,
-		SIGNOUT,
-		UPDATE_USER,
-		ERROR_PWD,
-		ERROR_LOGIN } from '../actions/auth';
+import {
+	FORGOT_PWD,
+	GET_USER,
+	RESET_PWD,
+	SIGNIN,
+	SIGNOUT,
+	UPDATE_USER,
+	ERROR_PWD,
+	ERROR_LOGIN, TAuthActions
+} from '../actions/auth';
 import { TUser } from '../../utils/types';
 
 type TAuthState = {
-	user: {} | Array<TUser>;
+	user: TUser;
 	auth: boolean;
 	forgotPassword: boolean;
 	resetPassword: boolean;
@@ -17,10 +19,11 @@ type TAuthState = {
 	signOut: boolean;
 	errorPwd: string;
 	errorLogin: string;
+	token: string;
 }
 
 const authState: TAuthState = {
-	user: {},
+	user: { name: '', email: '' },
 	auth: false,
 	forgotPassword: false,
 	resetPassword: false,
@@ -28,20 +31,11 @@ const authState: TAuthState = {
 	signOut: false,
 	errorPwd: '',
 	errorLogin: '',
+	token: '',
 }
 
 
-export const authReducer = (state = authState, action: {
-	type: string;
-	user: TUser;
-	token: string;
-	auth: boolean;
-	forgotPassword: boolean;
-	resetPassword: boolean;
-	error: string;
-	errorPwd: string;
-	errorLogin: string;
-		}) => {
+export const authReducer = (state = authState, action: TAuthActions):TAuthState => {
 	switch(action.type) {
 		case SIGNIN: {
 			return {...state,
@@ -53,7 +47,7 @@ export const authReducer = (state = authState, action: {
 
 		case SIGNOUT: {
 			return {...state,
-				user: {},
+				user: { name: '', email:'' },
 				token: '',
 				auth: false }
 		}

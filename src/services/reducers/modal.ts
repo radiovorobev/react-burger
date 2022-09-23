@@ -1,4 +1,4 @@
-import { INGREDIENT_MODAL } from '../actions/burgers';
+import { INGREDIENT_MODAL, TBurgersActions } from '../actions/burgers';
 import { TIngredient } from '../../utils/types';
 
 type TModalState = {
@@ -8,7 +8,7 @@ const modalState: TModalState = {
 	currentIngredient: {},
 }
 
-export const modalReducer = (state = modalState, action: { ingredient: TIngredient; type: string; }) => {
+export const modalReducer = (state = modalState, action: TBurgersActions):TModalState => {
 	switch (action.type) {
 		case INGREDIENT_MODAL: {
 			return { ...state, currentIngredient: action.ingredient }

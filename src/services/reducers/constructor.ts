@@ -4,16 +4,16 @@ import {
 	GET_ORDER_NUMBER, MOVE_INGREDIENT,
 	SET_TOTAL_PRICE,
 	GET_CURRENT_ORDER,
-	SET_ORDER_NUMBER
+	SET_ORDER_NUMBER, TBurgersActions
 } from '../actions/burgers';
 import {TIngredient} from "../../utils/types";
 
 
 type TConstructorState = {
-	ingredientsInConstructor: [];
+	ingredientsInConstructor: TIngredient[];
 	order: null | number;
 	totalPrice: null | number;
-	currentOrder: boolean;
+	currentOrder: boolean | number;
 }
 
 const constructorState: TConstructorState = {
@@ -23,15 +23,7 @@ const constructorState: TConstructorState = {
 	currentOrder: false,
 }
 
-export const constructorReducer = (state = constructorState, action:{
-	type: string;
-	ingredient: Array<TIngredient>;
-	order: number;
-	totalPrice: number;
-	hoverIndex: number;
-	dragIndex: number;
-	id: string;
-}) => {
+export const constructorReducer = (state = constructorState, action: TBurgersActions):TConstructorState => {
 	switch (action.type) {
 		case GET_INGREDIENTS_IN_CONSTRUCTOR: {
 			return {...state, ingredientsInConstructor: action.ingredient}
@@ -44,7 +36,7 @@ export const constructorReducer = (state = constructorState, action:{
 		}
 		case DELETE_INGREDIENT_FROM_CONSTRUCTOR: {
 			const array = [...state.ingredientsInConstructor];
-			const ingredient = array.findIndex((item: {id: string, item: Array<TIngredient>}) => item.id === action.id);
+			const ingredient = array.findIndex(item => item.id === action.id);
 			array.splice(ingredient, 1);
 			return { ...state, ingredientsInConstructor: array }
 		}
