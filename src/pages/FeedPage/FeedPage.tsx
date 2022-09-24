@@ -1,15 +1,16 @@
 import styles from './FeedPage.module.css';
-import { useSelector, useDispatch } from 'react-redux';
-import React from 'react';
+import React, { FC } from 'react';
 import { WS_CONNECTION_START, WS_CONNECTION_CLOSED } from '../../services/actions/webSocket';
 import FeedElement from '../../components/FeedElemenet/FeedElement';
 import { Link, useLocation } from 'react-router-dom';
+import { TOrder } from '../../utils/types';
+import { useSelector, useDispatch } from '../../utils/types';
 
-export function FeedPage() {
+export const FeedPage: FC = () => {
 	const dispatch = useDispatch();
 	const { wsConnected, orders, error, total, totalToday } = useSelector(store => store.socket);
-	const [pending, setPending] = React.useState(null);
-	const [done, setDone] = React.useState(null);
+	const [pending, setPending] = React.useState<TOrder[] | null>(null);
+	const [done, setDone] = React.useState<TOrder[] | null>(null);
 
 	const location = useLocation();
 
@@ -53,7 +54,7 @@ export function FeedPage() {
 							<div className={`${styles.statusList} mr-9`}>
 								<p className='text text_type_main-medium mb-6'>Готовы:</p>
 								<ul className={styles.orders}>
-									{done.map(el =>
+									{done?.map(el =>
 										<li key={el._id}>
 											<p
 												className='text text_type_digits-default'
@@ -66,7 +67,7 @@ export function FeedPage() {
 							<div className={styles.statusList}>
 								<p className='text text_type_main-medium mb-6'>В работе:</p>
 								<ul className={styles.orders}>
-									{pending.map(el =>
+									{pending?.map(el =>
 										<li key={el._id}>
 											<p
 												className='text text_type_digits-default'

@@ -6,13 +6,13 @@ import {
 	WS_AUTH_CONNECTION_SUCCESS,
 	WS_AUTH_CONNECTION_ERROR, TWebSocketActions
 } from '../actions/webSocket';
-import { TIngredient } from '../../utils/types';
+import {TIngredient, TOrder} from '../../utils/types';
 
 type TWebSocketState = {
 	error: undefined | string;
 	wsConnectedAuth: boolean;
 	wsConnected: boolean;
-	orders: Array<TIngredient>;
+	orders: Array<TOrder>;
 	total: number;
 	totalToday: number;
 }

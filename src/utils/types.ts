@@ -5,6 +5,10 @@ import {ThunkAction} from "redux-thunk";
 import {TBurgersActions} from "../services/actions/burgers";
 import {TWebSocketActions} from "../services/actions/webSocket";
 import {TAuthActions} from "../services/actions/auth";
+import {
+    TypedUseSelectorHook, useDispatch as dispatchHook,
+    useSelector as selectorHook
+} from "react-redux";
 
 export type RootState = ReturnType<typeof store.getState>;
 
@@ -15,6 +19,9 @@ export type AppThunk<TReturn = void> = ActionCreator<
     >;
 export type AppDispatch = typeof store.dispatch;
 
+export const useSelector: TypedUseSelectorHook<RootState> = selectorHook;
+
+export const useDispatch = () => dispatchHook<AppDispatch & AppThunk>();
 
 export type TIngredient = {
     calories: number;
@@ -32,17 +39,29 @@ export type TIngredient = {
     id: string;
 }
 
+export type TUser = {
+    name: string;
+    email: string;
+}
+
+export type TOrder = {
+    _id: string,
+    ingredients: string[],
+    name: string,
+    number: number,
+    owner: string,
+    status: string,
+    updateAt: string,
+    __v: number,
+    createdAt: string
+}
+
 export type TWebSocket = {
     type: string;
     error: undefined | string;
     wsConnectedAuth: boolean;
     wsConnected: boolean;
-    orders: Array<TIngredient>;
+    orders: TOrder[];
     total: number;
     totalToday: number;
-}
-
-export type TUser = {
-    name: string;
-    email: string;
 }
