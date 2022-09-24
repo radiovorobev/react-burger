@@ -1,12 +1,7 @@
 import { baseUrl } from '../../utils/data';
 import { checkResponse, getCookie } from '../../utils/utilities';
-import {
-	GET_INGREDIENTS, IDelIngredientFromConstAction, IGetCurrentOrderAction,
-	IGetIngredientsAction,
-	IGetIngredientsInConstructorAction, IGetOrderNumberAction,
-	IIngredientModalAction, IMoveIngredientAction, ISetCurrentNumberAction, ISetTotalPriceAction
-} from "./burgers";
-import {TUser} from "../../utils/types";
+import { AppDispatch, AppThunk, TUser} from '../../utils/types';
+
 
 export const SIGNIN: 'SIGNIN' = 'SIGNIN';
 export const SIGNOUT: 'SIGNOUT' = 'SIGNOUT';
@@ -64,13 +59,13 @@ export type TAuthActions =
 	| IErrorPwdAction
 	| IErrorLoginAction;
 
-export function signIn(data, url) {
-	return function(dispatch) {
+export const signIn: AppThunk = (data, url) => {
+	return function(dispatch: AppDispatch) {
 		fetch(`${baseUrl}/auth/${url}`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
-			},
+			} as HeadersInit,
 			body: JSON.stringify(data)
 		})
 			.then(checkResponse)
@@ -87,13 +82,13 @@ export function signIn(data, url) {
 	}
 }
 
-export function forgotPwd(data) {
-	return function(dispatch) {
+export const forgotPwd: AppThunk = (data) => {
+	return function(dispatch: AppDispatch) {
 		fetch(`${baseUrl}/password-reset`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
-			},
+			} as HeadersInit,
 			body: JSON.stringify(data)
 		})
 			.then(checkResponse)
@@ -106,13 +101,13 @@ export function forgotPwd(data) {
 	}
 }
 
-export function resetPwd(data) {
-	return function(dispatch) {
+export const resetPwd: AppThunk = (data) => {
+	return function(dispatch: AppDispatch) {
 		fetch(`${baseUrl}/password-reset/reset`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
-			},
+			} as HeadersInit,
 			body: JSON.stringify(data)
 		})
 			.then(checkResponse)
@@ -125,13 +120,13 @@ export function resetPwd(data) {
 	}
 }
 
-function updateToken(token) {
-	return function(dispatch) {
+const updateToken: AppThunk = (token) => {
+	return function(dispatch: AppDispatch) {
 		fetch(`${baseUrl}/auth/token`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
-			},
+			} as HeadersInit,
 			body: JSON.stringify({token})
 		})
 			.then(checkResponse)
@@ -147,16 +142,16 @@ function updateToken(token) {
 	}
 }
 
-export function getUser() {
-	return function(dispatch) {
-		dispatch({type: GET_USER});
+export const getUser: AppThunk = () => {
+	return function(dispatch: AppDispatch) {
+		//dispatch({type: GET_USER});
 
 		fetch(`${baseUrl}/auth/user`, {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json',
 				authorization: getCookie('token')
-			},
+			} as HeadersInit,
 		})
 			.then(checkResponse)
 			.then(res => {
@@ -165,23 +160,22 @@ export function getUser() {
 			.catch(error => {
 				if(error.message === 'jwt expired') {
 					updateToken(localStorage.getItem('token'))
-						.then(() => { dispatch(getUser()) })
+						//.then(() => { dispatch(getUser()) })
 				}
 				console.log(error);
 			})
 	}
 }
 
-export function updateUser(data) {
-	return function(dispatch) {
-		dispatch({type: UPDATE_USER});
+export const updateUser: AppThunk = (data) => {
+	return function(dispatch: AppDispatch) {
 
 		fetch(`${baseUrl}/auth/user`, {
 			method: 'PATCH',
 			headers: {
 				'Content-Type': 'application/json',
 				authorization: getCookie('token')
-			},
+			} as HeadersInit,
 			body: JSON.stringify(data)
 		})
 			.then(checkResponse)
@@ -191,22 +185,21 @@ export function updateUser(data) {
 			.catch(error => {
 				if(error.message === 'jwt expired') {
 					updateToken(localStorage.getItem('token'))
-						.then(() => { dispatch(updateUser(data)) })
+						//.then(() => { dispatch(updateUser(data)) })
 				}
 				console.log(error);
 			})
 	}
 }
 
-export function signOut(token) {
-	return function(dispatch) {
-		dispatch({type: SIGNOUT})
+export const signOut: AppThunk = (token) => {
+	return function(dispatch: AppDispatch) {
 
 		fetch(`${baseUrl}/auth/logout`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
-			},
+			} as HeadersInit,
 			body: JSON.stringify({token})
 		})
 			.then(checkResponse)

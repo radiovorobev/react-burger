@@ -1,7 +1,7 @@
 import { checkResponse, getCookie } from '../../utils/utilities';
 import { baseUrl } from '../../utils/data';
 import { Dispatch } from 'redux';
-import { TIngredient } from '../../utils/types';
+import { AppDispatch, AppThunk, TIngredient } from '../../utils/types';
 
 export const GET_INGREDIENTS: 'GET_INGREDIENTS' = 'GET_INGREDIENTS';
 export const GET_INGREDIENTS_IN_CONSTRUCTOR: 'GET_INGREDIENTS_IN_CONSTRUCTOR' = 'GET_INGREDIENTS_IN_CONSTRUCTOR';
@@ -70,26 +70,26 @@ export type TBurgersActions =
 	| IGetCurrentOrderAction
 	| ISetCurrentNumberAction;
 
-export function getIngredients() {
-	return function(dispatch: Dispatch) {
+export const getIngredients: AppThunk = () => {
+	return function (dispatch: AppDispatch) {
 		fetch(`${baseUrl}/ingredients`)
 			.then(checkResponse)
 			.then(res => {
 				dispatch({ type: GET_INGREDIENTS, ingredients: res.data});
 			})
 			.catch(error =>
-				 console.log(error.message))
+				console.log(error.message))
 	}
 }
 
-export function getOrder(items: Array<TIngredient>) {
-	return function (dispatch: Dispatch) {
+export const getOrder: AppThunk = (items: Array<TIngredient>) => {
+	return function (dispatch: AppDispatch) {
 	fetch(`${baseUrl}/orders`, {
 		method: "POST",
 		headers: {
 			'Content-Type': 'application/json',
 			authorization: getCookie('token')
-		},
+		} as HeadersInit,
 		body: JSON.stringify({
 			'ingredients': items
 		})

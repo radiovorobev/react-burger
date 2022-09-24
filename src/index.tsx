@@ -4,8 +4,8 @@ import './index.css';
 import App from './components/App/App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
-import { compose, legacy_createStore as createStore, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
+import {compose, legacy_createStore as createStore, applyMiddleware, ActionCreator, Action} from 'redux';
+import thunk, {ThunkAction} from 'redux-thunk';
 import { composeWithDevTools } from '@redux-devtools/extension';
 import { rootReducer } from './services/reducers/rootReducer';
 import { BrowserRouter } from 'react-router-dom';
@@ -18,6 +18,8 @@ import {
     WS_CONNECTION_SUCCESS, WS_GET_MESSAGE,
     WS_SEND_MESSAGE
 } from "./services/actions/webSocket";
+import {RootState} from "./utils/types";
+import {TBurgersActions} from "./services/actions/burgers";
 const wsUrl = 'wss://norma.nomoreparties.space/orders';
 
 const wsActions = {
@@ -51,6 +53,7 @@ const enhancer = composeEnhancers(applyMiddleware(
 ));
 
 export const store = createStore(rootReducer, enhancer);
+
 ReactDOM.render(
   <React.StrictMode>
       <BrowserRouter>
