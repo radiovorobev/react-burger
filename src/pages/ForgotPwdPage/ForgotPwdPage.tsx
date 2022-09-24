@@ -1,17 +1,17 @@
-import React from 'react';
+import React, {ChangeEvent, FC} from 'react';
 import styles from './ForgotPwdPage.module.css';
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, Navigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector, useDispatch } from '../../utils/types';
 import { forgotPwd } from '../../services/actions/auth';
 
-export function ForgotPwdPage () {
+export const ForgotPwdPage: FC = () => {
 	const dispatch = useDispatch();
 	const forgotPassword = useSelector(store => store.auth.forgotPassword);
 
 	const [form, setValue] = React.useState({ email: '' });
 
-	const onChange = e => {
+	const onChange = (e: ChangeEvent<HTMLInputElement>) => {
 		setValue({ ...form, [e.target.name]: e.target.value });
 	}
 
