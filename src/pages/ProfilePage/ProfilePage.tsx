@@ -1,26 +1,29 @@
 import styles from './ProfilePage.module.css';
-import React from 'react';
+import React, {ChangeEvent, FC, FocusEvent} from 'react';
 import { NavLink } from 'react-router-dom';
-import { useDispatch, useSelector} from 'react-redux';
+import { useDispatch, useSelector} from '../../utils/types';
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { signOut, updateUser } from '../../services/actions/auth';
 
-export function ProfilePage () {
-	const nameRef = React.useRef(null);
-	const mailRef = React.useRef(null);
-	const pwdRef = React.useRef(null);
+export const ProfilePage: FC = () => {
+	const nameRef = React.useRef<HTMLInputElement>(null);
+	const mailRef = React.useRef<HTMLInputElement>(null);
+	const pwdRef = React.useRef<HTMLInputElement>(null);
 
 	const { user } = useSelector(store => store.auth);
 	const dispatch = useDispatch();
-
-	const active = { disabled: false, icon: 'CloseIcon' };
-	const inactive = { disabled: true, icon: 'EditIcon' };
+	interface IInputs {
+		disabled: boolean,
+		icon: 'CloseIcon' | 'EditIcon'
+	}
+	const active:IInputs = { disabled: false, icon: 'CloseIcon' };
+	const inactive:IInputs = { disabled: true, icon: 'EditIcon' };
 
 	const [inputs, setInputs] = React.useState({ name: inactive, email: inactive, password: inactive });
 	const [form, setForm] = React.useState({ ...user, password: '' });
 	const [disabledInputs, setDisabledInputs] = React.useState(true);
 
-	const onChange = event => {
+	const onChange = (event: ChangeEvent<HTMLInputElement>) => {
 		setForm({ ...form, [event.target.name]: event.target.value });
 	}
 
@@ -28,22 +31,24 @@ export function ProfilePage () {
 		dispatch(signOut(localStorage.getItem('token')));
 	}
 
-	const handleIcon = inputRef => {
-		setDisabledInputs(false);
-		setInputs({ ...inputs, [inputRef.current.name]: active });
+	const handleIcon = (inputRef: React.RefObject<HTMLInputElement>) => {
+		if (inputRef.current) {
+			setDisabledInputs(false);
+			setInputs({...inputs, [inputRef.current.name]: active});
+		}
 	}
 
-	const onBlur = event => {
+	const onBlur = (event: FocusEvent<HTMLInputElement>) => {
 		setInputs({ ...inputs, [event.target.name]: inactive });
 	}
 
-	const handleReset = event => {
+	const handleReset = (event: { preventDefault: () => void; }) => {
 		event.preventDefault();
 		setForm({ ...user, password: '' });
 		setDisabledInputs(true);
 	}
 
-	const handleSubmit = event => {
+	const handleSubmit = (event: { preventDefault: () => void; }) => {
 		event.preventDefault();
 		if (form.password === '') {
 			dispatch(updateUser({ name: form.name, email: form.email }));

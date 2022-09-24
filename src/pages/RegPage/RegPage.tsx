@@ -1,16 +1,16 @@
 import styles from './RegPage.module.css';
-import React from 'react';
+import React, {FC} from 'react';
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../../utils/types';
 import { signIn } from '../../services/actions/auth';
 
-export function RegPage() {
+export const RegPage:FC = () => {
 	const dispatch = useDispatch();
 	const [user, setUser] = React.useState({ name: '', email: '', password: '' });
 	const { errorLogin } = useSelector(store => store.auth);
 
-	const onChange = event => {
+	const onChange = (event: { target: { name: string; value: string; }; }) => {
 		setUser({ ...user, [event.target.name]: event.target.value });
 	}
 

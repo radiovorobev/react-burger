@@ -1,17 +1,17 @@
-import React from 'react';
+import React, {FC} from 'react';
 import styles from './ResetPwdPage.module.css';
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, Navigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../../utils/types';
 import { resetPwd } from '../../services/actions/auth';
 
-export function ResetPwdPage () {
+export const ResetPwdPage:FC = () => {
 	const dispatch = useDispatch();
 	const { forgotPassword, resetPassword, errorPwd } = useSelector(store => store.auth);
 
 	const [form, setValue] = React.useState({ password: '', token: '' });
 
-	const onChange = event => {
+	const onChange = (event: { target: { name: string; value: string; }; }) => {
 		setValue({ ...form, [event.target.name]: event.target.value });
 	}
 

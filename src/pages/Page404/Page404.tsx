@@ -1,6 +1,7 @@
 import styles from '../LoginPage/LoginPage.module.css';
+import {FC} from "react";
 
-export function Page404() {
+export const Page404: FC = () => {
 	return (
 		<>
 			<main className={styles.container}>

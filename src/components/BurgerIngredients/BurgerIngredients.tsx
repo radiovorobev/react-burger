@@ -1,11 +1,11 @@
-import React from 'react';
+import React, {FC} from 'react';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './BurgerIngredients.module.css';
-import { useSelector } from 'react-redux';
+import { useSelector } from '../../utils/types'
 import BurgerIngredient from '../BurgerIngredient/BurgerIngredient';
 import { Link, useLocation } from 'react-router-dom';
 
-export default function BurgerIngredients({handleIngredientClick}) {
+export const BurgerIngredients: FC = () => {
 	const [current, setCurrent] = React.useState('buns');
 	const { ingredients } = useSelector(store => store.ingredients);
 	const location = useLocation();
@@ -24,19 +24,19 @@ export default function BurgerIngredients({handleIngredientClick}) {
 		}
 	);
 
-	const bunsRef = React.useRef();
-	const saucesRef = React.useRef();
-	const mainRef = React.useRef();
+	const bunsRef = React.useRef<HTMLUListElement>(null);
+	const saucesRef = React.useRef<HTMLUListElement>(null);
+	const mainRef = React.useRef<HTMLUListElement>(null);
 
 	React.useEffect(() => {
+		if (bunsRef.current && saucesRef.current && mainRef.current) {
 		observer.observe(bunsRef.current);
 		observer.observe(saucesRef.current);
 		observer.observe(mainRef.current);
+			}
 
 		return () => {
-			observer.disconnect(bunsRef.current);
-			observer.disconnect(saucesRef.current);
-			observer.disconnect(mainRef.current);
+			observer.disconnect();
 		}
 	}, [observer, bunsRef, saucesRef, mainRef]);
 
