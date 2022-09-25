@@ -1,19 +1,20 @@
 import styles from './BurgerIngredient.module.css';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import React from 'react';
+import React, {FC} from 'react';
 import { useDrag } from 'react-dnd';
 import { v4 as uuidv4 } from 'uuid';
-import { useDispatch, useSelector } from 'react-redux';
+import {IIngredientInConstructor, useDispatch, useSelector} from '../../utils/types';
 import { INGREDIENT_MODAL } from '../../services/actions/burgers';
+import {TIngredient} from "../../utils/types";
 
-export default function BurgerIngredient({ item }) {
+export const BurgerIngredient: FC<IIngredientInConstructor> = ({ item }) => {
   const { ingredientsInConstructor } = useSelector(store => store.inConstructor);
   const bun = ingredientsInConstructor.find(el => el.item.type === 'bun');
   const [ingredientCount, setIngredientCount] = React.useState(0);
   const dispatch = useDispatch();
-  const handleIngredientClick = React.useCallback((item) => {
+  const handleIngredientClick = React.useCallback((item: TIngredient) => {
     dispatch({ type: INGREDIENT_MODAL, ingredient: item });
-  })
+  }, [dispatch]);
   const [{ getItem, isDrag, isDrop }, ingredientRef] = useDrag({
     type: 'ingredient',
     item: {

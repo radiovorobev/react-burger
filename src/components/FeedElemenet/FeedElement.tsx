@@ -1,21 +1,26 @@
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './FeedElement.module.css';
-import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, {FC} from 'react';
+import {useSelector, useDispatch, TOrder, TIngredient} from '../../utils/types';
 import { getDate } from '../../utils/utilities';
 import { SET_ORDER_NUMBER } from '../../services/actions/burgers';
 
-export default function FeedElement({ data, profile = false }) {
-	const [dataIngredients, setIngredients] = React.useState([]);
+interface IFeedElement {
+	data: TOrder,
+	profile?: boolean
+}
+
+export const FeedElement: FC<IFeedElement> = ({ data, profile = false }) => {
+	const [dataIngredients, setIngredients] = React.useState<TIngredient[]>([]);
 	const [total, setTotal] = React.useState(0);
 	const allIngredients = useSelector(store => store.ingredients.ingredients);
 	const dispatch = useDispatch();
 
-	const status = { created: 'Создан', pending: 'Готовится', done: 'Выполнен' };
+	const status: { [index: string]: string } = { created: 'Создан', pending: 'Готовится', done: 'Выполнен' };
 
 	React.useEffect(() => {
 		if (dataIngredients.length <= 0) {
-			const ingredients = data.ingredients.map(
+			const ingredients: any = data.ingredients.map(
 				ingredientId =>
 					allIngredients.find(
 						ingredient =>

@@ -1,8 +1,8 @@
 import successIcon from '../../images/success.svg';
-import React from 'react';
-import {useSelector} from 'react-redux';
+import React, {FC} from 'react';
+import { useSelector } from '../../utils/types';
 
-export default function OrderDetails() {
+export const OrderDetails: FC = () => {
 	const { order } = useSelector(store => store.inConstructor);
 	return (
 		<>

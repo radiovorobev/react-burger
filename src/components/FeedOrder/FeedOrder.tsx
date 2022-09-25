@@ -1,16 +1,16 @@
-import React from 'react';
+import React, {FC} from 'react';
 import { getDate } from '../../utils/utilities';
-import { useSelector, useDispatch } from 'react-redux';
+import {useSelector, useDispatch, TIngredient} from '../../utils/types';
 import { useParams } from 'react-router-dom';
 import { getCurrentOrder } from '../../services/actions/burgers';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './FeedOrder.module.css';
 
-export default function FeedOrderDetails() {
+export const FeedOrder: FC = () => {
 	const allIngredients = useSelector(store => store.ingredients.ingredients);
 	const { currentOrder, currentOrderRequest, currentOrderFailed } = useSelector(store => store.inConstructor);
 
-	const [dataIngredients, setIngredients] = React.useState([]);
+	const [dataIngredients, setIngredients] = React.useState<TIngredient[]>([]);
 	const [total, setTotal] = React.useState(0);
 
 	const dispatch = useDispatch();
@@ -24,9 +24,11 @@ export default function FeedOrderDetails() {
 
 	React.useEffect(() => {
 		if (dataIngredients.length <= 0 && currentOrder && allIngredients.length > 0) {
-			const ingredients = currentOrder.ingredients.reduce((acc, val) => {
-				let ingredient = allIngredients.find(el => el._id === val);
-				acc[val] = { ...ingredient, count: (acc[val]?.count || 0) + 1 }
+			const ingredients = currentOrder.ingredients.reduce((acc: { [index: string]: TIngredient }, val: string) => {
+				let ingredient = allIngredients.find(ingredient => ingredient._id === val);
+				if (ingredient) {
+					acc[val] = {...ingredient, count: (acc[val]?.count || 0) + 1}
+				}
 				return acc
 			}, {})
 
@@ -37,7 +39,7 @@ export default function FeedOrderDetails() {
 		}
 	}, [currentOrder, allIngredients, dataIngredients]);
 
-	const status = { created: 'Создан', pending: 'Готовится', done: 'Выполнен' };
+	const status: { [value: string]: string } = { created: 'Создан', pending: 'Готовится', done: 'Выполнен' };
 
 	return (
 		<>
@@ -53,7 +55,7 @@ export default function FeedOrderDetails() {
 					</p>
 					<p className={`text text_type_main-default mb-15 ${styles.text}`}
 					   style={{ color: currentOrder.status === 'done' ? '#00cccc' : '#f2f2f3' }}>
-						{status[currentOrder.status]}
+						{ status[currentOrder.status] }
 					</p>
 					<p className={`text text_type_main-medium mb-6 ${styles.text}`}>
 						Состав:

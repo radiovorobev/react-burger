@@ -1,13 +1,19 @@
-import React from 'react';
+import React, {FC, ReactNode} from 'react';
 import ReactDOM from 'react-dom';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import ModalOverlay from '../ModalOverlay/ModalOverlay.jsx';
+import { ModalOverlay } from '../ModalOverlay/ModalOverlay';
 import styles from './Modal.module.css';
 import { useNavigate } from 'react-router-dom';
 
-const modalContainer = document.getElementById('modals');
+const modalContainer: any = document.getElementById('modals');
 
-export default function Modal(props) {
+type TModalProps = {
+	title?: string;
+	onClose?: React.Dispatch<React.SetStateAction<boolean>>;
+	children: ReactNode;
+}
+
+export const Modal: FC<TModalProps> = (props) => {
 	const navigate = useNavigate();
 	const closeModal = React.useCallback(() => {
 		if (props.onClose) {

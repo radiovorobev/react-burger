@@ -2,7 +2,7 @@ import React, {FC} from 'react';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './BurgerIngredients.module.css';
 import { useSelector } from '../../utils/types'
-import BurgerIngredient from '../BurgerIngredient/BurgerIngredient';
+import {BurgerIngredient} from '../BurgerIngredient/BurgerIngredient';
 import { Link, useLocation } from 'react-router-dom';
 
 export const BurgerIngredients: FC = () => {
@@ -65,7 +65,7 @@ export const BurgerIngredients: FC = () => {
 									to={`/ingredients/${item._id}`}
 									state={{ background: location }}
 									key={item._id} >
-									<BurgerIngredient item={item} />
+									<BurgerIngredient item={item} id={item._id} />
 								</Link>
 						))}
 					</ul>
@@ -78,7 +78,7 @@ export const BurgerIngredients: FC = () => {
 									to={`/ingredients/${item._id}`}
 									state={{ background: location }}
 									key={item._id} >
-									<BurgerIngredient item={item} />
+									<BurgerIngredient item={item} id={item._id} />
 								</Link>
 							))}
 					</ul>
@@ -91,7 +91,7 @@ export const BurgerIngredients: FC = () => {
 								to={`/ingredients/${item._id}`}
 								state={{ background: location }}
 								key={item._id} >
-								<BurgerIngredient item={item} />
+								<BurgerIngredient item={item}  id={item._id}/>
 							</Link>
 							))}
 				</ul>

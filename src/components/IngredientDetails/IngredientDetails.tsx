@@ -1,9 +1,9 @@
 import styles from './IngredientDetails.module.css';
-import { useSelector } from 'react-redux';
+import { useSelector } from '../../utils/types';
 import { useParams } from 'react-router-dom';
-import React from 'react';
+import React, {FC} from 'react';
 
-export default function IngredientDetails() {
+export const IngredientDetails: FC = () => {
 	const { ingredients } = useSelector(store => store.ingredients);
 	const { id } = useParams();
 	const currentIngredient = ingredients.find(item => item._id === id);

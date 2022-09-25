@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, {FC, useRef} from 'react';
 import {
 	DELETE_INGREDIENT_FROM_CONSTRUCTOR,
 	MOVE_INGREDIENT
@@ -6,14 +6,22 @@ import {
 import { useDrag, useDrop } from 'react-dnd';
 import styles from './IngredientInConstructor.module.css';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useDispatch } from 'react-redux';
+import { TIngredient, useDispatch } from '../../utils/types';
 
-export default function IngredientInConstructor({index, ingredient}) {
+interface IIngredientInConstructor {
+	ingredient: {
+		item: TIngredient;
+		id: string;
+	},
+	index: number
+}
+
+export const IngredientInConstructor: FC<IIngredientInConstructor> = ({index, ingredient}) => {
 
 	const [ingredientCount, setIngredientCount] = React.useState(0);
 	const dispatch = useDispatch();
 
-	const moveIngredient = React.useCallback((dragIndex, hoverIndex) => {
+	const moveIngredient = React.useCallback((dragIndex: number, hoverIndex: number) => {
 		dispatch({ type: MOVE_INGREDIENT, dragIndex: dragIndex, hoverIndex: hoverIndex });
 	}, [dispatch]);
 
@@ -27,10 +35,11 @@ export default function IngredientInConstructor({index, ingredient}) {
 
 	const [ , dropRef] = useDrop({
 		accept: 'item',
-		hover: (item, monitor) => {
+		hover: (item: { index: number; }, monitor: any) => {
 			const dragIndex = item.index;
 			const hoverIndex = index;
-			const hoverBoundingRect = ref.current.getBoundingClientRect();
+
+			const hoverBoundingRect = ref?.current?.getBoundingClientRect() || { bottom: 0, top: 0 };
 			const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
 			const hoverActualY = monitor.getClientOffset().y - hoverBoundingRect.top;
 
@@ -42,8 +51,8 @@ export default function IngredientInConstructor({index, ingredient}) {
 		},
 	});
 
-	const ref = useRef(null);
-	const dragDropRef = dragRef(dropRef(ref));
+	const ref = useRef<HTMLInputElement>(null);
+	const dragDropRef: any = dragRef(dropRef(ref));
 
 	const deleteIngredientFromConstructor = React.useCallback((id) => {
 		dispatch({ type: DELETE_INGREDIENT_FROM_CONSTRUCTOR, id: id });

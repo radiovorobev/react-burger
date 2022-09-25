@@ -1,10 +1,10 @@
 import styles from './OrdersPage.module.css';
-import React, {FC} from 'react';
+import React, { FC } from 'react';
 import { NavLink } from 'react-router-dom';
 import { signOut } from '../../services/actions/auth';
 import { useDispatch, useSelector } from '../../utils/types';
 import { WS_AUTH_CONNECTION_START, WS_AUTH_CONNECTION_CLOSED } from '../../services/actions/webSocket';
-import FeedElement from '../../components/FeedElemenet/FeedElement';
+import { FeedElement } from '../../components/FeedElemenet/FeedElement';
 import { Link, useLocation } from 'react-router-dom';
 import { getCookie } from '../../utils/utilities';
 

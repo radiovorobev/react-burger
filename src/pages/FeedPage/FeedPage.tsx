@@ -1,7 +1,7 @@
 import styles from './FeedPage.module.css';
 import React, { FC } from 'react';
 import { WS_CONNECTION_START, WS_CONNECTION_CLOSED } from '../../services/actions/webSocket';
-import FeedElement from '../../components/FeedElemenet/FeedElement';
+import { FeedElement } from '../../components/FeedElemenet/FeedElement';
 import { Link, useLocation } from 'react-router-dom';
 import { TOrder } from '../../utils/types';
 import { useSelector, useDispatch } from '../../utils/types';

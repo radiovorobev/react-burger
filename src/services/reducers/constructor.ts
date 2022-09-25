@@ -6,21 +6,25 @@ import {
 	GET_CURRENT_ORDER,
 	SET_ORDER_NUMBER, TBurgersActions
 } from '../actions/burgers';
-import {TIngredient} from "../../utils/types";
-
+import {IIngredientsInConstructor, TOrder} from '../../utils/types';
 
 type TConstructorState = {
-	ingredientsInConstructor: TIngredient[];
+	ingredientsInConstructor: IIngredientsInConstructor;
 	order: null | number;
 	totalPrice: null | number;
-	currentOrder: boolean | number;
+	currentOrder: TOrder | null;
+	currentOrderRequest: boolean,
+	currentOrderFailed: boolean,
 }
 
 const constructorState: TConstructorState = {
 	ingredientsInConstructor: [],
 	order: null,
 	totalPrice: null,
-	currentOrder: false,
+	currentOrder: null,
+	currentOrderRequest: false,
+	currentOrderFailed: false,
+
 }
 
 export const constructorReducer = (state = constructorState, action: TBurgersActions):TConstructorState => {

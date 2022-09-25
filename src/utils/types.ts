@@ -1,14 +1,13 @@
 import { store } from '../index';
-import {Action, ActionCreator, legacy_createStore as createStore} from "redux";
-import {rootReducer} from "../services/reducers/rootReducer";
-import {ThunkAction} from "redux-thunk";
-import {TBurgersActions} from "../services/actions/burgers";
-import {TWebSocketActions} from "../services/actions/webSocket";
-import {TAuthActions} from "../services/actions/auth";
+import { Action, ActionCreator } from 'redux';
+import { ThunkAction } from 'redux-thunk';
+import { TBurgersActions } from '../services/actions/burgers';
+import { TWebSocketActions } from '../services/actions/webSocket';
+import { TAuthActions } from '../services/actions/auth';
 import {
     TypedUseSelectorHook, useDispatch as dispatchHook,
     useSelector as selectorHook
-} from "react-redux";
+} from 'react-redux';
 
 export type RootState = ReturnType<typeof store.getState>;
 
@@ -37,6 +36,7 @@ export type TIngredient = {
     __v: number;
     _id: string;
     id: string;
+    count: number;
 }
 
 export type TUser = {
@@ -45,23 +45,20 @@ export type TUser = {
 }
 
 export type TOrder = {
-    _id: string,
-    ingredients: string[],
-    name: string,
-    number: number,
-    owner: string,
-    status: string,
-    updateAt: string,
-    __v: number,
-    createdAt: string
+    _id: string;
+    ingredients: string[];
+    name: string;
+    number: number;
+    owner: string;
+    status: string;
+    updateAt: string;
+    __v: number;
+    createdAt: string;
 }
 
-export type TWebSocket = {
-    type: string;
-    error: undefined | string;
-    wsConnectedAuth: boolean;
-    wsConnected: boolean;
-    orders: TOrder[];
-    total: number;
-    totalToday: number;
+export interface IIngredientInConstructor {
+    item: TIngredient;
+    id: string;
 }
+
+export interface IIngredientsInConstructor extends Array<IIngredientInConstructor>{}

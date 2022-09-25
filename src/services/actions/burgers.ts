@@ -1,7 +1,7 @@
 import { checkResponse, getCookie } from '../../utils/utilities';
 import { baseUrl } from '../../utils/data';
 import { Dispatch } from 'redux';
-import { AppDispatch, AppThunk, TIngredient } from '../../utils/types';
+import {AppDispatch, AppThunk, IIngredientsInConstructor, TIngredient, TOrder} from '../../utils/types';
 
 export const GET_INGREDIENTS: 'GET_INGREDIENTS' = 'GET_INGREDIENTS';
 export const GET_INGREDIENTS_IN_CONSTRUCTOR: 'GET_INGREDIENTS_IN_CONSTRUCTOR' = 'GET_INGREDIENTS_IN_CONSTRUCTOR';
@@ -20,7 +20,7 @@ export interface IGetIngredientsAction {
 
 export interface IGetIngredientsInConstructorAction {
 	readonly type: typeof GET_INGREDIENTS_IN_CONSTRUCTOR;
-	readonly ingredient: Array<TIngredient>;
+	readonly ingredient: IIngredientsInConstructor;
 }
 
 export interface IIngredientModalAction {
@@ -51,12 +51,12 @@ export interface IMoveIngredientAction {
 
 export interface IGetCurrentOrderAction {
 	readonly type: typeof GET_CURRENT_ORDER;
-	readonly order: number;
+	readonly order: TOrder;
 }
 
 export interface ISetCurrentNumberAction {
 	readonly type: typeof SET_ORDER_NUMBER;
-	readonly order: number;
+	readonly order: TOrder;
 }
 
 export type TBurgersActions =
@@ -107,7 +107,7 @@ export const getOrder: AppThunk = (items: Array<TIngredient>) => {
 	}
 }
 
-export function getCurrentOrder(number: number) {
+export function getCurrentOrder(number: string | undefined) {
 	return function(dispatch: Dispatch) {
 		fetch(`${baseUrl}/orders/${number}`)
 			.then(checkResponse)

@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { ConstructorElement, CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './BurgerConstructor.module.css';
-import Modal from '../Modal/Modal';
-import OrderDetails from '../OrderDetails/OrderDetails';
-import { useDispatch, useSelector } from 'react-redux';
+import { Modal } from '../Modal/Modal';
+import { OrderDetails } from '../OrderDetails/OrderDetails';
+import { IIngredientInConstructor, useDispatch, useSelector } from '../../utils/types';
 import { Navigate } from 'react-router-dom';
 import {
 	GET_INGREDIENTS_IN_CONSTRUCTOR,
@@ -11,19 +11,19 @@ import {
 	SET_TOTAL_PRICE
 } from '../../services/actions/burgers';
 import { useDrop } from 'react-dnd';
-import IngredientInConstructor from '../IngredientInConstructor/IngredientInConstructor';
+import { IngredientInConstructor } from '../IngredientInConstructor/IngredientInConstructor';
 
-export default function BurgerConstructor() {
+export const BurgerConstructor: FC = () => {
 	const { ingredientsInConstructor, totalPrice } = useSelector(store => store.inConstructor);
 	const bun = ingredientsInConstructor.find(element => element.item.type === 'bun');
-	const ingredientsConstructor = ingredientsInConstructor.filter(element => element.type !== 'bun');
+	const ingredientsConstructor = ingredientsInConstructor.filter(element => element.item.type !== 'bun');
 	const [isOrderDetailsModal, setOrderDetailsModal] = React.useState(false);
 	const dispatch = useDispatch();
 	const auth = useSelector(store => store.auth.auth);
 	const [isAuth, setIsAuth] = React.useState(false);
 
 	const handleClickOrder = React.useCallback(() => {
-		if (auth) {
+		if (auth && bun) {
 			const items = ingredientsInConstructor.map(ingredient => ingredient.item._id).concat(bun.item._id);
 			dispatch(getOrder(items));
 			setOrderDetailsModal(true);
@@ -44,9 +44,9 @@ export default function BurgerConstructor() {
 		[ingredientsInConstructor]
 	);
 
-	const handleDrop = (item) => {
+	const handleDrop = (item: IIngredientInConstructor) => {
 		if (item.item.type === 'bun' && ingredientsInConstructor.find(item => item.item.type === 'bun')) {
-			const buns = ingredientsInConstructor.find(item => item.item.type === 'bun');
+			const buns = ingredientsInConstructor.findIndex(item => item.item.type === 'bun');
 			const array = [...ingredientsInConstructor];
 			array.splice(buns, 1, item);
 			dispatch({type: GET_INGREDIENTS_IN_CONSTRUCTOR, ingredient: array});
@@ -57,7 +57,7 @@ export default function BurgerConstructor() {
 
 	const [, dropTarget] = useDrop({
 		accept: 'ingredient',
-		drop(item) {
+		drop(item: IIngredientInConstructor) {
 			handleDrop(item);
 		}
 	});
