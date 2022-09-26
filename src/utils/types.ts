@@ -62,3 +62,4 @@ export interface IIngredientInConstructor {
 }
 
 export interface IIngredientsInConstructor extends Array<IIngredientInConstructor>{}
+

@@ -1,10 +1,10 @@
 import { Logo, BurgerIcon, ListIcon, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './AppHeader.module.css';
 import { Link, useLocation } from 'react-router-dom';
-import React  from 'react';
+import React, {FC} from 'react';
 
 
-function AppHeader() {
+export const AppHeader: FC = () => {
 	const active = { color: '#f2f2f3', icon: 'primary' };
 	const inActive = { color: '#8585ad', icon: 'secondary' };
 
@@ -48,5 +48,3 @@ function AppHeader() {
 			</header>
 	);
 }
-
-export default AppHeader;

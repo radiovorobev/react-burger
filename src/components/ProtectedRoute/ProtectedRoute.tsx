@@ -18,8 +18,6 @@ export const ProtectedRoute: FC<TProtectedRoute> = ({ anonymous = false, childre
 	const myState = location.state as ILocation;
 	const from = myState?.from;
 
-	console.log(from);
-
 	if (anonymous && auth) {
 		return <Navigate to={from ? from : '/'} />
 	}
