@@ -2,14 +2,14 @@ import styles from './LoginPage.module.css';
 import React, {FC} from 'react';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link } from 'react-router-dom';
-import {useDispatch, useSelector} from '../../utils/types';
+import { useDispatch, useSelector } from '../../utils/types';
 import { signIn } from '../../services/actions/auth';
 
 export const LoginPage:FC = () => {
 	const [form, setValue] = React.useState({ email: '', password: '' });
 	const { errorLogin } = useSelector(store => store.auth);
 	const dispatch = useDispatch();
-	const onChange = (e: { target: { name: string; value: string; }; }) => {
+	const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setValue({ ...form, [e.target.name]: e.target.value });
 	}
 

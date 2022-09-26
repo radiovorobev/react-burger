@@ -23,7 +23,7 @@ export const Modal: FC<TModalProps> = (props) => {
 		}
 	}, [props.onClose]);
 
-	const closeEsc = React.useCallback((e) => {
+	const closeEsc = React.useCallback((e: KeyboardEvent) => {
 		if (e.key === 'Escape') {
 			closeModal();
 		}

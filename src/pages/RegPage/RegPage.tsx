@@ -10,7 +10,7 @@ export const RegPage:FC = () => {
 	const [user, setUser] = React.useState({ name: '', email: '', password: '' });
 	const { errorLogin } = useSelector(store => store.auth);
 
-	const onChange = (event: { target: { name: string; value: string; }; }) => {
+	const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setUser({ ...user, [event.target.name]: event.target.value });
 	}
 

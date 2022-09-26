@@ -1,5 +1,5 @@
 import styles from './ProfilePage.module.css';
-import React, {ChangeEvent, FC, FocusEvent} from 'react';
+import React, { ChangeEvent, FC, FocusEvent } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useDispatch, useSelector} from '../../utils/types';
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';

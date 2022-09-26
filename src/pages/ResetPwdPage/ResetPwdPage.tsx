@@ -11,7 +11,7 @@ export const ResetPwdPage:FC = () => {
 
 	const [form, setValue] = React.useState({ password: '', token: '' });
 
-	const onChange = (event: { target: { name: string; value: string; }; }) => {
+	const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setValue({ ...form, [event.target.name]: event.target.value });
 	}
 
