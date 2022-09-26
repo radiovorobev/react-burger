@@ -1,4 +1,4 @@
-import React, {ChangeEvent, FC} from 'react';
+import React, {ChangeEvent, FC, FormEvent} from 'react';
 import styles from './ForgotPwdPage.module.css';
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, Navigate } from 'react-router-dom';
@@ -15,7 +15,7 @@ export const ForgotPwdPage: FC = () => {
 		setValue({ ...form, [e.target.name]: e.target.value });
 	}
 
-	const handleSubmit = React.useCallback(e => {
+	const handleSubmit = React.useCallback((e: FormEvent) => {
 		e.preventDefault();
 		dispatch(forgotPwd(form));
 	}, [dispatch, form]);

@@ -1,5 +1,5 @@
 import styles from './RegPage.module.css';
-import React, {FC} from 'react';
+import React, {FC, FormEvent} from 'react';
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from '../../utils/types';
@@ -14,7 +14,7 @@ export const RegPage:FC = () => {
 		setUser({ ...user, [event.target.name]: event.target.value });
 	}
 
-	const handleSubmit = React.useCallback(event => {
+	const handleSubmit = React.useCallback((event: FormEvent) => {
 		event.preventDefault();
 		dispatch(signIn(user, 'register'));
 	}, [dispatch, user]);

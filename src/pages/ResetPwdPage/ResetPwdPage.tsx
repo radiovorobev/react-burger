@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, {FC, FormEvent} from 'react';
 import styles from './ResetPwdPage.module.css';
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, Navigate } from 'react-router-dom';
@@ -15,7 +15,7 @@ export const ResetPwdPage:FC = () => {
 		setValue({ ...form, [event.target.name]: event.target.value });
 	}
 
-	const handleSubmit = React.useCallback(event => {
+	const handleSubmit = React.useCallback((event: FormEvent) => {
 		event.preventDefault();
 		dispatch(resetPwd(form));
 	}, [dispatch, form]);

@@ -1,8 +1,8 @@
 import styles from './LoginPage.module.css';
-import React, {FC} from 'react';
+import React, {FC, FormEvent} from 'react';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from '../../utils/types';
+import { useDispatch, useSelector} from '../../utils/types';
 import { signIn } from '../../services/actions/auth';
 
 export const LoginPage:FC = () => {
@@ -13,7 +13,7 @@ export const LoginPage:FC = () => {
 		setValue({ ...form, [e.target.name]: e.target.value });
 	}
 
-	const handleSignIn = React.useCallback(e => {
+	const handleSignIn = React.useCallback((e: FormEvent) => {
 		e.preventDefault();
 		dispatch(signIn(form, 'login'))
 	}, [dispatch, form]);
