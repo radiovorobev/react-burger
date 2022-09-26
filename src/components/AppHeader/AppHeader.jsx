@@ -32,7 +32,7 @@ function AppHeader() {
 								</Link>
 							</li>
 							<li className={`${styles.button} p-5`}>
-								<Link to='/orders'>
+								<Link to='/feed'>
 									<ListIcon type='secondary'/>
 									<span className='text text_type_main-default ml-2' style={{ color: order.color }}>Лента заказов</span>
 								</Link>

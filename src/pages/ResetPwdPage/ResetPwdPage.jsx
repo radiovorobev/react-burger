@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './ResetPwdPage.module.css';
-import {Button, Input} from '@ya.praktikum/react-developer-burger-ui-components';
+import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, Navigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { resetPwd } from '../../services/actions/auth';

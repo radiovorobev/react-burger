@@ -2,13 +2,16 @@ import {
 	DELETE_INGREDIENT_FROM_CONSTRUCTOR,
 	GET_INGREDIENTS_IN_CONSTRUCTOR,
 	GET_ORDER_NUMBER, MOVE_INGREDIENT,
-	SET_TOTAL_PRICE
+	SET_TOTAL_PRICE,
+	GET_CURRENT_ORDER,
+	SET_ORDER_NUMBER
 } from '../actions/burgers';
 
 const constructorState = {
 	ingredientsInConstructor: [],
 	order: null,
 	totalPrice: null,
+	currentOrder: false,
 }
 
 export const constructorReducer = (state = constructorState, action) => {
@@ -34,6 +37,12 @@ export const constructorReducer = (state = constructorState, action) => {
 			array[action.dragIndex] = array[action.hoverIndex];
 			array[action.hoverIndex] = item;
 			return { ...state, ingredientsInConstructor: array }
+		}
+		case GET_CURRENT_ORDER: {
+			return {...state, currentOrder: action.order}
+		}
+		case SET_ORDER_NUMBER: {
+			return {...state, currentOrder: action.order}
 		}
 		default: {
 			return state;

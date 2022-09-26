@@ -9,12 +9,15 @@ import { RegPage } from '../../pages/RegPage/RegPage';
 import { ForgotPwdPage } from '../../pages/ForgotPwdPage/ForgotPwdPage';
 import { ResetPwdPage } from '../../pages/ResetPwdPage/ResetPwdPage';
 import { ProfilePage } from '../../pages/ProfilePage/ProfilePage';
+import { FeedPage } from '../../pages/FeedPage/FeedPage';
+import { OrdersPage } from '../../pages/OrdersPage/OrdersPage';
 import { Page404 } from '../../pages/Page404/Page404';
 import { getCookie } from "../../utils/utilities";
 import { getUser } from '../../services/actions/auth';
 import IngredientDetails from '../IngredientDetails/IngredientDetails';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import Modal from '../Modal/Modal';
+import FeedOrder from '../FeedOrder/FeedOrder';
 
 function App() {
   const dispatch = useDispatch();
@@ -24,7 +27,7 @@ function App() {
   React.useEffect(() => {
     dispatch(getIngredients())
 
-    if (localStorage.getItem('refreshToken') && getCookie('token')) {
+    if (  getCookie('token')) {
       dispatch(getUser())
     }
   }, [dispatch]);
@@ -35,6 +38,13 @@ function App() {
       <Routes location={background || location}>
         <Route path='/' element={<HomePage />} />
         <Route path='/ingredients/:id' element={<IngredientDetails />} />
+        <Route path='/feed' element={<FeedPage />} />
+        <Route path='/feed/:id' element ={<FeedOrder />} />
+        <Route path='/profile/orders/:id' element={
+          <ProtectedRoute>
+            <FeedOrder />
+          </ProtectedRoute>
+        } />
         <Route path='/login' element={
           <ProtectedRoute anonymous={true}>
             <LoginPage />
@@ -61,15 +71,36 @@ function App() {
               <ProfilePage />
             </ProtectedRoute> } />
 
+            <Route path='/profile/orders' exact={true} element={
+              <ProtectedRoute>
+              <OrdersPage />
+            </ProtectedRoute> } />
+
           <Route path='*' element={<Page404 />} />
 
         </Routes>
       {background && <Routes>
+
         <Route path='/ingredients/:id' element={
           <Modal>
             <IngredientDetails />
           </Modal>
         } />
+
+        <Route path='/feed/:id' element={
+          <Modal>
+            <FeedOrder />
+          </Modal>
+        } />
+
+        <Route path='/profile/orders/:id' element={
+          <ProtectedRoute>
+            <Modal>
+              <FeedOrder />
+            </Modal>
+          </ProtectedRoute>
+        } />
+
       </Routes>}
     </>
   );

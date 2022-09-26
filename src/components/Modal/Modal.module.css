@@ -7,6 +7,7 @@
   height: 100%;
   top: 0;
   left: 0;
+  z-index: 100;
 }
 
 .modal {
@@ -17,7 +18,7 @@
   width: 720px;
   background-color: #1c1c21;
   border-radius: 40px;
-  z-index: 2;
+  z-index: 101;
 }
 
 .buttonClose {
