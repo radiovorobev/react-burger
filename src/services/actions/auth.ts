@@ -59,7 +59,7 @@ export type TAuthActions =
 	| IErrorPwdAction
 	| IErrorLoginAction;
 
-export const signIn: AppThunk = (data, url) => {
+export const signIn: AppThunk = (data: TUser, url: string) => {
 	return function(dispatch: AppDispatch) {
 		fetch(`${baseUrl}/auth/${url}`, {
 			method: 'POST',
@@ -73,7 +73,6 @@ export const signIn: AppThunk = (data, url) => {
 					dispatch({type: SIGNIN, user: res.user});
 					localStorage.setItem('token', res.refreshToken);
 					document.cookie = `token=${res.accessToken}`;
-
 			})
 			.catch(error => {
 				dispatch({type: ERROR_LOGIN, error: error});
@@ -82,7 +81,7 @@ export const signIn: AppThunk = (data, url) => {
 	}
 }
 
-export const forgotPwd: AppThunk = (data) => {
+export const forgotPwd: AppThunk = (data: TUser) => {
 	return function(dispatch: AppDispatch) {
 		fetch(`${baseUrl}/password-reset`, {
 			method: 'POST',
@@ -101,7 +100,7 @@ export const forgotPwd: AppThunk = (data) => {
 	}
 }
 
-export const resetPwd: AppThunk = (data) => {
+export const resetPwd: AppThunk = (data: TUser) => {
 	return function(dispatch: AppDispatch) {
 		fetch(`${baseUrl}/password-reset/reset`, {
 			method: 'POST',
@@ -120,7 +119,7 @@ export const resetPwd: AppThunk = (data) => {
 	}
 }
 
-const updateToken: AppThunk = (token) => {
+const updateToken: AppThunk = (token: string) => {
 	return function(dispatch: AppDispatch) {
 		fetch(`${baseUrl}/auth/token`, {
 			method: 'POST',
@@ -144,8 +143,6 @@ const updateToken: AppThunk = (token) => {
 
 export const getUser: AppThunk = () => {
 	return function(dispatch: AppDispatch) {
-		//dispatch({type: GET_USER});
-
 		fetch(`${baseUrl}/auth/user`, {
 			method: 'GET',
 			headers: {
@@ -167,7 +164,7 @@ export const getUser: AppThunk = () => {
 	}
 }
 
-export const updateUser: AppThunk = (data) => {
+export const updateUser: AppThunk = (data: TUser) => {
 	return function(dispatch: AppDispatch) {
 
 		fetch(`${baseUrl}/auth/user`, {
@@ -181,6 +178,7 @@ export const updateUser: AppThunk = (data) => {
 			.then(checkResponse)
 			.then(res => {
 					dispatch({type: UPDATE_USER, user: res.user});
+					console.log(data);
 			})
 			.catch(error => {
 				if(error.message === 'jwt expired') {
