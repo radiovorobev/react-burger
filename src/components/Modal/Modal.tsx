@@ -5,7 +5,8 @@ import { ModalOverlay } from '../ModalOverlay/ModalOverlay';
 import styles from './Modal.module.css';
 import { useNavigate } from 'react-router-dom';
 
-const modalContainer: any = document.getElementById('modals');
+const modalContainer: HTMLElement | null = document.getElementById('modals');
+
 
 type TModalProps = {
 	title?: string;
@@ -52,6 +53,6 @@ export const Modal: FC<TModalProps> = (props) => {
 				</div>
 			</>
 		),
-		modalContainer
+		modalContainer!
 	);
 }

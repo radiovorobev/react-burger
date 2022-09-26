@@ -11,7 +11,7 @@ interface IFeedElement {
 }
 
 export const FeedElement: FC<IFeedElement> = ({ data, profile = false }) => {
-	const [dataIngredients, setIngredients] = React.useState<TIngredient[]>([]);
+	const [dataIngredients, setIngredients] = React.useState<(TIngredient|undefined)[]>([]);
 	const [total, setTotal] = React.useState(0);
 	const allIngredients = useSelector(store => store.ingredients.ingredients);
 	const dispatch = useDispatch();
@@ -20,16 +20,24 @@ export const FeedElement: FC<IFeedElement> = ({ data, profile = false }) => {
 
 	React.useEffect(() => {
 		if (dataIngredients.length <= 0) {
-			const ingredients: any = data.ingredients.map(
+			const ingredients = data.ingredients.map(
 				ingredientId =>
 					allIngredients.find(
 						ingredient =>
 							ingredient._id === ingredientId
 					)
 			);
-			setIngredients(ingredients);
+			if (ingredients) {
+				console.log(ingredients);
+				setIngredients(ingredients);
+			}
 		}
-		const sum = dataIngredients.reduce((sum, curr) => { return sum + curr.price }, 0);
+		const sum = dataIngredients.reduce((sum, curr) => {
+			if (curr) {
+				return sum + curr.price
+			}
+			return sum;
+		}, 0);
 		setTotal(sum);
 	}, [data, dataIngredients]);
 
@@ -57,10 +65,10 @@ export const FeedElement: FC<IFeedElement> = ({ data, profile = false }) => {
 								key={index}
 								className={styles.list_item}
 								style={{ zIndex: `${dataIngredients.length - index}` }}>
-								<img src={el.image_mobile}
+								{ el && <img src={el.image_mobile}
 								     alt={el.name}
 								     className={styles.image}
-								     style={{ opacity: dataIngredients.length > 6 && index === 5 ? 0.6 : 1 }} />
+								     style={{ opacity: dataIngredients.length > 6 && index === 5 ? 0.6 : 1 }} /> }
 								{dataIngredients.length > 6 && index === 5 &&
 									<span className={`text text_type_digits-default ${styles.span}`}>
                                     {`+${dataIngredients.length - 6}`}
